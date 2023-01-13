@@ -172,7 +172,8 @@ class Cge
 	{
 
 		$plugin_admin = new Cge_Admin($this->get_plugin_name(), $this->get_version());
-
+		
+		$this->loader->add_action('init', $plugin_admin, 'init', 0);
 		$this->loader->add_action('admin_init', $plugin_admin, 'et_register_options');
 		$this->loader->add_action('admin_menu', $plugin_admin, 'cge_admin_menu');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
