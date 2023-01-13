@@ -23,7 +23,7 @@
 
 //API_CGE
 require plugin_dir_path(dirname(__FILE__)) . 'includes/class-cge-api.php';
-require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-msalumni.php';
+require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-formation.php';
 class Cge_Admin
 {
 
@@ -61,8 +61,14 @@ class Cge_Admin
 
 	public function init() {
         // Load Forms and Flux Post Type and taxonomies
-        CGE_Msalumni::instance()->init();
+        CGE_Cpt_Formation::instance()->init();
     }
+
+	public function add_meta_boxes()
+	{
+		CGE_Cpt_Formation::instance()->add_meta_boxes();
+	}
+
 
 	/**
 	 * Register the stylesheets for the admin area.
@@ -113,7 +119,7 @@ class Cge_Admin
 
 	public function cge_admin_menu()
 	{
-		add_submenu_page('edit.php?post_type=msalumni', 'The CGE Plugin', 'CGE', 'manage_options', 'cge-admin-menu', [$this, 'cge_admin_init']); //, EMAFFP_ADMIN_IMG . 'logo-multi-affiliation.svg'
+		add_submenu_page('edit.php?post_type=cpt_formation', 'The CGE Plugin', 'CGE', 'manage_options', 'cge-admin-menu', [$this, 'cge_admin_init']); //, EMAFFP_ADMIN_IMG . 'logo-multi-affiliation.svg'
 
 	}
 
@@ -150,7 +156,7 @@ class Cge_Admin
 				// Sanitize.
 				esc_url(
 					// Retrieves the site url for the current site.
-					site_url( "/wp-admin/edit.php?post_type=msalumni&page=cge-admin-menu")
+					site_url( "/wp-admin/edit.php?post_type=cpt_formation&page=cge-admin-menu")
 				)
 			);
 		}

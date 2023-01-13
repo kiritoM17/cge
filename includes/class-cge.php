@@ -74,18 +74,27 @@ class Cge
 		} else {
 			$this->version = '1.0.0';
 		}
+
 		if(!defined('CGE_ADMIN_VIEWS'))
 		{
 			define('CGE_ADMIN_VIEWS', dirname(__FILE__,2) . '/admin/views/');
 		}
+
+		if(!defined('CGE_ADMIN_METABOX'))
+		{
+			define('CGE_ADMIN_METABOX', dirname(__FILE__,2) . '/admin/partials/metabox/');
+		}
+
 		if(!defined('CGE_ADMIN_IMG'))
 		{
 			define('CGE_ADMIN_IMG', plugins_url('admin/img/', dirname(__FILE__,2)));
 		}
+
 		if(!defined('CGE_ADMIN_JS'))
 		{
 			define('CGE_ADMIN_JS', plugins_url('admin/js/', dirname(__FILE__,2)));
 		}
+
 		if(!defined('CGE_ADMIN_CSS'))
 		{
 			define('CGE_ADMIN_CSS', plugins_url('admin/js/', dirname(__FILE__,2)));
@@ -172,10 +181,11 @@ class Cge
 	{
 
 		$plugin_admin = new Cge_Admin($this->get_plugin_name(), $this->get_version());
-		
+
 		$this->loader->add_action('init', $plugin_admin, 'init', 0);
 		$this->loader->add_action('admin_init', $plugin_admin, 'et_register_options');
 		$this->loader->add_action('admin_menu', $plugin_admin, 'cge_admin_menu');
+		$this->loader->add_action('add_meta_boxes', $plugin_admin, 'add_meta_boxes');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 	}

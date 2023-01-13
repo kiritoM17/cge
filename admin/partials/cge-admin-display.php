@@ -24,7 +24,7 @@
             CGE Settings
         </h1>
         <div class="multimaff-adminmenu-item">
-            <a href="?post_type=msalumni&page=cge-admin-menu&cge_menu=settings" class="active">Login to API</a>
+            <a href="?post_type=cpt_formation&page=cge-admin-menu&cge_menu=settings" class="active">Login to API</a>
         </div>
     </div>
     <div id="cge-admincontent">
