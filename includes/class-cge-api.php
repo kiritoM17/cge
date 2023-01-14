@@ -55,7 +55,7 @@ if (!class_exists('API_CGE')) {
         public function getApi($slug, $body = [])
         {
             @set_time_limit(0);
-            $accessTokent = get_option("_CGE_CLIENT_ACCESS_TOKEN");
+            $accessToken = get_option("_CGE_CLIENT_ACCESS_TOKEN");
             $query = '';
             if($body)
                 $query = http_build_query($body, '', '&amp;');
@@ -73,7 +73,7 @@ if (!class_exists('API_CGE')) {
                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                     CURLOPT_CUSTOMREQUEST => 'GET',
                     CURLOPT_HTTPHEADER => [
-                        (isset($accessTokent) && !empty($accessTokent)) ? 'Authorization: Bearer ' . $accessTokent  : ''
+                        (isset($accessToken) && !empty($accessToken)) ? 'Authorization: Bearer ' . $accessToken  : ''
                     ],
                 ));
                 $response = curl_exec($curl);
@@ -151,7 +151,7 @@ if (!class_exists('API_CGE')) {
 
         public function putApi($slug, $body = [])
         {
-            $accessTokent = get_option("_CGE_CLIENT_ACCESS_TOKEN");
+            $accessToken = get_option("_CGE_CLIENT_ACCESS_TOKEN");
             try {
                 $curl = curl_init();
                 curl_setopt_array($curl, [
@@ -169,7 +169,7 @@ if (!class_exists('API_CGE')) {
                     CURLOPT_HTTPHEADER => [
                         'Content-Type: application/json',
                         'Accept: application/json',
-                        (isset($accessTokent) && !empty($accessTokent)) ? 'Authorization: Bearer ' . $accessTokent  : ''
+                        (isset($accessToken) && !empty($accessToken)) ? 'Authorization: Bearer ' . $accessToken  : ''
                     ],
                 ]);
                 $response = curl_exec($curl);
@@ -200,7 +200,7 @@ if (!class_exists('API_CGE')) {
         public function deleteApi($slug, $body = [])
         {
             @set_time_limit(0);
-            $accessTokent = get_option("_CGE_CLIENT_ACCESS_TOKEN");
+            $accessToken = get_option("_CGE_CLIENT_ACCESS_TOKEN");
             try {
                 $curl = curl_init();
                 curl_setopt_array($curl, [
@@ -218,7 +218,7 @@ if (!class_exists('API_CGE')) {
                     CURLOPT_HTTPHEADER => [
                         'Content-Type: application/json',
                         'Accept: application/json',
-                        (isset($accessTokent) && !empty($accessTokent)) ? 'Authorization: Bearer ' . $accessTokent  : ''
+                        (isset($accessToken) && !empty($accessToken)) ? 'Authorization: Bearer ' . $accessToken  : ''
                     ],
                 ]);
                 $response = curl_exec($curl);
