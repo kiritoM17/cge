@@ -3,11 +3,23 @@
 class CGE_Cpt_Presse
 {
     const POSTTYPE = 'cpt_presse';
+
     const TAXONOMY_FORMAT = 'document_format_presse';
     const TAXONOMY_YEAR = 'annee_presse';
     const TAXONOMY_TYPE = 'type_document_presse';
 
-    public $rewriteSlug = 'cpt_presse';
+    public $rewriteDocumentFormatSlug = 'presse_document_format';
+    public $rewriteTypeDocumentSlug = 'presse_type_document';
+    public $rewriteAnneeSlug = 'presse_annee';
+
+    private $taxonomy_document_format_args = [];
+    private $taxonomy_type_document_args = [];
+    private $taxonomy_annee_args = [];
+
+    private $taxonomyDocumentFormatLabels = [];
+    private $taxonomyTypeDocumentLabels = [];
+    private $taxonomyAnneeLabels = [];
+
     public $rewriteSlugSingular = 'cpt_presse';
     protected $post_type_args = [
         'public' => true,
@@ -16,7 +28,7 @@ class CGE_Cpt_Presse
             'with_front' => false
         ],
         'show_ui' => true,
-        'show_in_menu' => 'edit.php?post_type=job_listing',
+        // 'show_in_menu' => 'edit.php?post_type=job_listing',
         'supports' => [
             'title',
             'editor',
@@ -71,7 +83,7 @@ class CGE_Cpt_Presse
         return self::$instance;
     }
 
-    private $taxonomy_args = [];
+    
 
     /**
      * Initializes plugin variables and sets up WordPress hooks/actions.
@@ -92,7 +104,7 @@ class CGE_Cpt_Presse
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('Presse', 'cge'),
+            'menu_name' => __('CGE Presse', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,
@@ -113,28 +125,111 @@ class CGE_Cpt_Presse
             'item_link' => sprintf(__('%s Link', 'cge'), $this->singular_form_label),
             'item_link_description' => sprintf(__('A link to a particular %s.', 'cge'), $this->singular_form_label),
         ];
+
+        $this->taxonomyDocumentFormatLabels = [
+            'menu_name' => __('Presse Document Format', 'cge'),
+            'name' => sprintf(__('%s Presse Document Format', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Presse Document Format', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Presse Document Format', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Presse Document Format', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Presse Document Format', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Presse Document Format:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Presse Document Format', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Presse Document Format', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Presse Document Format', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Presse Document Format Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Presse Document Format Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+        $this->taxonomyTypeDocumentLabels = [
+            'menu_name' => __('Presse Document Type', 'cge'),
+            'name' => sprintf(__('%s Presse Document Type', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Presse Document Type', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Presse Document Type', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Presse Document Type', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Presse Document Type', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Presse Document Type:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Presse Document Type', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Presse Document Type', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Presse Document Type', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Presse Document Type Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Presse Document Type Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+        $this->taxonomyAnneeLabels = [
+            'menu_name' => __('Presse Année', 'cge'),
+            'name' => sprintf(__('%s Presse Année', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Presse Année', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Presse Année', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Presse Année', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Presse Année', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Presse Année:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Presse Année', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Presse Année', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Presse Année', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Presse Année Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Presse Année Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
     }
 
     public function init() {
-        register_post_type(self::POSTTYPE, $this->post_type_args); 
+        register_post_type(self::POSTTYPE, $this->post_type_args);
 
-        // $this->taxonomy_args = [
-        //     'hierarchical' => true,
-        //     'update_count_callback' => '',
-        //     'rewrite' => [
-        //         'slug' => $this->rewriteSlug . '/' . $this->category_slug,
-        //         'with_front' => false,
-        //         'hierarchical' => true,
-        //     ],
-        //     'public' => true,
-        //     'show_ui' => true,
-        //     'labels' => $this->taxonomyLabels,
-        //     'capability_type' => 'post',
-        //     'public' => true,
-        //     'show_ui' => true,
-        //     'show_in_nav_menu' => true,
-        // ];
-        // register_taxonomy(self::TAXONOMYCAT, self::POSTTYPE, $this->taxonomy_args);
+        $this->taxonomy_type_document_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->rewriteTypeDocumentSlug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyTypeDocumentLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_TYPE, self::POSTTYPE, $this->taxonomy_type_document_args);
+
+        $this->taxonomy_document_format_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->rewriteDocumentFormatSlug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyDocumentFormatLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_FORMAT, self::POSTTYPE, $this->taxonomy_document_format_args);
+
+        $this->taxonomy_annee_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->rewriteAnneeSlug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyAnneeLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_YEAR, self::POSTTYPE, $this->taxonomy_annee_args);
+
         flush_rewrite_rules();
     }
 

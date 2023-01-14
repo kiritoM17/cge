@@ -41,7 +41,7 @@
             <th scope="row">
                 <label for="annee_obtention" class="box-label"><?php echo __('annee obtention :', 'cge'); ?></label>
             </th>
-            <td><input id="annee_obtention" type="text" name="Msalumni[annee_obtention]" value="<?php echo isset($data[$this->meta_prefix.'annee_obtention'][0]) ? $data[$this->meta_prefix.'annee_obtention'][0] : null;?>" ></td>
+            <td><input id="annee_obtention" type="date" name="Msalumni[annee_obtention]" value="<?php echo isset($data[$this->meta_prefix.'annee_obtention'][0]) ? $data[$this->meta_prefix.'annee_obtention'][0] : null;?>" ></td>
         </tr>
     </tbody>
 </table>

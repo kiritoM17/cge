@@ -35,7 +35,7 @@
             <th scope="row">
                 <label for="_ecole_annee_creation" class="box-label"><?php echo __('Année de creation :', 'cge'); ?></label>
             </th>
-            <td><input id="_ecole_annee_creation" type="text" name="EcoleInformation[_ecole_annee_creation]" value="<?php echo isset($data[$this->meta_prefix.'_ecole_annee_creation'][0]) ? $data[$this->meta_prefix.'_ecole_annee_creation'][0] : null;?>" ></td>
+            <td><input id="_ecole_annee_creation" type="date" name="EcoleInformation[_ecole_annee_creation]" value="<?php echo isset($data[$this->meta_prefix.'_ecole_annee_creation'][0]) ? $data[$this->meta_prefix.'_ecole_annee_creation'][0] : null;?>" ></td>
         </tr>
 
         <tr class="form-field">

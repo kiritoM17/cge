@@ -16,7 +16,7 @@ class CGE_Cpt_Formation
             'with_front' => false
         ],
         'show_ui' => true,
-        'show_in_menu' => 'edit.php?post_type=job_listing',
+        // 'show_in_menu' => 'edit.php?post_type=job_listing',
         'supports' => [
             'title',
             'editor',
@@ -26,7 +26,7 @@ class CGE_Cpt_Formation
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
-        
+        'menu_icon' => 'dashicons-store',
     ];
 
     /**
@@ -111,7 +111,7 @@ class CGE_Cpt_Formation
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('Formation', 'cge'),
+            'menu_name' => __('CGE  Formation', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,

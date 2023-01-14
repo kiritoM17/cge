@@ -3,10 +3,17 @@
 class CGE_Cpt_Publication
 {
     const POSTTYPE = 'cpt_publication';
+
     const TAXONOMY_SOURCE = 'sources';
     const TAXONOMY_TYPE = 'document_type';
     const TAXONOMY_TYPE_SPE = 'type_document_spe';
     const TAXONOMY_DATE = 'document_annee_publication';
+
+
+    public $category_source_slug = 'sources';
+    public $category_document_type_slug = 'document_type';
+    public $category_document_spe_slug = 'type_document_spe';
+    public $category_document_annee_slug = 'document_annee_publication';
 
     public $rewriteSlug = 'cpt_publication';
     public $rewriteSlugSingular = 'cpt_publication';
@@ -17,13 +24,13 @@ class CGE_Cpt_Publication
             'with_front' => false
         ],
         'show_ui' => true,
-        'show_in_menu' => 'edit.php?post_type=job_listing',
+        // 'show_in_menu' => 'edit.php?post_type=job_listing',
         'supports' => [
             'title',
             'editor',
             'thumbnail',
         ],
-        'taxonomies' => [],
+        'taxonomies' => ['sources', 'document_type', 'type_document_spe', 'document_annee_publication'],
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
@@ -72,7 +79,15 @@ class CGE_Cpt_Publication
         return self::$instance;
     }
 
-    private $taxonomy_args = [];
+    private $taxonomy_sources_args = [];
+    private $taxonomy_document_type_args = [];
+    private $taxonomy_document_spe_args = [];
+    private $taxonomy_document_annee_args = [];
+
+    private $taxonomySourcesLabels = [];
+    private $taxonomyDocumentTypeLabels = [];
+    private $taxonomyDocumentSpeLabels = [];
+    private $taxonomyDocumentAnneeLabels = [];
 
     /**
      * Initializes plugin variables and sets up WordPress hooks/actions.
@@ -93,7 +108,7 @@ class CGE_Cpt_Publication
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('Publication', 'cge'),
+            'menu_name' => __('CGE Publication', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,
@@ -114,28 +129,144 @@ class CGE_Cpt_Publication
             'item_link' => sprintf(__('%s Link', 'cge'), $this->singular_form_label),
             'item_link_description' => sprintf(__('A link to a particular %s.', 'cge'), $this->singular_form_label),
         ];
+
+        $this->taxonomySourcesLabels = [
+            'menu_name' => __('Publication Source', 'cge'),
+            'name' => sprintf(__('%s Publication Source', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Publication Source', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Publication Source', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Publication Source', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Publication Source', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Publication Source:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Publication Source', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Publication Source', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Publication Source', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Publication Source Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Publication Source Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+        $this->taxonomyDocumentTypeLabels = [
+            'menu_name' => __('Publication Type', 'cge'),
+            'name' => sprintf(__('%s Publication Type', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Publication Type', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Publication Type', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Publication Type', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Publication Type', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Publication Type:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Publication Type', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Publication Type', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Publication Type', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Publication Type Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Publication Type Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+        $this->taxonomyDocumentSpeLabels = [
+            'menu_name' => __('Publication Type SPE', 'cge'),
+            'name' => sprintf(__('%s Publication Type SPE', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Publication Type SPE', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Publication Type SPE', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Publication Type SPE', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Publication Type SPE', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Publication Type SPE:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Publication Type SPE', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Publication Type SPE', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Publication Type SPE', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Publication Type SPE Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Publication Type SPE Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+        $this->taxonomyDocumentAnneeLabels = [
+            'menu_name' => __('Publication Document Année', 'cge'),
+            'name' => sprintf(__('%s Publication Document Année', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Publication Document Année', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Publication Document Année', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Publication Document Année', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Publication Document Année', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Publication Document Année:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Publication Document Année', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Publication Document Année', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Publication Document Année', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Publication Document Année Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Publication Document Année Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
     }
 
     public function init() {
         register_post_type(self::POSTTYPE, $this->post_type_args);
 
-        // $this->taxonomy_args = [
-        //     'hierarchical' => true,
-        //     'update_count_callback' => '',
-        //     'rewrite' => [
-        //         'slug' => $this->rewriteSlug . '/' . $this->category_slug,
-        //         'with_front' => false,
-        //         'hierarchical' => true,
-        //     ],
-        //     'public' => true,
-        //     'show_ui' => true,
-        //     'labels' => $this->taxonomyLabels,
-        //     'capability_type' => 'post',
-        //     'public' => true,
-        //     'show_ui' => true,
-        //     'show_in_nav_menu' => true,
-        // ];
-        // register_taxonomy(self::TAXONOMYCAT, self::POSTTYPE, $this->taxonomy_args);
+        $this->taxonomy_document_annee_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->category_document_annee_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyDocumentAnneeLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_TYPE_SPE, self::POSTTYPE, $this->taxonomy_document_annee_args);
+
+        $this->taxonomy_document_spe_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->category_document_spe_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyDocumentSpeLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_TYPE_SPE, self::POSTTYPE, $this->taxonomy_document_spe_args);
+
+        $this->taxonomy_sources_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->category_source_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomySourcesLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_SOURCE, self::POSTTYPE, $this->taxonomy_sources_args);
+
+        $this->taxonomyDocumentTypeLabels = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->category_document_type_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyDocumentTypeLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_TYPE, self::POSTTYPE, $this->taxonomyDocumentTypeLabels);
+
         flush_rewrite_rules();
     }
 

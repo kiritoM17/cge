@@ -41,7 +41,7 @@
             <th scope="row">
                 <label for="date_depot_emplois" class="box-label"><?php echo __('Date de depot emplois :', 'cge'); ?></label>
             </th>
-            <td><input id="date_depot_emplois" type="text" name="Recrutement[date_depot_emplois]" value="<?php echo isset($data[$this->meta_prefix.'date_depot_emplois'][0]) ? $data[$this->meta_prefix.'date_depot_emplois'][0] : null;?>" ></td>
+            <td><input id="date_depot_emplois" type="date" name="Recrutement[date_depot_emplois]" value="<?php echo isset($data[$this->meta_prefix.'date_depot_emplois'][0]) ? $data[$this->meta_prefix.'date_depot_emplois'][0] : null;?>" ></td>
         </tr>
     </tbody>
 </table>
