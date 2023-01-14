@@ -1,55 +1,89 @@
 <?php
 
-class CGE_Cpt_Formation
+class CGE_Job_Listing
 {
-    const POSTTYPE = 'cpt_formation';
-    const TAXONOMY = 'cpt_formation_cat';
+    const POSTTYPE = 'job_listing';
+    const TAXONOMY = 'job_listing_cat';
 
-    public $rewriteSlug = 'cpt_formation';
-    public $rewriteSlugSingular = 'cpt_formation';
+    public $rewriteSlug = 'job_listing';
+    public $rewriteSlugSingular = 'job_listing';
     protected $post_type_args = [
         'public' => true,
         'rewrite' => [
-            'slug' => 'cpt_formation',
+            'slug' => 'job_listing',
             'with_front' => false
         ],
         'show_ui' => true,
-        'show_in_menu' => 'edit.php?post_type=job_listing',
+        //'show_in_menu' => 'edit.php?post_type=cpt_formation',
         'supports' => [
             'title',
             'editor',
             'thumbnail',
         ],
-        'taxonomies' => ['cpt_formation_cat'],
+        'taxonomies' => [],
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
-        
+        'menu_icon' => 'dashicons-store',
     ];
 
     /**
      * @var string[]
      */
     public static $valid_form_metabox_keys = [
-        'id',
-        'ecole_id',
-        'ecole_acronyme',
-        'ecole_nom',
-        'co_accrediteurs',
+        '_ecole_id',
+        '_ecole_logo',
+        '_ecole_acronyme',
+        '_ecole_nom',
+        '_ecole_type_formation',
+        '_ecole_statut',
+        '_ecole_annee_creation',
 
-        'langues_enseignements',
-        'partenaires',
-        'description_lieu_formation',
-        'duree_formation_mois',
-        'website',
-        'directeur_responsable_ms_msc_badge_cqc',
-        'responsable_academique',
+        '_job_location',
+        '_job_hours',
+        '_company_website',
+
+
+        'geolocation_formatted_address',
+        'geolocation_city',
+        'geolocation_state_short',
+        'geolocation_state_long',
+        'geolocation_country_long',
+
+        '_ecole_type_structure',
+        '_ecole_ministere_tutelle_1',
+        '_ecole_organisme_rattachement',
+        '_ecole_habilitation_delivrer_doctorat',
+        '_ecole_prepa_integree',
+        '_ecole_type_habilitation',
+
+        '_ecole_centres_documentation_horaires',
+        '_ecole_centres_documentation_responsable_civilite',
+        '_ecole_centres_documentation_responsable_nom',
+        '_ecole_centres_documentation_responsable_prenom',
+        '_ecole_centres_documentation_responsable_telephone',
+        '_ecole_centres_documentation_responsable_email',
+
+        '_ecole_dg_civilite',
+        '_ecole_dg_nom',
+        '_ecole_dg_prenom',
+
+        '_ecole_de_civilite',
+        '_ecole_de_nom',
+        '_ecole_de_prenom',
+
+        '_ecole_resp_formation',
+
+        '_ecole_associations',
+
+        '_ecole_accords_internationaux_'
+
     ];
 
     /**
      * @var string
      */
-    protected $meta_prefix = '_formation_';
+    protected $meta_prefix = '';
 
     /**
      * @var string
@@ -86,10 +120,10 @@ class CGE_Cpt_Formation
      */
     protected function __construct() {
         $this->post_type = self::POSTTYPE;
-        $this->singular_form_label = __('Formation', 'cge');
-        $this->singular_form_label_lowercase = __('Formation', 'cge');
-        $this->plural_form_label = __('Formations', 'cge');
-        $this->plural_form_label_lowercase = __('Formations', 'cge');
+        $this->singular_form_label = __('CGE', 'cge');
+        $this->singular_form_label_lowercase = __('CGE', 'cge');
+        $this->plural_form_label = __('CGE', 'cge');
+        $this->plural_form_label_lowercase = __('CGE', 'cge');
         $this->post_type_args['rewrite']['slug'] = $this->rewriteSlug;
         $this->post_type_args['show_in_nav_menus'] = true;
         $this->post_type_args['public'] = true;
@@ -100,7 +134,7 @@ class CGE_Cpt_Formation
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('Formation', 'cge'),
+            'menu_name' => __('CGE', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,
@@ -168,21 +202,62 @@ class CGE_Cpt_Formation
      */
     public function add_meta_boxes()
     {
-        add_meta_box('FormationCoAutorMetaBox', __('Editing Formation Co Accrediteurs', 'cge'), [$this, 'formationCoAuthorInformationMetaBox'], self::POSTTYPE);
-        add_meta_box('FormationMetaBox', __('Editing Formation Informations', 'cge'), [$this, 'formationInformationMetaBox'], self::POSTTYPE);
+        add_meta_box('JobListingInformationMetaBox', __('Editing Ecole Informations', 'cge'), [$this, 'jobListingInformationMetaBox'], self::POSTTYPE);
+        add_meta_box('JobListingInformationContactMetaBox', __('Editing Ecole Informations Contact', 'cge'), [$this, 'jobListingInformationContactMetaBox'], self::POSTTYPE);
+        add_meta_box('JobListingInformationDocumentationMetaBox', __('Editing Ecole Informations Documentation Responsable', 'cge'), [$this, 'jobListingInformationDocumentationMetaBox'], self::POSTTYPE);
+        add_meta_box('JobListingInformationDgMetaBox', __('Editing Ecole Informations Directeur Généraux', 'cge'), [$this, 'jobListingInformationDgMetaBox'], self::POSTTYPE);
+        add_meta_box('JobListingInformationDeMetaBox', __('Editing Ecole Informations Directeur d\'Etude', 'cge'), [$this, 'jobListingInformationDeMetaBox'], self::POSTTYPE);
+        add_meta_box('JobListingInformationFormationMetaBox', __('Editing Ecole Informations Formation', 'cge'), [$this, 'jobListingInformationFormationMetaBox'], self::POSTTYPE);
+
+        add_meta_box('JobListingInformationAssocationMetaBox', __('Editing Ecole Informations Associtation', 'cge'), [$this, 'jobListingInformationAssocationMetaBox'], self::POSTTYPE);
+        add_meta_box('JobListingInformationAccordsMetaBox', __('Editing Ecole InformationsAccords', 'cge'), [$this, 'jobListingInformationAccordsMetaBox'], self::POSTTYPE);
     }
 
-    public function formationInformationMetaBox()
+    public function jobListingInformationMetaBox()
     {
-        if (file_exists(CGE_ADMIN_METABOX . '/formation/information.php')) {
-            include_once CGE_ADMIN_METABOX . '/formation/information.php';
-        }
+        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information.php'))
+            include_once CGE_ADMIN_METABOX . '/job_listing/information.php';
     }
 
-    public function formationCoAuthorInformationMetaBox()
+    public function jobListingInformationContactMetaBox()
     {
-        if (file_exists(CGE_ADMIN_METABOX . '/formation/co-author-information.php')) {
-            include_once CGE_ADMIN_METABOX . '/formation/co-author-information.php';
-        }
+        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-contact.php'))
+            include_once CGE_ADMIN_METABOX . '/job_listing/information-contact.php';
+    }
+
+    public function jobListingInformationDocumentationMetaBox()
+    {
+        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-documentation.php')) 
+            include_once CGE_ADMIN_METABOX . '/job_listing/information-documentation.php';
+    }
+
+    public function jobListingInformationDgMetaBox()
+    {
+        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-dg.php'))
+            include_once CGE_ADMIN_METABOX . '/job_listing/information-dg.php';
+    }
+
+    public function jobListingInformationDeMetaBox()
+    {
+        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-de.php'))
+            include_once CGE_ADMIN_METABOX . '/job_listing/information-de.php';
+    }
+    
+    public function jobListingInformationFormationMetaBox()
+    {
+        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-formation.php'))
+            include_once CGE_ADMIN_METABOX . '/job_listing/information-formation.php';
+    }
+
+    public function jobListingInformationAssocationMetaBox()
+    {
+        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-association.php'))
+            include_once CGE_ADMIN_METABOX . '/job_listing/information-association.php';
+    }
+
+    public function jobListingInformationAccordsMetaBox()
+    {
+        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-accords.php'))
+            include_once CGE_ADMIN_METABOX . '/job_listing/information-accords.php';
     }
 }

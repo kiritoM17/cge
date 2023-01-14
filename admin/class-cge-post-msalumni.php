@@ -1,16 +1,16 @@
 <?php
 
-class CGE_Cpt_Formation
+class CGE_Msalumni
 {
-    const POSTTYPE = 'cpt_formation';
-    const TAXONOMY = 'cpt_formation_cat';
+    const POSTTYPE = 'msalumni';
+    const TAXONOMY = 'msalumni_cat';
 
-    public $rewriteSlug = 'cpt_formation';
-    public $rewriteSlugSingular = 'cpt_formation';
+    public $rewriteSlug = 'msalumni';
+    public $rewriteSlugSingular = 'msalumni';
     protected $post_type_args = [
         'public' => true,
         'rewrite' => [
-            'slug' => 'cpt_formation',
+            'slug' => 'msalumni',
             'with_front' => false
         ],
         'show_ui' => true,
@@ -20,11 +20,11 @@ class CGE_Cpt_Formation
             'editor',
             'thumbnail',
         ],
-        'taxonomies' => ['cpt_formation_cat'],
+        'taxonomies' => [],
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
-        
+        'menu_icon' => 'dashicons-store',
     ];
 
     /**
@@ -32,24 +32,19 @@ class CGE_Cpt_Formation
      */
     public static $valid_form_metabox_keys = [
         'id',
-        'ecole_id',
-        'ecole_acronyme',
-        'ecole_nom',
-        'co_accrediteurs',
-
-        'langues_enseignements',
-        'partenaires',
-        'description_lieu_formation',
-        'duree_formation_mois',
-        'website',
-        'directeur_responsable_ms_msc_badge_cqc',
-        'responsable_academique',
+        'nom',
+        'prenom',
+        'ecole',
+        'id_ecole',
+        'formation',
+        'annee_obtention',
+        'id_formation',
     ];
 
     /**
      * @var string
      */
-    protected $meta_prefix = '_formation_';
+    protected $meta_prefix = '_msalumni_';
 
     /**
      * @var string
@@ -86,10 +81,10 @@ class CGE_Cpt_Formation
      */
     protected function __construct() {
         $this->post_type = self::POSTTYPE;
-        $this->singular_form_label = __('Formation', 'cge');
-        $this->singular_form_label_lowercase = __('Formation', 'cge');
-        $this->plural_form_label = __('Formations', 'cge');
-        $this->plural_form_label_lowercase = __('Formations', 'cge');
+        $this->singular_form_label = __('Diplomé', 'cge');
+        $this->singular_form_label_lowercase = __('Diplomé', 'cge');
+        $this->plural_form_label = __('Diplomés', 'cge');
+        $this->plural_form_label_lowercase = __('Diplomés', 'cge');
         $this->post_type_args['rewrite']['slug'] = $this->rewriteSlug;
         $this->post_type_args['show_in_nav_menus'] = true;
         $this->post_type_args['public'] = true;
@@ -100,7 +95,7 @@ class CGE_Cpt_Formation
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('Formation', 'cge'),
+            'menu_name' => __('Diplomé', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,
@@ -168,21 +163,13 @@ class CGE_Cpt_Formation
      */
     public function add_meta_boxes()
     {
-        add_meta_box('FormationCoAutorMetaBox', __('Editing Formation Co Accrediteurs', 'cge'), [$this, 'formationCoAuthorInformationMetaBox'], self::POSTTYPE);
-        add_meta_box('FormationMetaBox', __('Editing Formation Informations', 'cge'), [$this, 'formationInformationMetaBox'], self::POSTTYPE);
+        add_meta_box('MsalumniMetaBox', __('Editing Msalumni Informations', 'cge'), [$this, 'msalumniInformationMetaBox'], self::POSTTYPE);
     }
 
-    public function formationInformationMetaBox()
+    public function msalumniInformationMetaBox()
     {
-        if (file_exists(CGE_ADMIN_METABOX . '/formation/information.php')) {
-            include_once CGE_ADMIN_METABOX . '/formation/information.php';
-        }
-    }
-
-    public function formationCoAuthorInformationMetaBox()
-    {
-        if (file_exists(CGE_ADMIN_METABOX . '/formation/co-author-information.php')) {
-            include_once CGE_ADMIN_METABOX . '/formation/co-author-information.php';
+        if (file_exists(CGE_ADMIN_METABOX . '/msalumni/information.php')) {
+            include_once CGE_ADMIN_METABOX . '/msalumni/information.php';
         }
     }
 }
