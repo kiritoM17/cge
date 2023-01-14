@@ -188,6 +188,9 @@ class Cge
 		$this->loader->add_action('add_meta_boxes', $plugin_admin, 'add_meta_boxes');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+
+		$this->loader->add_filter('manage_edit-' . CGE_Job_Listing::POSTTYPE . '_columns', CGE_Job_Listing::instance(), 'add_form_custom_column');
+        $this->loader->add_filter('manage_' . CGE_Job_Listing::POSTTYPE . '_posts_custom_column', CGE_Job_Listing::instance(), 'manage_form_custom_column', 10, 2);
 	}
 
 	/**

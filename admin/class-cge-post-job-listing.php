@@ -339,4 +339,34 @@ class CGE_Job_Listing
         if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-accords.php'))
             include_once CGE_ADMIN_METABOX . '/job_listing/information-accords.php';
     }
+
+
+    public function add_form_custom_column($columns){
+        $columns['TYPE_STRUCTURE'] = __('TYPE STRUCTURE','cge');
+        $columns['TYPE_FORMATION'] = __('TYPE FORMATION','cge');
+        $columns['STATUT'] = __('STATUT','cge');
+        $columns['ANNEE_DE_CREATION'] = __('ANNÉE DE CREATION','cge');
+        $columns['SHORTCODE'] = __('SHORTCODE','cge');
+        return $columns;
+    }
+
+    public function manage_form_custom_column($column, $post_id){
+        $data = get_post_custom($post_id);
+        switch ($column){
+            case 'TYPE_STRUCTURE':
+                echo '<p>'.((isset($data['_ecole_type_structure'][0]) && !empty($data['_ecole_type_structure'][0])) ? $data['_ecole_type_structure'][0] : '').'</p>';
+                break;
+            case 'TYPE_FORMATION': echo '<p>'.((isset($data['_ecole_type_formation'][0]) && !empty($data['_ecole_type_formation'][0])) ? $data['_ecole_type_formation'][0] : '').'</p>';
+                break;
+            case 'STATUT': echo '<p>'.((isset($data['_ecole_statut'][0]) && !empty($data['_ecole_statut'][0])) ? $data['_ecole_statut'][0] : '').'</p>';
+                break;
+            case 'ANNEE_DE_CREATION': echo '<p>'.((isset($data['_ecole_annee_creation'][0]) && !empty($data['_ecole_annee_creation'][0])) ? $data['_ecole_annee_creation'][0] : '').'</p>';
+                break;
+            case 'SHORTCODE': echo '[job_listing id='.$post_id.' ]';
+                break;
+            default:
+                break;
+        }
+    }
+
 }
