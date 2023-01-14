@@ -26,6 +26,9 @@ require plugin_dir_path(dirname(__FILE__)) . 'includes/class-cge-api.php';
 require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-formation.php';
 require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-msalumni.php';
 require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-job-listing.php';
+require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-recrutement.php';
+require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-presse.php';
+require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-publication.php';
 class Cge_Admin
 {
 
@@ -66,6 +69,9 @@ class Cge_Admin
         CGE_Cpt_Formation::instance()->init();
 		CGE_Job_Listing::instance()->init();
 		CGE_Msalumni::instance()->init();
+		CGE_Cpt_Recrutement::instance()->init();
+		CGE_Cpt_Presse::instance()->init();
+		CGE_Cpt_Publication::instance()->init();
     }
 
 	public function add_meta_boxes()
@@ -73,6 +79,10 @@ class Cge_Admin
 		CGE_Cpt_Formation::instance()->add_meta_boxes();
 		CGE_Job_Listing::instance()->add_meta_boxes();
 		CGE_Msalumni::instance()->add_meta_boxes();
+		CGE_Cpt_Recrutement::instance()->add_meta_boxes();
+		CGE_Cpt_Presse::instance()->add_meta_boxes();
+		CGE_Cpt_Publication::instance()->add_meta_boxes();
+		
 	}
 
 

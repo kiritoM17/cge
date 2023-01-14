@@ -3,7 +3,9 @@
 class CGE_Job_Listing
 {
     const POSTTYPE = 'job_listing';
-    const TAXONOMY = 'job_listing_cat';
+    const TAXONOMY_REGION = 'job_listing_region';
+    const TAXONOMY_TYPE = 'job_listing_type';
+    const TAXONOMY_AMENITY = 'job_listing_amenity';
 
     public $rewriteSlug = 'job_listing';
     public $rewriteSlugSingular = 'job_listing';
@@ -20,12 +22,17 @@ class CGE_Job_Listing
             'editor',
             'thumbnail',
         ],
-        'taxonomies' => [],
+        'taxonomies' => ['job_listing_region', 'job_listing_type', 'job_listing_amenity'],
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
         'menu_icon' => 'dashicons-store',
     ];
+
+    /**
+     * @var string
+     */
+    public $singular_form_label;
 
     /**
      * @var string[]
@@ -85,10 +92,7 @@ class CGE_Job_Listing
      */
     protected $meta_prefix = '';
 
-    /**
-     * @var string
-     */
-    public $singular_form_label;
+    
 
     /**
      * @var string
@@ -113,7 +117,17 @@ class CGE_Job_Listing
         return self::$instance;
     }
 
-    private $taxonomy_args = [];
+    private $taxonomy_region_args = [];
+    private $taxonomy_type_args = [];
+    private $taxonomy_amenity_args = [];
+
+    private $taxonomyRegionLabels = [];
+    private $taxonomyTypeLabels = [];
+    private $taxonomyAmenityLabels = [];
+
+    public $taxonomy_region_slug = 'flux_cge_region';
+    public $taxonomy_type_slug = 'flux_cge_type';
+    public $taxonomy_amenty_slug = 'flux_cge_amenety';
 
     /**
      * Initializes plugin variables and sets up WordPress hooks/actions.
@@ -155,45 +169,110 @@ class CGE_Job_Listing
             'item_link' => sprintf(__('%s Link', 'cge'), $this->singular_form_label),
             'item_link_description' => sprintf(__('A link to a particular %s.', 'cge'), $this->singular_form_label),
         ];
+        $this->taxonomyAmenityLabels = [
+            'menu_name' => __('CGE Amenity', 'cge'),
+            'name' => sprintf(__('%s CGE Amenity', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s CGE Amenity', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s CGE Amenity', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s CGE Amenity', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s CGE Amenity', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s CGE Amenity:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s CGE Amenity', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s CGE Amenity', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s CGE Amenity', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s CGE Amenity Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s CGE Amenity Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+        $this->taxonomyTypeLabels = [
+            'menu_name' => __('CGE TYPE', 'cge'),
+            'name' => sprintf(__('%s CGE TYPE', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s CGE TYPE', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s CGE TYPE', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s CGE TYPE', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s CGE TYPE', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s CGE TYPE:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s CGE TYPE', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s CGE TYPE', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s CGE TYPE', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s CGE TYPE Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s CGE TYPE Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+        $this->taxonomyRegionLabels = [
+            'menu_name' => __('CGE REGION', 'cge'),
+            'name' => sprintf(__('%s CGE REGION', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s CGE REGION', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s CGE REGION', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s CGE REGION', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s CGE REGION', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s CGE REGION:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s CGE REGION', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s CGE REGION', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s CGE REGION', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s CGE REGION Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s CGE REGION Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
     }
 
     public function init() {
         register_post_type(self::POSTTYPE, $this->post_type_args);
-        // register_taxonomy(self::TAXONOMY, self::POSTTYPE, $this->taxonomy_args);
 
-        // $this->taxonomyLabels = [
-        //     'menu_name' => __('Categories', 'cge'),
-        //     'name' => sprintf(__('%s Category', 'cge'), $this->singular_form_label),
-        //     'singular_name' => sprintf(__('%s Category', 'cge'), $this->singular_form_label),
-        //     'search_items' => sprintf(__('Search %s Categories', 'cge'), $this->singular_form_label),
-        //     'all_items' => sprintf(__('All %s Categories', 'cge'), $this->singular_form_label),
-        //     'parent_item' => sprintf(__('Parent %s Category', 'cge'), $this->singular_form_label),
-        //     'parent_item_colon' => sprintf(__('Parent %s Category:', 'cge'), $this->singular_form_label),
-        //     'edit_item' => sprintf(__('Edit %s Category', 'cge'), $this->singular_form_label),
-        //     'update_item' => sprintf(__('Update %s Category', 'cge'), $this->singular_form_label),
-        //     'add_new_item' => sprintf(__('Add New %s Category', 'cge'), $this->singular_form_label),
-        //     'new_item_name' => sprintf(__('New %s Category Name', 'cge'), $this->singular_form_label),
-        //     'item_link' => sprintf(__('%s Category Link', 'cge'), $this->singular_form_label),
-        //     'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
-        // ];
+        $this->taxonomy_region_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_region_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyRegionLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_REGION, self::POSTTYPE, $this->taxonomy_region_args);
 
-        // $this->taxonomy_args = [
-        //     'hierarchical' => true,
-        //     'update_count_callback' => '',
-        //     'rewrite' => [
-        //         'slug' => $this->rewriteSlug . '/' . $this->category_slug,
-        //         'with_front' => false,
-        //         'hierarchical' => true,
-        //     ],
-        //     'public' => true,
-        //     'show_ui' => true,
-        //     'labels' => $this->taxonomyLabels,
-        //     'capability_type' => 'post',
-        //     'public' => true,
-        //     'show_ui' => true,
-        //     'show_in_nav_menu' => true,
-        // ];
-        // register_taxonomy(self::TAXONOMYCAT, self::POSTTYPE, $this->taxonomy_args);
+        $this->taxonomy_type_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_type_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyTypeLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_TYPE, self::POSTTYPE, $this->taxonomy_type_args);
+
+        $this->taxonomy_amenity_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_amenty_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyAmenityLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_AMENITY, self::POSTTYPE, $this->taxonomy_amenity_args);
+
         flush_rewrite_rules();
     }
 
