@@ -38,7 +38,7 @@ class CGE_Cpt_Presse
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
-        'menu_icon' => 'dashicons-store',
+        'menu_icon' => 'dashicons-portfolio',
     ];
 
     /**

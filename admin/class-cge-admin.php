@@ -66,8 +66,8 @@ class Cge_Admin
 
 	public function init() {
         // Load Forms and Flux Post Type and taxonomies
-        CGE_Cpt_Formation::instance()->init();
 		CGE_Job_Listing::instance()->init();
+        CGE_Cpt_Formation::instance()->init();
 		CGE_Msalumni::instance()->init();
 		CGE_Cpt_Recrutement::instance()->init();
 		CGE_Cpt_Presse::instance()->init();
@@ -76,8 +76,8 @@ class Cge_Admin
 
 	public function add_meta_boxes()
 	{
-		CGE_Cpt_Formation::instance()->add_meta_boxes();
 		CGE_Job_Listing::instance()->add_meta_boxes();
+		CGE_Cpt_Formation::instance()->add_meta_boxes();
 		CGE_Msalumni::instance()->add_meta_boxes();
 		CGE_Cpt_Recrutement::instance()->add_meta_boxes();
 		CGE_Cpt_Presse::instance()->add_meta_boxes();

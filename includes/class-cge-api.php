@@ -37,18 +37,16 @@ if (!class_exists('API_CGE')) {
         public function getAccessToken($username, $password)
         {
             @set_time_limit(0);
-            if (get_option("_CGE_CLIENT_ACCESS_TOKEN"))
-                    update_option("_CGE_CLIENT_ACCESS_TOKEN", '');
-            $accessTokent = $this->postApi('/authentication_token', [
+            $accessToken = $this->postApi('/authentication_token', [
                 "username" => $username,
                 "password" => $password
             ]);
-
-            if (isset($accessTokent->token) && !empty($accessTokent->token)) {
+            if (isset($accessToken->token)) {
                 if (get_option("_CGE_CLIENT_ACCESS_TOKEN"))
-                    update_option("_CGE_CLIENT_ACCESS_TOKEN", $accessTokent->token);
+                    update_option("_CGE_CLIENT_ACCESS_TOKEN", $accessToken->token);
                 else
-                    add_option("_CGE_CLIENT_ACCESS_TOKEN", $accessTokent->token);
+                    add_option("_CGE_CLIENT_ACCESS_TOKEN", $accessToken->token);
+
                 return get_option("_CGE_CLIENT_ACCESS_TOKEN");
             }
             return null;
@@ -106,7 +104,7 @@ if (!class_exists('API_CGE')) {
         public function postApi($slug, $body = [])
         {
             @set_time_limit(0);
-            $accessTokent = get_option("_CGE_CLIENT_ACCESS_TOKEN");
+            $accessToken = get_option("_CGE_CLIENT_ACCESS_TOKEN");
             try {
                 $curl = curl_init();
                 curl_setopt_array($curl, [
@@ -124,7 +122,7 @@ if (!class_exists('API_CGE')) {
                     CURLOPT_HTTPHEADER => [
                         'Content-Type: application/json',
                         'Accept: */*',
-                        (isset($accessTokent) && !empty($accessTokent)) ? 'Authorization: Bearer ' . $accessTokent  : ''
+                        (isset($accessToken) && !empty($accessToken)) ? 'Authorization: Bearer ' . $accessToken  : ''
                     ],
                 ]);
                 $response = curl_exec($curl);
