@@ -11,11 +11,8 @@ class Cron_Job_Listing
 {
     public function import_job_listing()
     {
-        $ecoles = simplexml_load_file('https://api-v1.cge.asso.fr/ecoles?limit=10&type=detail');
-        $index = 0;
+        $ecoles = simplexml_load_file('https://api-v1.cge.asso.fr/ecoles?limit=0&type=detail');
         foreach ($ecoles->ecoles->ecole as $ecole){
-            if($index > 4)
-                break;
 
             // Create post object
             $my_post = array();

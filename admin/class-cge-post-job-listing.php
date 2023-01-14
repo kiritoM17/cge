@@ -134,10 +134,10 @@ class CGE_Job_Listing
      */
     protected function __construct() {
         $this->post_type = self::POSTTYPE;
-        $this->singular_form_label = __('CGE', 'cge');
-        $this->singular_form_label_lowercase = __('CGE', 'cge');
-        $this->plural_form_label = __('CGE', 'cge');
-        $this->plural_form_label_lowercase = __('CGE', 'cge');
+        $this->singular_form_label = __('Member', 'cge');
+        $this->singular_form_label_lowercase = __('Member', 'cge');
+        $this->plural_form_label = __('Member', 'cge');
+        $this->plural_form_label_lowercase = __('Member', 'cge');
         $this->post_type_args['rewrite']['slug'] = $this->rewriteSlug;
         $this->post_type_args['show_in_nav_menus'] = true;
         $this->post_type_args['public'] = true;
