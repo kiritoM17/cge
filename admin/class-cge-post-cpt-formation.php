@@ -3,9 +3,14 @@
 class CGE_Cpt_Formation
 {
     const POSTTYPE = 'cpt_formation';
+
     const TAXONOMY_TYPE = 'formation_type';
     const TAXONOMY_ECOLE = 'formation_ecole';
     const TAXONOMY_CO_ACC = 'formation_co_accrediteurs';
+
+    const TAXONOMY_DOMAIN = 'formations_domaines';
+    const TAXONOMY_THEME = 'formations_themes';
+    const TAXONOMY_CAT = 'formations_category';
 
     public $rewriteSlug = 'cpt_formation';
     public $rewriteSlugSingular = 'cpt_formation';
@@ -22,7 +27,7 @@ class CGE_Cpt_Formation
             'editor',
             'thumbnail',
         ],
-        'taxonomies' => ['formation_type','formation_ecole','formation_co_accrediteurs'],
+        'taxonomies' => ['formation_type', 'formation_ecole', 'formation_co_accrediteurs', 'formations_domaines', 'formations_themes', 'formations_category'],
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
@@ -74,28 +79,42 @@ class CGE_Cpt_Formation
      *
      * @return self
      */
-    public static function instance() {
+    public static function instance()
+    {
         if (!self::$instance) {
             self::$instance = new self;
         }
         return self::$instance;
-    }    
+    }
 
     private $taxonomy_type_args = [];
     private $taxonomy_ecole_args = [];
     private $taxonomy_co_acc_args = [];
 
+    private $taxonomy_domaines_args = [];
+    private $taxonomy_themes_args = [];
+    private $taxonomy_category_args = [];
+
     private $taxonomyTypeLabels = [];
     private $taxonomyEcoleLabels = [];
     private $taxonomyCoAccLabels = [];
 
-    public $taxonomy_type_slug = 'flux_type';
-    public $taxonomy_ecole_slug = 'flux_ecole';
-    public $taxonomy_co_acc_slug = 'flux_co_acc';
+    private $taxonomyDomainesLabels = [];
+    private $taxonomyThemesLabels = [];
+    private $taxonomyCategoryLabels = [];
+
+    public $taxonomy_type_slug = 'formation_type';
+    public $taxonomy_ecole_slug = 'formation_ecole';
+    public $taxonomy_co_acc_slug = 'formation_co_accrediteurs';
+
+    public $taxonomy_domaine_slug = 'formations_domaines';
+    public $taxonomy_themes_slug = 'formations_themes';
+    public $taxonomy_category_slug = 'category';
     /**
      * Initializes plugin variables and sets up WordPress hooks/actions.
      */
-    protected function __construct() {
+    protected function __construct()
+    {
         $this->post_type = self::POSTTYPE;
         $this->singular_form_label = __('Formation', 'cge');
         $this->singular_form_label_lowercase = __('Formation', 'cge');
@@ -134,57 +153,177 @@ class CGE_Cpt_Formation
         ];
 
         $this->taxonomyTypeLabels = [
-            'menu_name' => __('Formation Type', 'cge'),
-            'name' => sprintf(__('%s Formation Type', 'cge'), $this->singular_form_label),
-            'singular_name' => sprintf(__('%s Formation Type', 'cge'), $this->singular_form_label),
-            'search_items' => sprintf(__('Search %s Formation Type', 'cge'), $this->singular_form_label),
-            'all_items' => sprintf(__('All %s Formation Type', 'cge'), $this->singular_form_label),
-            'parent_item' => sprintf(__('Parent %s Formation Type', 'cge'), $this->singular_form_label),
-            'parent_item_colon' => sprintf(__('Parent %s Formation Type:', 'cge'), $this->singular_form_label),
-            'edit_item' => sprintf(__('Edit %s Formation Type', 'cge'), $this->singular_form_label),
-            'update_item' => sprintf(__('Update %s Formation Type', 'cge'), $this->singular_form_label),
-            'add_new_item' => sprintf(__('Add New %s Formation Type', 'cge'), $this->singular_form_label),
-            'new_item_name' => sprintf(__('New %s Formation Type Name', 'cge'), $this->singular_form_label),
-            'item_link' => sprintf(__('%s Formation Type Link', 'cge'), $this->singular_form_label),
+            'menu_name' => __('Type Formation', 'cge'),
+            'name' => sprintf(__('%s Type Formation', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Type Formation', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Type Formation', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Type Formation', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Type Formation', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Type Formation:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Type Formation', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Type Formation', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Type Formation', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Type Formation Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Type Formation Link', 'cge'), $this->singular_form_label),
             'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
         ];
 
         $this->taxonomyEcoleLabels = [
-            'menu_name' => __('Formation Ecole', 'cge'),
-            'name' => sprintf(__('%s Formation Ecole', 'cge'), $this->singular_form_label),
-            'singular_name' => sprintf(__('%s Formation Ecole', 'cge'), $this->singular_form_label),
-            'search_items' => sprintf(__('Search %s Formation Ecole', 'cge'), $this->singular_form_label),
-            'all_items' => sprintf(__('All %s Formation Ecole', 'cge'), $this->singular_form_label),
-            'parent_item' => sprintf(__('Parent %s Formation Ecole', 'cge'), $this->singular_form_label),
-            'parent_item_colon' => sprintf(__('Parent %s Formation Ecole:', 'cge'), $this->singular_form_label),
-            'edit_item' => sprintf(__('Edit %s Formation Ecole', 'cge'), $this->singular_form_label),
-            'update_item' => sprintf(__('Update %s Formation Ecole', 'cge'), $this->singular_form_label),
-            'add_new_item' => sprintf(__('Add New %s Formation Ecole', 'cge'), $this->singular_form_label),
-            'new_item_name' => sprintf(__('New %s Formation Ecole Name', 'cge'), $this->singular_form_label),
-            'item_link' => sprintf(__('%s Formation Ecole Link', 'cge'), $this->singular_form_label),
+            'menu_name' => __('Ecole', 'cge'),
+            'name' => sprintf(__('%s Ecole', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Ecole', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Ecole', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Ecole', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Ecole', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Ecole:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Ecole', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Ecole', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Ecole', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Ecole Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Ecole Link', 'cge'), $this->singular_form_label),
             'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
         ];
 
         $this->taxonomyCoAccLabels = [
-            'menu_name' => __('Formation Co Acc', 'cge'),
-            'name' => sprintf(__('%s Formation Co Acc', 'cge'), $this->singular_form_label),
-            'singular_name' => sprintf(__('%s Formation Co Acc', 'cge'), $this->singular_form_label),
-            'search_items' => sprintf(__('Search %s Formation Co Acc', 'cge'), $this->singular_form_label),
-            'all_items' => sprintf(__('All %s Formation Co Acc', 'cge'), $this->singular_form_label),
-            'parent_item' => sprintf(__('Parent %s Formation Co Acc', 'cge'), $this->singular_form_label),
-            'parent_item_colon' => sprintf(__('Parent %s Formation Co Acc:', 'cge'), $this->singular_form_label),
-            'edit_item' => sprintf(__('Edit %s Formation Co Acc', 'cge'), $this->singular_form_label),
-            'update_item' => sprintf(__('Update %s Formation Co Acc', 'cge'), $this->singular_form_label),
-            'add_new_item' => sprintf(__('Add New %s Formation Co Acc', 'cge'), $this->singular_form_label),
-            'new_item_name' => sprintf(__('New %s Formation Co Acc Name', 'cge'), $this->singular_form_label),
-            'item_link' => sprintf(__('%s Formation Co Acc Link', 'cge'), $this->singular_form_label),
+            'menu_name' => __('Co accréditeurs', 'cge'),
+            'name' => sprintf(__('%s Co accréditeurs', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Co accréditeurs', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Co accréditeurs', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Co accréditeurs', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Co accréditeurs', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Co accréditeurs:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Co accréditeurs', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Co accréditeurs', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Co accréditeurs', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Co accréditeurs Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Co accréditeurs Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+
+        $this->taxonomyDomainesLabels = [
+            'menu_name' => __('Formation domaines', 'cge'),
+            'name' => sprintf(__('%s Formation domaines', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Formation domaines', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Formation domaines', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Formation domaines', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Formation domaines', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Formation domaines:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Formation domaines', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Formation domaines', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Formation domaines', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Formation domaines Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Formation domaines Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+
+        $this->taxonomyThemesLabels = [
+            'menu_name' => __('Formation thèmes', 'cge'),
+            'name' => sprintf(__('%s Formation thèmes', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Formation thèmes', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Formation thèmes', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Formation thèmes', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Formation thèmes', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Formation thèmes:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Formation thèmes', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Formation thèmes', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Formation thèmes', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Formation thèmes Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Formation thèmes Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
+
+        $this->taxonomyCategoryLabels = [
+            'menu_name' => __('Categories', 'cge'),
+            'name' => sprintf(__('%s Categories', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Categories', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Categories', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Categories', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Categories', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Categories:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Categories', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Categories', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Categories', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Categories Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Categories Link', 'cge'), $this->singular_form_label),
             'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
         ];
     }
 
-    public function init() {
-
+    public function init()
+    {
         register_post_type(self::POSTTYPE, $this->post_type_args);
+
+        $this->taxonomy_category_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_category_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyCategoryLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_CAT, self::POSTTYPE, $this->taxonomy_category_args);
+
+        $this->taxonomy_co_acc_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_co_acc_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyCoAccLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_CO_ACC, self::POSTTYPE, $this->taxonomy_co_acc_args);
+
+        $this->taxonomy_domaines_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_domaine_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyDomainesLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_DOMAIN, self::POSTTYPE, $this->taxonomy_domaines_args);
+
+        $this->taxonomy_themes_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_themes_slug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyThemesLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_THEME, self::POSTTYPE, $this->taxonomy_themes_args);
 
         $this->taxonomy_type_args = [
             'hierarchical' => true,
@@ -222,24 +361,6 @@ class CGE_Cpt_Formation
         ];
         register_taxonomy(self::TAXONOMY_ECOLE, self::POSTTYPE, $this->taxonomy_ecole_args);
 
-        $this->taxonomy_co_acc_args = [
-            'hierarchical' => true,
-            'update_count_callback' => '',
-            'rewrite' => [
-                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_co_acc_slug,
-                'with_front' => false,
-                'hierarchical' => true,
-            ],
-            'public' => true,
-            'show_ui' => true,
-            'labels' => $this->taxonomyCoAccLabels,
-            'capability_type' => 'post',
-            'public' => true,
-            'show_ui' => true,
-            'show_in_nav_menu' => true,
-        ];
-        register_taxonomy(self::TAXONOMY_CO_ACC, self::POSTTYPE, $this->taxonomy_co_acc_args);
-
         flush_rewrite_rules();
     }
 
@@ -248,7 +369,7 @@ class CGE_Cpt_Formation
      */
     public function add_meta_boxes()
     {
-        add_meta_box('FormationCoAutorMetaBox', __('Editing Formation Co Accrediteurs', 'cge'), [$this, 'formationCoAuthorInformationMetaBox'], self::POSTTYPE);
+        add_meta_box('FormationCoAutorMetaBox', __('Editing Co accréditeursrediteurs', 'cge'), [$this, 'formationCoAuthorInformationMetaBox'], self::POSTTYPE);
         add_meta_box('FormationMetaBox', __('Editing Formation Informations', 'cge'), [$this, 'formationInformationMetaBox'], self::POSTTYPE);
     }
 

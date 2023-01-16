@@ -4,11 +4,11 @@ class CGE_Cpt_Actualite
 {
     const POSTTYPE = 'cpt_actualite';
 
-    const TAXONOMY_CAT = 'category';
-    const TAXONOMY_TAG = 'post_tag';
+    const TAXONOMY_CAT = 'actualite_category';
+    const TAXONOMY_TAG = 'actualite_post_tag';
 
-    public $rewriteCatSlug = 'category';
-    public $rewriteTagSlug = 'post_tag';
+    public $rewriteCatSlug = 'actualite_category';
+    public $rewriteTagSlug = 'actualite_post_tag';
 
     private $taxonomy_cat_args = [];
     private $taxonomy_tag_args = [];
@@ -30,7 +30,7 @@ class CGE_Cpt_Actualite
             'editor',
             'thumbnail',
         ],
-        'taxonomies' => ['category', 'post_tag'],
+        'taxonomies' => ['actualite_category', 'actualite_post_tag'],
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
