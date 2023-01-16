@@ -29,6 +29,7 @@ require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-job-listing.p
 require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-recrutement.php';
 require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-presse.php';
 require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-publication.php';
+require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-actualite.php';
 class Cge_Admin
 {
 
@@ -64,15 +65,17 @@ class Cge_Admin
 		$this->version = $version;
 	}
 
-	public function init() {
-        // Load Forms and Flux Post Type and taxonomies
+	public function init()
+	{
+		// Load Forms and Flux Post Type and taxonomies
 		CGE_Job_Listing::instance()->init();
-        CGE_Cpt_Formation::instance()->init();
+		CGE_Cpt_Formation::instance()->init();
 		CGE_Msalumni::instance()->init();
 		CGE_Cpt_Recrutement::instance()->init();
 		CGE_Cpt_Presse::instance()->init();
 		CGE_Cpt_Publication::instance()->init();
-    }
+		CGE_Cpt_Actualite::instance()->init();
+	}
 
 	public function add_meta_boxes()
 	{
@@ -82,7 +85,9 @@ class Cge_Admin
 		CGE_Cpt_Recrutement::instance()->add_meta_boxes();
 		CGE_Cpt_Presse::instance()->add_meta_boxes();
 		CGE_Cpt_Publication::instance()->add_meta_boxes();
-		
+		CGE_Cpt_Actualite::instance()->add_meta_boxes();
+		//
+
 	}
 
 
@@ -135,7 +140,7 @@ class Cge_Admin
 
 	public function cge_admin_menu()
 	{
-		
+
 		add_submenu_page('edit.php?post_type=job_listing', 'The CGE Plugin', 'Settings', 'manage_options', 'cge-admin-menu', [$this, 'cge_admin_init']); //, EMAFFP_ADMIN_IMG . 'logo-multi-affiliation.svg'
 
 	}
@@ -147,14 +152,12 @@ class Cge_Admin
 
 	public function et_register_options()
 	{
-		if(isset($_POST['cge-password']) && isset($_POST['cge-username']))
-		{
+		if (isset($_POST['cge-password']) && isset($_POST['cge-username'])) {
 			$api = new API_CGE();
 			$username = $_POST['cge-username'];
 			$password = $_POST['cge-password'];
 			$request_response = $api->getAccessToken($username, $password);
-			if($request_response)
-			{
+			if ($request_response) {
 				if (get_option("_CGE_CLIENT_USERNAME"))
 					update_option("_CGE_CLIENT_USERNAME", $username);
 				else
@@ -165,15 +168,15 @@ class Cge_Admin
 				else
 					add_option("_CGE_CLIENT_PWD", $password);
 				$request_response = "";
-			}else {
+			} else {
 				$request_response = "userename or password are not valid";
 			}
-			
+
 			wp_safe_redirect(
 				// Sanitize.
 				esc_url(
 					// Retrieves the site url for the current site.
-					site_url( "/wp-admin/edit.php?post_type=job_listing&page=cge-admin-menu")
+					site_url("/wp-admin/edit.php?post_type=job_listing&page=cge-admin-menu")
 				)
 			);
 		}
