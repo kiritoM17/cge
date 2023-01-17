@@ -91,6 +91,10 @@ class Cge
 			define('CGE_ADMIN_IMG', plugins_url('admin/img/', dirname(__FILE__, 2)));
 		}
 
+		if (!defined('CGE_PUBLIC_IMG')) {
+			define('CGE_PUBLIC_IMG', plugins_url('cge/public/img/', dirname(__FILE__, 2)));
+		}
+
 		if (!defined('CGE_ADMIN_JS')) {
 			define('CGE_ADMIN_JS', plugins_url('admin/js/', dirname(__FILE__, 2)));
 		}
