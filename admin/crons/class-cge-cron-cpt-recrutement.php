@@ -31,6 +31,8 @@ class Cron_Cpt_Recrutement
                 continue;
             }
 
+            var_dump($emploi);
+
             $posts_emplois = new WP_Query("post_type=cpt_recrutement&meta_key=id_emploi&meta_value=" . $emploi->id);
             $emplois_id[] = $emploi->id;
 
@@ -70,15 +72,15 @@ class Cron_Cpt_Recrutement
                 $upload_path = dirname(__FILE__, 5);
                 $targetDocument = $upload_path  . "/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/" . rawurlencode('document-' . $emploi->id . '.pdf');
                 try {
-                    //var_dump($emploi->file->filePath);
-                    //$newString = @preg_replace('/[^\w-.\/]/', '', $emploi->file->filePath);
-                    $targetDocument = $upload_path  . "/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/" . rawurlencode('document-' . $emploi->id . '.pdf');
+                    $regexp = '/&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml|caron);/i';
+                    $newString = @str_replace('-pdf', '', trim($emploi->file->filePath));
+                    //die(var_dump($newString));
+                    $targetDocument = $upload_path  . "/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/" . rawurlencode($newString . '.pdf');
                 } catch (\Exception $e) {
                 }
 
                 if (!file_exists($upload_path  . "/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/"))
                     mkdir($upload_path  . "/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/", 0755, true);
-                var_dump($targetDocument);
                 file_put_contents($targetDocument, file_get_contents($fileUrl, false, stream_context_create(array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false)))));
                 $action($post_id, 'document_emplois', esc_attr($targetDocument));
             }
