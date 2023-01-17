@@ -73,7 +73,7 @@ class Cge_Admin
 		CGE_Msalumni::instance()->init();
 		CGE_Cpt_Presse::instance()->init();
 		CGE_Cpt_Publication::instance()->init();
-		CGE_Cpt_Actualite::instance()->init();
+		//CGE_Cpt_Actualite::instance()->init();
 		CGE_Cpt_Recrutement::instance()->init();
 	}
 
@@ -84,7 +84,7 @@ class Cge_Admin
 		CGE_Msalumni::instance()->add_meta_boxes();
 		CGE_Cpt_Presse::instance()->add_meta_boxes();
 		CGE_Cpt_Publication::instance()->add_meta_boxes();
-		CGE_Cpt_Actualite::instance()->add_meta_boxes();
+		//CGE_Cpt_Actualite::instance()->add_meta_boxes();
 		CGE_Cpt_Recrutement::instance()->add_meta_boxes();
 		//
 
