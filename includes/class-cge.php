@@ -75,29 +75,24 @@ class Cge
 			$this->version = '1.0.0';
 		}
 
-		if(!defined('CGE_ADMIN_VIEWS'))
-		{
-			define('CGE_ADMIN_VIEWS', dirname(__FILE__,2) . '/admin/views/');
+		if (!defined('CGE_ADMIN_VIEWS')) {
+			define('CGE_ADMIN_VIEWS', dirname(__FILE__, 2) . '/admin/views/');
 		}
 
-		if(!defined('CGE_ADMIN_METABOX'))
-		{
-			define('CGE_ADMIN_METABOX', dirname(__FILE__,2) . '/admin/partials/metabox/');
+		if (!defined('CGE_ADMIN_METABOX')) {
+			define('CGE_ADMIN_METABOX', dirname(__FILE__, 2) . '/admin/partials/metabox/');
 		}
 
-		if(!defined('CGE_ADMIN_IMG'))
-		{
-			define('CGE_ADMIN_IMG', plugins_url('admin/img/', dirname(__FILE__,2)));
+		if (!defined('CGE_ADMIN_IMG')) {
+			define('CGE_ADMIN_IMG', plugins_url('admin/img/', dirname(__FILE__, 2)));
 		}
 
-		if(!defined('CGE_ADMIN_JS'))
-		{
-			define('CGE_ADMIN_JS', plugins_url('admin/js/', dirname(__FILE__,2)));
+		if (!defined('CGE_ADMIN_JS')) {
+			define('CGE_ADMIN_JS', plugins_url('admin/js/', dirname(__FILE__, 2)));
 		}
 
-		if(!defined('CGE_ADMIN_CSS'))
-		{
-			define('CGE_ADMIN_CSS', plugins_url('admin/js/', dirname(__FILE__,2)));
+		if (!defined('CGE_ADMIN_CSS')) {
+			define('CGE_ADMIN_CSS', plugins_url('admin/js/', dirname(__FILE__, 2)));
 		}
 
 		$this->plugin_name = 'cge';
@@ -190,7 +185,7 @@ class Cge
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
 		$this->loader->add_filter('manage_edit-' . CGE_Job_Listing::POSTTYPE . '_columns', CGE_Job_Listing::instance(), 'add_form_custom_column');
-        $this->loader->add_filter('manage_' . CGE_Job_Listing::POSTTYPE . '_posts_custom_column', CGE_Job_Listing::instance(), 'manage_form_custom_column', 10, 2);
+		$this->loader->add_filter('manage_' . CGE_Job_Listing::POSTTYPE . '_posts_custom_column', CGE_Job_Listing::instance(), 'manage_form_custom_column', 10, 2);
 	}
 
 	/**
@@ -204,6 +199,7 @@ class Cge
 	{
 
 		$plugin_public = new Cge_Public($this->get_plugin_name(), $this->get_version());
+		$this->loader->add_action('init', $plugin_public, 'init', 0);
 
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
