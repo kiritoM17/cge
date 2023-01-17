@@ -3,7 +3,11 @@
 class CGE_Cpt_Recrutement
 {
     const POSTTYPE = 'cpt_recrutement';
-    const TAXONOMY = 'cpt_recrutement_cat';
+    const TAXONOMY_CAT = 'recrutement_category';
+
+    private $taxonomy_cat_args = [];
+    private $taxonomyCatLabels = [];
+    public $rewriteCatSlug = 'recrutement_category';
 
     public $rewriteSlug = 'cpt_recrutement';
     public $rewriteSlugSingular = 'cpt_recrutement';
@@ -14,17 +18,17 @@ class CGE_Cpt_Recrutement
             'with_front' => false
         ],
         'show_ui' => true,
-        'show_in_menu' => 'edit.php?post_type=job_listing',
+        //'show_in_menu' => 'edit.php?post_type=job_listing',
         'supports' => [
             'title',
             'editor',
             'thumbnail',
         ],
-        'taxonomies' => [],
+        'taxonomies' => ['recrutement_category'],
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
-        'menu_icon' => 'dashicons-store',
+        'menu_icon' => 'dashicons-megaphone',
     ];
 
     /**
@@ -66,7 +70,8 @@ class CGE_Cpt_Recrutement
      *
      * @return self
      */
-    public static function instance() {
+    public static function instance()
+    {
         if (!self::$instance) {
             self::$instance = new self;
         }
@@ -78,7 +83,8 @@ class CGE_Cpt_Recrutement
     /**
      * Initializes plugin variables and sets up WordPress hooks/actions.
      */
-    protected function __construct() {
+    protected function __construct()
+    {
         $this->post_type = self::POSTTYPE;
         $this->singular_form_label = __('Recrutement', 'cge');
         $this->singular_form_label_lowercase = __('Recrutement', 'cge');
@@ -89,7 +95,7 @@ class CGE_Cpt_Recrutement
         $this->post_type_args['public'] = true;
         $this->post_type_args['show_in_rest'] = false;
         $this->post_type_args['labels'] = [
-            'menu_name' => __('Recrutement', 'cge'),
+            'menu_name' => __('CGE Recrutement', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,
@@ -110,10 +116,46 @@ class CGE_Cpt_Recrutement
             'item_link' => sprintf(__('%s Link', 'cge'), $this->singular_form_label),
             'item_link_description' => sprintf(__('A link to a particular %s.', 'cge'), $this->singular_form_label),
         ];
+
+        $this->taxonomyCatLabels = [
+            'menu_name' => __('Categories', 'cge'),
+            'name' => sprintf(__('%s Categories', 'cge'), $this->singular_form_label),
+            'singular_name' => sprintf(__('%s Categories', 'cge'), $this->singular_form_label),
+            'search_items' => sprintf(__('Search %s Categories', 'cge'), $this->singular_form_label),
+            'all_items' => sprintf(__('All %s Categories', 'cge'), $this->singular_form_label),
+            'parent_item' => sprintf(__('Parent %s Categories', 'cge'), $this->singular_form_label),
+            'parent_item_colon' => sprintf(__('Parent %s Categories:', 'cge'), $this->singular_form_label),
+            'edit_item' => sprintf(__('Edit %s Categories', 'cge'), $this->singular_form_label),
+            'update_item' => sprintf(__('Update %s Categories', 'cge'), $this->singular_form_label),
+            'add_new_item' => sprintf(__('Add New %s Categories', 'cge'), $this->singular_form_label),
+            'new_item_name' => sprintf(__('New %s Categories Name', 'cge'), $this->singular_form_label),
+            'item_link' => sprintf(__('%s Categories Link', 'cge'), $this->singular_form_label),
+            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
+        ];
     }
 
-    public function init() {
+    public function init()
+    {
         register_post_type(self::POSTTYPE, $this->post_type_args);
+
+        $this->taxonomy_cat_args = [
+            'hierarchical' => true,
+            'update_count_callback' => '',
+            'rewrite' => [
+                'slug' => $this->rewriteSlug . '/' . $this->rewriteCatSlug,
+                'with_front' => false,
+                'hierarchical' => true,
+            ],
+            'public' => true,
+            'show_ui' => true,
+            'labels' => $this->taxonomyCatLabels,
+            'capability_type' => 'post',
+            'public' => true,
+            'show_ui' => true,
+            'show_in_nav_menu' => true,
+        ];
+        register_taxonomy(self::TAXONOMY_CAT, self::POSTTYPE, $this->taxonomy_cat_args);
+
         flush_rewrite_rules();
     }
 

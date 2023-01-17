@@ -51,6 +51,8 @@ class CGE_Cpt_Formation
         'website',
         'directeur_responsable_ms_msc_badge_cqc',
         'responsable_academique',
+        'voix_admission',
+        'niveau_entree'
     ];
 
     /**

@@ -1,4 +1,4 @@
-<?php 
+<?php
 $full_path = dirname(__FILE__);
 $path = explode("wp-", $full_path);
 
@@ -10,6 +10,7 @@ if (!class_exists('API_CGE')) {
     {
         protected $url = '';
         protected $api = '';
+        protected $apiVersion = 2;
         /**
          * Static Singleton Holder
          * @var self
@@ -29,9 +30,10 @@ if (!class_exists('API_CGE')) {
             return self::$instance;
         }
 
-        public function __construct()
+        public function __construct($apiVersion = 2)
         {
-            $this->url = 'https://api.cge.asso.fr';
+            $this->apiVersion = $apiVersion;
+            $this->url = $this->apiVersion == 1 ? 'https://api-v1.cge.asso.fr' : 'https://api.cge.asso.fr';
         }
 
         public function getAccessToken($username, $password)
@@ -52,17 +54,18 @@ if (!class_exists('API_CGE')) {
             return null;
         }
 
-        public function getApi($slug, $body = [])
+        public function getApi($slug, $body = [], $isCompleteUrl = false)
         {
             @set_time_limit(0);
+            var_dump($isCompleteUrl ? $slug  : $this->url . $slug);
             $accessToken = get_option("_CGE_CLIENT_ACCESS_TOKEN");
             $query = '';
-            if($body)
+            if ($body)
                 $query = http_build_query($body, '', '&amp;');
             try {
                 $curl = curl_init();
                 curl_setopt_array($curl, array(
-                    CURLOPT_URL => $this->url . $slug .'?'.$query,
+                    CURLOPT_URL => $isCompleteUrl ? $slug . '?' . $query : $this->url . $slug . '?' . $query,
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_ENCODING => '',
                     CURLOPT_MAXREDIRS => 10,
@@ -73,16 +76,17 @@ if (!class_exists('API_CGE')) {
                     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                     CURLOPT_CUSTOMREQUEST => 'GET',
                     CURLOPT_HTTPHEADER => [
-                        (isset($accessToken) && !empty($accessToken)) ? 'Authorization: Bearer ' . $accessToken  : ''
+                        'Content-Type: application/ld+json',
+                        (isset($accessToken) && !empty($accessToken)) ? 'Authorization: Bearer ' . $accessToken  : '',
+                        'Accept: application/ld+json',
                     ],
                 ));
                 $response = curl_exec($curl);
-                die(var_dump($response));
                 // Check the return value of curl_exec(), too
                 if ($response === false) {
                     throw new Exception(curl_error($curl), curl_errno($curl));
                 }
-                return json_decode($response);
+                return $this->apiVersion == 1 ? $response : json_decode($response);
             } catch (Exception $e) {
 
                 trigger_error(
@@ -131,7 +135,7 @@ if (!class_exists('API_CGE')) {
                     throw new Exception(curl_error($curl), curl_errno($curl));
                 }
 
-                return json_decode($response);
+                return $this->apiVersion == 1 ? $response : json_decode($response);
             } catch (Exception $e) {
                 trigger_error(
                     sprintf(
@@ -178,7 +182,7 @@ if (!class_exists('API_CGE')) {
                     throw new Exception(curl_error($curl), curl_errno($curl));
                 }
 
-                return json_decode($response);
+                return $this->apiVersion == 1 ? $response : json_decode($response);
             } catch (Exception $e) {
 
                 trigger_error(
@@ -227,7 +231,7 @@ if (!class_exists('API_CGE')) {
                     throw new Exception(curl_error($curl), curl_errno($curl));
                 }
 
-                return json_decode($response);
+                return $this->apiVersion == 1 ? $response : json_decode($response);
             } catch (Exception $e) {
 
                 trigger_error(

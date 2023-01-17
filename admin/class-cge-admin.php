@@ -71,10 +71,10 @@ class Cge_Admin
 		CGE_Job_Listing::instance()->init();
 		CGE_Cpt_Formation::instance()->init();
 		CGE_Msalumni::instance()->init();
-		CGE_Cpt_Recrutement::instance()->init();
 		CGE_Cpt_Presse::instance()->init();
 		CGE_Cpt_Publication::instance()->init();
 		CGE_Cpt_Actualite::instance()->init();
+		CGE_Cpt_Recrutement::instance()->init();
 	}
 
 	public function add_meta_boxes()
@@ -82,10 +82,10 @@ class Cge_Admin
 		CGE_Job_Listing::instance()->add_meta_boxes();
 		CGE_Cpt_Formation::instance()->add_meta_boxes();
 		CGE_Msalumni::instance()->add_meta_boxes();
-		CGE_Cpt_Recrutement::instance()->add_meta_boxes();
 		CGE_Cpt_Presse::instance()->add_meta_boxes();
 		CGE_Cpt_Publication::instance()->add_meta_boxes();
 		CGE_Cpt_Actualite::instance()->add_meta_boxes();
+		CGE_Cpt_Recrutement::instance()->add_meta_boxes();
 		//
 
 	}
@@ -153,7 +153,7 @@ class Cge_Admin
 	public function et_register_options()
 	{
 		if (isset($_POST['cge-password']) && isset($_POST['cge-username'])) {
-			$api = new API_CGE();
+			$api = new API_CGE(2);
 			$username = $_POST['cge-username'];
 			$password = $_POST['cge-password'];
 			$request_response = $api->getAccessToken($username, $password);

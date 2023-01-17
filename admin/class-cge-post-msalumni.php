@@ -44,7 +44,7 @@ class CGE_Msalumni
     /**
      * @var string
      */
-    protected $meta_prefix = '_msalumni_';
+    protected $meta_prefix = ''; //_msalumni_
 
     /**
      * @var string
@@ -67,7 +67,8 @@ class CGE_Msalumni
      *
      * @return self
      */
-    public static function instance() {
+    public static function instance()
+    {
         if (!self::$instance) {
             self::$instance = new self;
         }
@@ -79,7 +80,8 @@ class CGE_Msalumni
     /**
      * Initializes plugin variables and sets up WordPress hooks/actions.
      */
-    protected function __construct() {
+    protected function __construct()
+    {
         $this->post_type = self::POSTTYPE;
         $this->singular_form_label = __('Diplomé', 'cge');
         $this->singular_form_label_lowercase = __('Diplomé', 'cge');
@@ -118,7 +120,8 @@ class CGE_Msalumni
         ];
     }
 
-    public function init() {
+    public function init()
+    {
         register_post_type(self::POSTTYPE, $this->post_type_args);
         // register_taxonomy(self::TAXONOMY, self::POSTTYPE, $this->taxonomy_args);
 
