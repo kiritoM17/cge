@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-md-4">
                             <h4 class="entry-title-2">
-                                <?php $post->title; ?>
+                                <?php echo $post->post_title; ?>
                             </h4>
                         </div>
                         <div class="col-md-4">
@@ -38,6 +38,7 @@
                                                 } ?></span>
                             <span class="date"><?php if (get_post_meta($post->ID, "_formation_co_accrediteurs")[0] && sizeof(get_post_meta($post->ID, "_formation_co_accrediteurs")[0]) > 0) {
                                                     echo "Co-accréditation : <br />";
+                                                    //die(var_dump(get_post_meta($post->ID, "_formation_co_accrediteurs")[0]));
                                                     foreach (get_post_meta($post->ID, "_formation_co_accrediteurs")[0] as $c) {
                                                         echo $c . '<br />';
                                                     }

@@ -3,7 +3,7 @@
 ?>
 
 <div class="widget-filtre widget-listingsearch layout1">
-    <form class="form-inline search-form clearfix form-filtre-formation" action="" method="get" role="search">
+    <form class="form-inline search-form clearfix form-filtre-formation" action="" method="get" role="search" style="display: flex;">
         <div class="form-group">
             <label for="select1" class="hidden">Type de formation</label>
             <select form="select1" name="type_formation" id="type_formation">

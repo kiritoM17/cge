@@ -4019,3 +4019,518 @@ article.post-grid.format-news a.cl-news { color:#07a4b5; text-decoration:underli
     }
 }
 
+
+.titre-2 {
+    color        : #07A4B5;
+    font-family  : "Calibri", Arial, "Times New Roman", sTimes, serif;
+    font-size    : 1.07rem;
+    font-weight  : 700;
+    font-style   : normal;
+    font-stretch : normal;
+}
+
+.titre-1 {
+    color        : #2A2A2A;
+    font-family  : "Calibri", Arial, "Times New Roman", Times, serif;
+    font-size    : 2.14rem;
+    font-weight  : bold;
+    font-style   : normal;
+    font-stretch : normal;
+    line-height  : 0.93;
+}
+
+.top-wrapper a { color: #FFFFFF }
+.top-wrapper a:hover { color:#f6de01; }
+
+.date-article {
+    color         : #2A2A2A;
+    display       : inline-block;
+    font-family   : "Calibri", Arial, "Times New Roman", Times, serif;
+    font-size     : 1rem;
+    margin-bottom : 38px;
+    opacity       : 0.6;
+}
+
+.content-article {
+    color          : #2A2A2A;
+    font-family    : "Calibri", Arial, "Times New Roman", Times, serif;
+    font-size      : 1rem;
+    font-weight    : 500;
+    line-height    : 1.87;
+    padding-bottom : 30px;
+}
+
+.content-article a {
+    text-decoration : underline;
+}
+
+.content-article a.download {
+    color           : #5B7EB8;
+    font-size       : 1.07rem;
+    font-weight     : bold;
+    line-height     : 1.33;
+    display         : inline-block;
+    margin-top      : 40px;
+    text-decoration : none;
+}
+
+/*=>top-article*/
+.top-article {
+    background-color : #15273D;
+    color            : #FFFFFF;
+    margin-bottom    : 30px;
+    min-height       : 212px;
+    padding-top      : 23px;
+}
+
+.top-article h2 {
+    color       : #FFFFFF;
+    margin      : 0;
+    font-family : "Calibri", Arial, "Times New Roman", Times, serif;
+    font-size   : 1.42rem;
+    font-weight : 600;
+}
+
+/*=>widget-filtre*/
+.widget-filtre.widget-listingsearch {
+    background-color : #120091;
+    padding          : 25px 25px 15px 25px;
+    margin-bottom    : 31px;
+}
+
+.widget-filtre .form-group {
+    margin-right   : 20px;
+    vertical-align : top;
+    width          : 220px;
+}
+
+.widget-filtre .form-group select {
+    margin-bottom : 10px !important;
+    padding-right : 40px !important;
+    width         : 100%;
+}
+
+.form-filtre-formation .form-group{
+    width          : 170px;
+}
+
+.widget-listingsearch.layout1 .search-form .btn-2 {
+    border  : 2px solid #ffe300;
+    height  : 42px;
+    padding : 0;
+    width   : 140px;
+    color:#ffe300;
+    font-family: 'jaapokkiregularregular', sans-serif; 
+    font-weight:normal;
+}
+
+.widget-listingsearch.layout1 .search-form .btn-2:hover,
+.widget-listingsearch.layout1 .search-form .btn-2:focus{
+    color:#dca400;
+    border: 2px solid #dca400;
+}
+
+.post.post-grid .tag-2 {
+    border-radius : 99px;
+    border        : solid 1px #07A4B5;
+    color         : #07A4B5;
+    padding       : 7px 11px;
+}
+
+.widget-filtre .result-search {
+    color       : #ffe300;
+    font-size   : 0.75rem;
+    font-family: 'merriweather_sansbold', sans-serif; 
+}
+
+/*Liste des écoles*/
+
+.job_filters .filter-inner .search_jobs { background-color :#120091; }
+
+.job_filters .filter-inner { background-color : transparent; }
+
+.filter-inner .chosen-container.chosen-container-single .chosen-single {
+    background    : none;
+    border        : 1px solid #E5E5E5;
+    border-radius : 0;
+    box-shadow    : none;
+    color         : #FFF;
+    font-family   : 'merriweather_sansregular', sans-serif;
+    font-size     : 13px;
+    height        : 42px;
+    line-height   : 42px;
+    padding       : 0 0 0 8px;
+}
+
+.job_filters .showing_jobs {
+    background : transparent;
+    border-top : 0;
+    font-size  : 0.94em;
+    padding    : 0.5em 1em;
+}
+
+.chosen-container-single .chosen-single div b {
+    background : rgba(0, 0, 0, 0) url("../images/select-chevron-down-blanc.png") no-repeat scroll 0 2px;
+    display    : block;
+    height     : 100%;
+    width      : 100%;
+}
+
+.chosen-container-single .chosen-single div { width : 30px; }
+
+.chosen-container-active.chosen-with-drop .chosen-single div b { background-position : 0 2px }
+
+.chosen-container-single .chosen-drop {
+    background-color : #F6F6F6;
+    border-color     : #E5E5E5;
+}
+
+.job_filters .filter-inner .search_jobs {
+    padding : 30px 28px 10px 28px;
+    display : block;
+}
+
+.job_filters .filter-inner .search_jobs .col-md-4 {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+}
+
+.job_filters .filter-inner .search_jobs .chosen-single { /*text-transform: capitalize*/ }
+
+.listing-title {
+    font-family  : "merriweather_sansbold", Arial, "Times New Roman", Times, serif;
+    font-size: 16px;
+    font-weight  : normal;
+    font-style   : normal;
+    font-stretch : normal;
+    line-height  : 1.56;
+    margin       : 0;
+    color        : #05003f;
+}
+
+.listing-title a{
+    color        : #05003f;
+}
+
+.container-fluid .list-content .job_listings {
+    overflow : auto;
+}
+
+.container-fluid .list-content {
+    position : relative;
+}
+
+.container-fluid .list-content:before {
+    background : rgba(255, 255, 255, 0.8) none repeat scroll 0 0;
+    content    : " ";
+    height     : 100%;
+    left       : 50px;
+    position   : absolute;
+    top        : 110px;
+    width      : 100%;
+    z-index    : 5000;
+    display    : none;
+}
+
+.container-fluid .job_filters { margin-bottom : 20px;  z-index: 0;}
+
+.mCustomScrollBox {
+    direction : ltr;
+    height    : 100%;
+    max-width : 100%;
+    outline   : medium none;
+    overflow  : hidden;
+    position  : relative;
+}
+
+.container-fluid .list-content {
+}
+
+.container-fluid .list-content .load_more_jobs {
+    background-color : transparent;
+    border           : 2px solid #2A2A2A !important;
+    color            : #2A2A2A;
+    display          : table;
+    margin           : 10px auto;
+    padding          : 13px 16px;
+    text-align       : center;
+    text-transform   : none;
+}
+
+div.job_listings .load_more_jobs:hover {
+    background-color : transparent;
+    color            : #2A2A2A;
+}
+
+div.job_listings .load_more_jobs:focus, div.job_listings .load_more_jobs:hover {
+    background-color : transparent;
+    border-bottom    : 1px solid transparent;
+}
+
+.container-fluid .list-content .job_listings > div {
+    padding       : 25px 0;
+    border-bottom : 1px solid #ff091e;
+}
+
+.container-fluid .list-content .job_listings .job_listing { margin : 0; }
+
+.list-content .row-content { vertical-align : top; }
+
+.list-content .logo-ecole,
+.list-content .detail-ecole {
+    display        : table-cell;
+    padding        : 0 10px;
+    vertical-align : top;
+}
+
+.list-content .logo-ecole { }
+
+.job_listing.grid-style1 .listing-image { border-radius : 0; }
+
+.job_listing.grid-style1 .listing-image a:before { display : none }
+
+.job_listing .image-wrapper {
+    border         : 1px solid #DFDFDF;
+    display        : table-cell;
+    height         : 112px;
+    padding        : 10px;
+    text-align     : center;
+    vertical-align : middle;
+    width          : 100%;
+    max-width      : 112px;
+    min-width      : 112px;
+}
+
+.listing-title-wrapper {
+    color       : #05003f;
+    font-family : "merriweather_sansregular", Arial, "Times New Roman", Times, serif;
+    font-size   : 15px;
+    line-height : 1.73;
+}
+
+.job_filters .showing_jobs {
+    clear: right;
+    line-height: 13px;
+    overflow: hidden;
+    padding: 16px 0 10px 5px;
+}
+
+.job_filters .showing_jobs .results {
+    color       : #ffe300;
+    font-family : "merriweather_sansregular", Arial, "Times New Roman", Times, serif;
+    font-size   : 0.8rem;
+    font-weight:normal;
+}
+
+.listing-title-wrapper ul,
+.listing-title-wrapper ul li {
+    padding    : 0;
+    margin     : 0;
+    list-style : none;
+}
+
+.listing-title-wrapper ul li {
+    display     : inline-block;
+    font-size   : 13px;
+    font-weight : 600;
+    line-height : 1;
+    color       : #ff091e;
+}
+
+.listing-title-wrapper ul li:after {
+    background-color : #ffe50e;
+    border-radius    : 1em;
+    content          : " ";
+    display          : inline-block;
+    height           : 4px;
+    margin           : 1px 15px;
+    opacity          : 0.3;
+    position         : relative;
+    top              : -2px;
+    width            : 4px;
+}
+
+.listing-title-wrapper ul li:last-child:after { display : none; }
+
+
+
+.leaflet-marker-icon,
+.map-popup .icon-wrapper {
+    background-color : #ff091e;
+}
+
+.map-popup .icon-wrapper:before {
+    border-color : #ff091e transparent transparent;
+}
+
+.map-popup .icon-wrapper > div {
+    background-color : #F3F5F5;
+    border           : 0 none;
+    height           : 12px;
+    width            : 12px;
+}
+
+.apus-half-map-grid-layout .fix-map, .apus-half-map-list-layout .fix-map {
+    right : 0;
+    width : 100%;
+}
+
+.container-fluid .btn-2 {
+    border       : 2px solid #2A2A2A;
+    color        : #2A2A2A;
+    display      : inline-block;
+    font-family  : "Calibri", sans-serif;
+    font-size    : 1.125rem;
+    font-stretch : normal;
+    font-style   : normal;
+    font-weight  : 600;
+    height       : 42px;
+    line-height  : 13px;
+    padding      : 13px;
+}
+
+.post_liste,
+.post_liste li {
+    margin     : 0;
+    padding    : 0;
+    list-style : none;
+}
+
+.post_liste li {
+    border-top : 1px solid #CCCCCC;
+    color      : #000000;
+    padding    : 20px 0;
+}
+
+.post_liste li .dated {
+    color       : #07A4B5;
+    font-weight : bold;
+}
+
+.post_liste li a {
+    color : #787777;
+}
+
+.post_liste li a:hover {
+    text-decoration : underline;
+}
+
+.container-fluid .mobile-groups-button .btn {
+    margin-bottom : 10px;
+    width         : 100%;
+
+}
+.job_filters { position: static !important; }
+
+.load_more_jobs { }
+
+
+.simple_event.type-simple_event.simple_event_category-food .minutes,
+.simple_event.type-simple_event.simple_event_category-food .seconds { display : none }
+.item-list span { width: 25% }
+.item-list span.last { width: 0; display: none }
+
+/*search-form*/
+.searchform-header {
+    padding: 20px 0;
+}
+.apus-search-form .apus-search {
+    background: #ffffff none repeat scroll 0 0;
+    border: 1px solid #e4e4e4;
+    border-radius: 0;
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 0;
+    max-width: 100%;
+    padding: 10px 20px;
+    width: 100%;
+}
+.search-results .cpt_actualite { height: auto !important;}
+
+.search-results article.post-grid .entry-description { min-height: 150px; }
+
+body div.pdfemb-viewer { margin:  0 auto}
+
+.search_jobs select {
+    -moz-appearance: none;
+    background: rgba(0, 0, 0, 0) url("../images/select-chevron-down-blanc.png") no-repeat scroll right center;
+    border: 1px solid #FFF;
+    border-radius: 0;
+    color: #FFF;
+    font-weight: normal;
+    height: 40px;
+    margin-bottom: 0;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    -webkit-appearance: none;
+}
+.search_jobs select::-ms-expand{
+    display: none;
+}
+
+.mobile-groups-button .btn-view-map,
+.mobile-groups-button .btn-view-listing {
+    background-color: transparent;
+    border: 1px solid #FFF !important;
+    color: #FFF;
+    display: table;
+    margin: 10px auto;
+    padding: 13px 16px;
+    text-align: center;
+    text-transform: none;
+}
+.mobile-groups-button .btn-view-listing { background: rgba(255,255,255,0.5) }
+.job_filters .btn-view-listing {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    width: 100%;
+    z-index: 2147483647;
+}
+
+/*Résponssive*/
+
+
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) {
+
+    .chosen-container .chosen-results-scroll-down span,
+    .chosen-container .chosen-results-scroll-up span,
+    .chosen-container-multi .chosen-choices .search-choice .search-choice-close,
+    .chosen-container-single .chosen-search input[type=text],
+    .chosen-container-single .chosen-single abbr,
+    .chosen-container-single .chosen-single div b,
+    .chosen-rtl .chosen-search input[type=text] {
+        background-image: url(../images/select-chevron-down-blanc.png)!important;
+        background-size: auto !important;
+        background-repeat: no-repeat!important;
+    }
+
+}
+
+@media (max-width : 1199px) {
+    .widget-filtre .form-group { width : 162px; }
+
+    .container-fluid .btn-2 { width : 100%; }
+}
+
+@media (max-width : 992px) {
+    .widget-filtre .form-group { width : 100%; }
+    .widget-listingsearch.layout1 .search-form .btn-2 { float : right; }
+    .search_jobs .btn-show-filter { display: none; }
+    .search_jobs .select-regions  { margin-bottom: 20px; }
+    .job_filters .mobile-groups-button { margin: 0; }
+
+
+}
+
+@media (max-width : 600px) {
+    .list-content .logo-ecole,
+    .list-content .detail-ecole { display : block; }
+    .list-content .logo-ecole { margin : 0 auto; }
+}
+
+
+
