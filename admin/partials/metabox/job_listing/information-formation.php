@@ -32,7 +32,7 @@ $data = get_post_custom($post->ID);
                     <tr>
                         <td>
                             <?php echo '<label>' . __('Responsable Formation :', 'cge') . '</label><br>' ?>
-                            <div class="tarrif-input">
+                            <div class="responsable-input">
                                 <?php echo '<input type="text" name="EcoleInformationFormation[_ecole_resp_formation][]" value="" placeholder="' . __('Co accrediteur', 'cge') . '">' ?>
                             </div>
                         </td>
@@ -47,7 +47,7 @@ $data = get_post_custom($post->ID);
         <tr>
             <td colspan="5">
                 <br>
-                <button type="button" id="btn_add_tarif" class="button">
+                <button type="button" id="btn_add_responsable" class="button">
                     <span class="dashicons dashicons-money-alt"></span><?php echo __(' New Responsable Formation', 'cge'); ?>
                 </button>
             </td>

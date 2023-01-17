@@ -47,7 +47,7 @@ $data = get_post_custom($post->ID);
         <tr>
             <td colspan="5">
                 <br>
-                <button type="button" id="btn_add_tarif" class="button">
+                <button type="button" id="btn_add_ecole_associations" class="button">
                     <span class="dashicons dashicons-money-alt"></span><?php echo __(' New Association ', 'cge'); ?>
                 </button>
             </td>
