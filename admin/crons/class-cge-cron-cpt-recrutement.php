@@ -30,9 +30,6 @@ class Cron_Cpt_Recrutement
             } else if ($emploi->deletedAt) {
                 continue;
             }
-
-            var_dump($emploi);
-
             $posts_emplois = new WP_Query("post_type=cpt_recrutement&meta_key=id_emploi&meta_value=" . $emploi->id);
             $emplois_id[] = $emploi->id;
 
