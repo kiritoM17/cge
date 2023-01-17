@@ -83,6 +83,10 @@ class Cge
 			define('CGE_ADMIN_METABOX', dirname(__FILE__, 2) . '/admin/partials/metabox/');
 		}
 
+		if (!defined('CGE_PUBLIC_PARTIALS')) {
+			define('CGE_PUBLIC_PARTIALS', dirname(__FILE__, 2) . '/public/partials/');
+		}
+
 		if (!defined('CGE_ADMIN_IMG')) {
 			define('CGE_ADMIN_IMG', plugins_url('admin/img/', dirname(__FILE__, 2)));
 		}
