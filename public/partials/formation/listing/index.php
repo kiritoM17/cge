@@ -14,3 +14,7 @@
         require_once(CGE_PUBLIC_PARTIALS . 'formation/listing/list.php');
     } ?>
 </div>
+<script>
+    var ajaxurl = '<?php echo admin_url('admin-ajax.php') ?>';
+    var nb_res = <?php echo count($myposts); ?>;
+</script>

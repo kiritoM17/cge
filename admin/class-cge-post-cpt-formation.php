@@ -388,4 +388,106 @@ class CGE_Cpt_Formation
             include_once CGE_ADMIN_METABOX . '/formation/co-author-information.php';
         }
     }
+
+    public function find_formation()
+    {
+        $type = $_POST['type_formation'];
+        $ecole = $_POST['ecole_formation'];
+        $co_accrediteurs = $_POST['co_accrediteurs'];
+        $formations_domaines = $_POST['formations_domaines'];
+        $formations_themes = $_POST['formations_themes'];
+        $mots = $_POST['mots'];
+
+
+        $tax_query = array();
+        $date_query = array();
+
+        if ($type != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'formation_type',
+                'field' => 'slug',
+                'terms' => $type, // Where term_id of Term 1 is "1".
+                'include_children' => false
+            );
+        }
+
+        if ($ecole != '' && $co_accrediteurs != '') {
+            $tax_ecole['relation'] = 'OR';
+            $tax_ecole[] = array(
+                'taxonomy' => 'formation_ecole',
+                'field' => 'slug',
+                'terms' => $ecole, // Where term_id of Term 1 is "1".
+                'include_children' => false
+            );
+            $tax_ecole[] = array(
+                'taxonomy' => 'formation_co_accrediteurs',
+                'field' => 'slug',
+                'operator' => 'IN',
+                'terms' => $co_accrediteurs, // Where term_id of Term 1 is "1".
+                'include_children' => false
+            );
+
+            $tax_query[] = $tax_ecole;
+        } else if ($ecole != '') {
+            $tax_query[] = array(
+                'taxonomy' => 'formation_ecole',
+                'field' => 'slug',
+                'terms' => $ecole, // Where term_id of Term 1 is "1".
+                'include_children' => false
+            );
+        }
+
+
+        if ($formations_domaines != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'formations_domaines',
+                'field' => 'slug',
+                'terms' => $formations_domaines, // Where term_id of Term 1 is "1".
+                'include_children' => false
+            );
+        }
+
+
+        if ($formations_themes != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'formations_themes',
+                'field' => 'slug',
+                'terms' => $formations_themes, // Where term_id of Term 1 is "1".
+                'include_children' => false
+            );
+        }
+        if ($type != '' && $ecole != '' && $formations_domaines != '' && $formations_themes != '') {
+            $tax_query['relation'] = 'AND';
+        }
+
+        $args = array(
+            'post_type' => 'cpt_formation',
+            'posts_per_page' => -1
+        );
+
+        if (count($tax_query) >= 1) {
+            $args['tax_query'] = $tax_query;
+        }
+
+        if (count($date_query) >= 1) {
+            $args['date_query'] = $date_query;
+        }
+
+        $args['s'] = $mots;
+
+        $args['order'] = 'DESC';
+        $query = new WP_Query($args);
+        if ($query->have_posts()) {
+            $response = [];
+            foreach ($query->posts as $post)
+                $response[] = [
+                    'post' => $post,
+                    'post_meta' => get_post_custom($post->ID),
+                    'formation_type' => get_the_terms($post->ID, 'formation_type'),
+                    '_formation_co_accrediteurs' => get_post_meta($post->ID, "_formation_co_accrediteurs")[0]
+                ];
+            wp_send_json($response);
+        } else
+            wp_send_json($query->posts);
+    }
 }
