@@ -208,9 +208,10 @@ class Cge
 
 		$plugin_public = new Cge_Public($this->get_plugin_name(), $this->get_version());
 		$this->loader->add_action('init', $plugin_public, 'init', 0);
-
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+		$this->loader->add_action('wp_ajax_find_formation', CGE_Cpt_Formation::instance(), 'find_formation');
+		$this->loader->add_action('wp_ajax_nopriv_find_formation', CGE_Cpt_Formation::instance(), 'find_formation');
 	}
 
 	/**

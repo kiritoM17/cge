@@ -3,7 +3,7 @@
 ?>
 
 <div class="widget-filtre widget-listingsearch layout1">
-    <form class="form-inline search-form clearfix form-filtre-formation" action="" method="get" role="search" style="display: flex;">
+    <form class="form-inline search-form clearfix form-filtre-formation" style="display: flex;">
         <div class="form-group">
             <label for="select1" class="hidden">Type de formation</label>
             <select form="select1" name="type_formation" id="type_formation">
@@ -53,9 +53,7 @@
         <div class="form-group">
             <input type="text" class="form-text" name="mots" id="mots" placeholder="Mots clés" />
         </div>
-
-
-        <button type="submit" class="btn-2" id="search">Rechercher</button>
+        <button type="submit" class="btn-2" id="cge_formation_search">Rechercher</button>
     </form>
     <div class="result-search"><span class="nb_res"><?php echo count($myposts); ?></span>
         résultats
