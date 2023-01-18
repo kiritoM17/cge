@@ -1,8 +1,8 @@
 
-<div class="row">
+<div class="row" id="cge_entry_msalumni" >
     <?php foreach ($myposts as $post) { ?>
         
-        <div class="col-md-12 col-msalumni">
+       <!-- <div class="col-md-12 col-msalumni">
             <article class="post post-grid type-post format-standard format-msalumni">
                 <div class="entry-content row">
                     <div class="col-md-3">
@@ -27,6 +27,6 @@
                     </div>
                 </div>
             </article>
-        </div>
+        </div> -->
         
     <?php } ?>

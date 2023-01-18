@@ -175,4 +175,50 @@ class CGE_Msalumni
             include_once CGE_ADMIN_METABOX . '/msalumni/information.php';
         }
     }
+
+    public function find_msalumini()
+    {
+        $annee = $_POST['annee'];
+        $nom = $_POST['nom'];
+    
+        $tax_query = array();
+        $date_query = array();
+    
+    
+        if ($nom != "") {
+            $tax_query[] = array(
+                'key' => 'nom_ms',
+                'compare' => 'like',
+                'value' => $nom,
+            );
+        }
+        if (count($tax_query) >= 1) {
+            $args['meta_query'] = $tax_query;
+        }
+    
+    
+        $args = array(
+            'post_type' => 'msalumni',
+            'posts_per_page' => -1
+        );
+    
+        $today = date('Ymd');
+    
+        $args['order'] = 'DESC';
+    
+        $query = new WP_Query($args);
+        if ($query->have_posts()) {
+            $response = [];
+            foreach ($query->posts as $post)
+                $response[] = [
+                    'post' => $post,
+                    'post_meta' => get_post_custom($post->ID),
+                    // 'formation_type' => get_the_terms($post->ID, 'formation_type'),
+                    // '_formation_co_accrediteurs' => get_post_meta($post->ID, "_formation_co_accrediteurs")[0]
+                ];
+            wp_send_json($response);
+        } else
+            wp_send_json($query->posts);
+    }
+    
 }

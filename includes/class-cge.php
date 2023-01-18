@@ -194,6 +194,7 @@ class Cge
 
 		$this->loader->add_filter('manage_edit-' . CGE_Job_Listing::POSTTYPE . '_columns', CGE_Job_Listing::instance(), 'add_form_custom_column');
 		$this->loader->add_filter('manage_' . CGE_Job_Listing::POSTTYPE . '_posts_custom_column', CGE_Job_Listing::instance(), 'manage_form_custom_column', 10, 2);
+
 	}
 
 	/**
@@ -212,6 +213,8 @@ class Cge
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 		$this->loader->add_action('wp_ajax_find_formation', CGE_Cpt_Formation::instance(), 'find_formation');
 		$this->loader->add_action('wp_ajax_nopriv_find_formation', CGE_Cpt_Formation::instance(), 'find_formation');
+		$this->loader->add_action('wp_ajax_find_msalumini', CGE_Msalumni::instance(), 'find_msalumini');
+		$this->loader->add_action('wp_ajax_nopriv_find_msalumini', CGE_Msalumni::instance(), 'find_msalumini');
 	}
 
 	/**
