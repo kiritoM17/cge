@@ -31,7 +31,7 @@ jQuery(document).ready(function(){
             keys.push("formation");
             values.push(intitule);
             compares.push("LIKE");
-        }  
+        } 
 
         if(nom ==''  && annee ==''){
             el.data('post-in','');
@@ -43,35 +43,15 @@ jQuery(document).ready(function(){
             data = {
                     annee:annee,
                     nom:nom,
+                    intitule:intitule,
+                    ecole:ecole,
                     action:'find_msalumini'
             }
 
+            console.log(data);
             //call ajax function to get filred item
             jQuery.post(ajaxurl, data, function(response) {
                 print_msalumini(response);
-                    // if(response !="ko" ){
-                    //     jQuery('#message_load').hide();
-                    //     postsins = response;
-
-                    //     el.data('post-in',postsins);
-                    //     data2 = el.data(); // Get data values of selected item 
-
-                    //     ajaxloadmore.filter('fade', '300', data2) ;
-                    //     var cnt=response.split(",").length;
-                        
-                        
-                    //     jQuery('.result-search').html("");
-                    //     if(cnt > 1){
-                    //         jQuery('.result-search').html(cnt+" résultats");
-                    //     }else{
-                    //         jQuery('.result-search').html(cnt+" résultat");
-                    //     }
-                    // }else{
-                    //     jQuery('#ajax-load-more').hide();
-                    //     jQuery('#message_load').show();
-                    //     jQuery('.result-search').html("0 résultats");
-                            
-                    // }
             });
 
         }	
@@ -79,10 +59,13 @@ jQuery(document).ready(function(){
 
     jQuery(document).ready(function() {
         data = {
-                annee:annee,
-                nom:nom,
+                annee:"",
+                nom:"",
+                intitule:"",
+                ecole:"",
                 action:'find_msalumini'
         };
+        
         jQuery.post(ajaxurl, data, function(response) {
             print_msalumini(response);
         });
@@ -91,31 +74,29 @@ jQuery(document).ready(function(){
 
     function print_msalumini(response) {
         jQuery('.nb_res').html(response.length);
+        console.log(response);
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{
+            
             htmlResult += `<div class="col-md-12 col-msalumni">
             <article class="post post-grid type-post format-standard format-msalumni">
                 <div class="entry-content row">
                     <div class="col-md-3">
-                       <h4 class="entry-title-2">
-                            <?php echo $post->post_title; ?>
-                        </h4>
+                       <h4 class="entry-title-2">${item.post.post_title}</h4> 
                     </div>
                     <div class="col-md-3">
-                        <span class="ecole"></span>
+                        <span class="ecole">${item.post_meta.ecole[0]}</span>
                     </div>
                     <div class="col-md-3">
-                        <span class="intitule"></span>
+                        <span class="date">${item.post_meta.annee_obtention[0]}</span>
                     </div>
                     <div class="col-md-3">
-                        <span class="annee"></span>
+                        <span class="intitule">${item.post_meta.formation[0]}</span>
                     </div>
                 </div>
             </article>
         </div>`;
         });
-        jQuery('#cge_entry_formation').html(htmlResult);
+        jQuery('#cge_entry_msalumni').html(htmlResult);
     }
-
-   
 });
