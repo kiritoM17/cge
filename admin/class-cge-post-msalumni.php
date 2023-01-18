@@ -178,33 +178,57 @@ class CGE_Msalumni
 
     public function find_msalumini()
     {
+        
         $annee = $_POST['annee'];
         $nom = $_POST['nom'];
-    
-        $tax_query = array();
-        $date_query = array();
-    
-    
-        if ($nom != "") {
+        $intitule = $_POST['intitule'];
+        $ecole = $_POST['ecole'];
+
+        $tax_query = [] ;
+        if ($annee != 0) {
             $tax_query[] = array(
-                'key' => 'nom_ms',
-                'compare' => 'like',
-                'value' => $nom,
+                'key' => 'annee_obtention',
+                'value' => $annee,
+                'compare' => '=',
             );
         }
-        if (count($tax_query) >= 1) {
-            $args['meta_query'] = $tax_query;
+  
+        if ($nom != "") {
+            $tax_query[] = array(
+                'key' => 'nom',
+                'value' => $nom,
+                'compare' => 'LIKE',
+            );
         }
-    
-    
+
+        if ($intitule != "") {
+            $tax_query[] = array(
+                'key' => 'formation',
+                'value' => $intitule,
+                'compare' => 'LIKE',
+            );
+        }
+
+        if ($ecole != "") {
+            $tax_query[] = array(
+                'key' => 'ecole',
+                'value' => $ecole,
+                'compare' => 'LIKE',
+            );
+        }
+
+        if ($annee != '' && $ecole != '' && $nom != '' && $intitule != ''&& $ecole != '') {
+            $tax_query['relation'] = 'AND';
+        }
+        
         $args = array(
             'post_type' => 'msalumni',
-            'posts_per_page' => -1
+            'posts_per_page' => -1,
         );
-    
-        $today = date('Ymd');
-    
-        $args['order'] = 'DESC';
+
+        if (count($tax_query) >= 1) {
+            $args['meta_query'] = array_merge(['relation' => 'AND',],$tax_query);
+        }
     
         $query = new WP_Query($args);
         if ($query->have_posts()) {
@@ -213,8 +237,6 @@ class CGE_Msalumni
                 $response[] = [
                     'post' => $post,
                     'post_meta' => get_post_custom($post->ID),
-                    // 'formation_type' => get_the_terms($post->ID, 'formation_type'),
-                    // '_formation_co_accrediteurs' => get_post_meta($post->ID, "_formation_co_accrediteurs")[0]
                 ];
             wp_send_json($response);
         } else
