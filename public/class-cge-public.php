@@ -22,6 +22,7 @@
  */
 require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-job-listing.php';
 require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-cpt-formation.php';
+require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-msalumni.php';
 class Cge_Public
 {
 
@@ -61,6 +62,7 @@ class Cge_Public
 	{
 		CGE_SC_Job_Listing::instance()->init();
 		CGE_SC_Cpt_Formation::instance()->init();
+		CGE_sc_msalumni::instance()->init();
 	}
 
 	/**
