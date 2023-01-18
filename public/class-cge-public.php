@@ -110,6 +110,7 @@ class Cge_Public
 
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/cge-public.js', array('jquery'), $this->version, false);
 		wp_enqueue_script('sc-formation', plugin_dir_url(__FILE__) . 'js/cge-sc-formation.js', array('jquery', $this->plugin_name), $this->version, false);
+		wp_enqueue_script('sc-msalumni', plugin_dir_url(__FILE__) . 'js/cge-sc-msalumni.js', array('jquery', $this->plugin_name), $this->version, false);
 
 		wp_localize_script($this->plugin_name, 'CGE_PUBLIC_IMG', CGE_PUBLIC_IMG);
 	}

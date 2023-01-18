@@ -29,9 +29,7 @@
                 ?>
             </select>
         </div>
-        
-
-        <button type="submit" class="btn-2" id="search">Rechercher</button>
+        <button type="submit" class="btn-2" id="msalumni_search">Rechercher</button>
     </form>
-    <div class="result-search hidden"><?php echo count($myposts) ; ?> résultats</div>
+    <div class="result-search"><span class="nb_res"><?php echo count($myposts) ; ?></span> résultats</div>
 </div>
