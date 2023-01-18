@@ -13,7 +13,7 @@ class CGE_SC_Job_Listing
 
     public function init()
     {
-        add_shortcode('job_listing', [$this, 'job_listing']);
+        add_shortcode('cge_job_listing', [$this, 'job_listing']);
     }
 
     public function job_listing($atts)
