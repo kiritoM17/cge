@@ -211,7 +211,7 @@ class CGE_Cpt_Publication
             'show_ui' => true,
             'show_in_nav_menu' => true,
         ];
-        register_taxonomy(self::TAXONOMY_TYPE_SPE, self::POSTTYPE, $this->taxonomy_document_annee_args);
+        register_taxonomy(self::TAXONOMY_DATE, self::POSTTYPE, $this->taxonomy_document_annee_args);
 
         $this->taxonomy_document_spe_args = [
             'hierarchical' => true,
@@ -283,5 +283,82 @@ class CGE_Cpt_Publication
         if (file_exists(CGE_ADMIN_METABOX . '/cpt_publication/information.php')) {
             include_once CGE_ADMIN_METABOX . '/cpt_publication/information.php';
         }
+    }
+
+    function find_publication(){
+
+        $type_document = $_POST['type_document'];
+        $type_document_spe = $_POST['type_document_spe'];
+        $annee = $_POST['annee'];
+        $source = $_POST['source'];
+        $mots = $_POST['mots'];
+        $tax_query = array();
+
+        if ($type_document != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'document_type',
+                'field' => 'slug',
+                'terms' => $type_document, 
+                'include_children' => false
+            );
+        }
+
+        if ($type_document_spe != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'type_document_spe',
+                'field' => 'slug',
+                'terms' => $type_document_spe, 
+                'include_children' => false
+            );
+        }
+
+        if ($annee != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'document_annee_publication',
+                'field' => 'slug',
+                'terms' => $annee,
+                'include_children' => false
+            );
+        }
+
+        if ($source != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'sources',
+                'field' => 'slug',
+                'terms' => $source,
+                'include_children' => false
+            );
+        }
+
+        if ($type_document != '' && $annee != '' && $source != '' && $type_document_spe != '') {
+            $tax_query['relation'] = 'AND';
+        }
+
+        $args = array(
+            'post_type' => 'cpt_publication',
+            'posts_per_page' => -1
+        );
+
+        if (count($tax_query) >= 1) {
+            $args['tax_query'] = array_merge(['relation' => 'AND',],$tax_query);;
+        }
+
+        $args['s'] = $mots;
+
+        $args['order'] = 'DESC';
+
+        $query = new WP_Query($args);
+
+        if ($query->have_posts()){
+            $response = [];
+                foreach ($query->posts as $post){
+                    $response[] = [
+                        'post' => $post,
+                        'post_meta' => get_post_custom($post->ID),
+                    ];
+                }
+                wp_send_json($response);
+        } else 
+            wp_send_json($query->posts);
     }
 }

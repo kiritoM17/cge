@@ -69,12 +69,14 @@ class Cron_Cpt_Publication
                         }
                     }
                     wp_set_object_terms($post_id, $themes, "type_document_spe");
-                    wp_set_object_terms($post_id, (string)$item->file_annee, "annee_publication");
+                    
 
                     if (!empty($item->file_date_publication))
-                        $action($post_id, '_cge_publication_date', (string)$item->file_date_publication);
+                        {$action($post_id, '_cge_publication_date', (string)$item->file_date_publication);
+                        wp_set_object_terms($post_id, date('Y', strtotime((string)$item->file_date_publication)), "document_annee_publication");}
                     else
-                        $action($post_id, '_cge_publication_date', (string)$item->file_annee);
+                        {$action($post_id, '_cge_publication_date', (string)$item->file_annee);
+                        wp_set_object_terms($post_id, date('Y', strtotime((string)$item->file_annee)), "document_annee_publication");}
 
                     if ($action == 'add_post_meta')
                         echo "<p>post <strong>#ID " . $post_id . "</strong> have been created successfully</p>";
@@ -109,10 +111,10 @@ class Cron_Cpt_Publication
             if ($value->count == 0)
                 wp_delete_term($value, 'type_document_spe');
         }
-        $annee_publication = get_terms('annee_publication');
+        $annee_publication = get_terms('document_annee_publication');
         foreach ($annee_publication as $value) {
             if ($value->count == 0)
-                wp_delete_term($value, 'annee_publication');
+                wp_delete_term($value, 'document_annee_publication');
         }
     }
 

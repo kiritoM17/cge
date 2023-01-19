@@ -59,8 +59,8 @@
             </div>
             
 
-            <button type="submit" class="btn-2" id="search">Rechercher</button>
+            <button type="submit" class="btn-2" id="publication_search">Rechercher</button>
         </form>
-        <div class="result-search"><?php echo count($myposts) ; ?> résultats</div>
+        <div class="result-search"><span class="nb_res"></span> résultats</div>
     </div>
 </div>

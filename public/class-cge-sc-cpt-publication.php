@@ -19,7 +19,7 @@ class CGE_SC_Cpt_Publication{
 
     public function gce_cpt_publication($atts) {
         $taxonomy_documents = get_terms( 'document_type' );
-        $taxonomy_annees = get_terms( 'annee_publication',array('order'    => 'desc') );
+        $taxonomy_annees = get_terms( 'document_annee_publication',array('order'    => 'desc') );
         $taxonomy_sources = get_terms( 'sources' );
         $taxonomy_type_spe = get_terms( 'type_document_spe' );
         function post_type_tags( $post_type = '' ) {
@@ -47,7 +47,7 @@ class CGE_SC_Cpt_Publication{
         }
         
         $archive_tags = post_type_tags( 'cpt_publication' );
-        
+
         $args = array(
             'post_type' => 'cpt_publication',
             'order'    => 'DESC',

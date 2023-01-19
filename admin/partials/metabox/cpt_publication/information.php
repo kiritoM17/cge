@@ -17,7 +17,7 @@
             <th scope="row">
                 <label for="_cge_publication_date" class="box-label"><?php echo __('Date :', 'cge'); ?></label>
             </th>
-            <td><input id="_cge_publication_date" type="date" name="Publication[_cge_publication_date]" value="<?php echo isset($data[$this->meta_prefix.'_cge_publication_date'][0]) ? $data[$this->meta_prefix.'_cge_publication_date'][0] : null;?>" ></td>
+            <td><input id="_cge_publication_date" type="date" name="Publication[_cge_publication_date]" value="<?php echo isset($data[$this->meta_prefix.'_cge_publication_date'][0]) ? date('Y-m-d', strtotime($data[$this->meta_prefix.'_cge_publication_date'][0])) : null;?>" ></td>
         </tr>
         
     </tbody>
