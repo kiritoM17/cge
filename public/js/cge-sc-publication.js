@@ -44,6 +44,7 @@ jQuery(document).ready(function(){
     function print_publication(response) {
         jQuery('.nb_res').html(response.length);
         console.log(response);
+        let $publicationLogo = "image_doc.png";
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{
             htmlResult += `<div class="col-md-4">
@@ -51,7 +52,7 @@ jQuery(document).ready(function(){
                 <article class="post post-grid type-post format-standard format-formation post-grid-link">
                     <div class="entry-content">
                         <div class="vc_logo-wrapper">
-                            <img src="https://www.cge.asso.fr/wp-content/uploads/2017/02/image_doc.png">
+                            <img src="${ CGE_PUBLIC_IMG + 'publication/' + $publicationLogo }">
                         </div>
                         <div class="entry-meta">
                             <div class="info">
