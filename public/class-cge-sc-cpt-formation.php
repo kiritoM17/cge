@@ -13,7 +13,7 @@ class CGE_SC_Cpt_Formation
 
     public function init()
     {
-        add_shortcode('formation', [$this, 'formation']);
+        add_shortcode('cge_formation', [$this, 'formation']);
     }
 
     public function formation($atts)
