@@ -247,4 +247,74 @@ class CGE_Cpt_Presse
             include_once CGE_ADMIN_METABOX . '/cpt_presse/information.php';
         }
     }
+
+    function find_presse()
+    {
+        $type_document = $_POST['type_document'];
+        $annee = $_POST['annee'];
+        $mots = $_POST['mots'];
+
+        $tax_query = array();
+        $date_query = array();
+        if ($type_document != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'document_format_presse',
+                'field' => 'slug',
+                'terms' => $type_document, 
+                'include_children' => false
+            );
+        }
+
+
+        if ($annee != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'annee_presse',
+                'field' => 'slug',
+                'terms' => $annee,
+                'include_children' => false
+            );
+        }
+
+
+        if ($type_document != '' && $annee != '') {
+            $tax_query['relation'] = 'AND';
+        }
+
+        $args = array(
+            'post_type' => array('cpt_presse', 'revue_de_presse'),
+            'posts_per_page' => -1
+        );
+
+        if (count($tax_query) >= 1) {
+            $args['tax_query'] = $tax_query;
+        }
+
+
+        if (count($date_query) >= 1) {
+            $args['date_query'] = $date_query;
+        }
+
+        
+        $args['s'] = $mots;
+
+        $args['order'] = 'DESC';
+
+        $query = new WP_Query($args);
+        if ($query->have_posts()):
+            $response = [];
+            foreach ($query->posts as $post){
+                $response[] = [
+                    'post' => $post,
+                    'post_meta' => get_post_custom($post->ID),
+                    'post_taxonomies' => get_post_taxonomies($post->ID),
+                ];
+            }
+            wp_send_json($response);
+        else:
+            wp_send_json($query->posts);
+        endif;
+
+    }
+
+
 }

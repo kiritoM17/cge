@@ -30,7 +30,6 @@ class CGE_sc_msalumni{
         if (isset($atts['id']) && !empty($atts['id'])) {
             $args['ID'] = (int)$atts['id'];
         } else {
-            $myposts = get_posts($args);
             $categories = get_categories(array('post_type' => 'msalumni'));
             ob_start();
             require('partials/msalumni/listing/index.php');

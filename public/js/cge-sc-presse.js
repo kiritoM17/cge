@@ -1,47 +1,41 @@
 jQuery(document).ready(function(){
-	jQuery('#publication_search').on('click',function(e){
+	jQuery('#presse_search').on('click',function(e){
         e.preventDefault();
 		el = jQuery('#type_document');
-		type   = jQuery('#type_document :selected').val();
-		annee  = jQuery('#annee :selected').val();
-		source = jQuery('#source :selected').val();
-		mots   = jQuery('#mots').val();
-		type_document_spe   = jQuery('#type_document_spe :selected').val();
+		type_document  = jQuery('#type_document :selected').val();
+		annee = jQuery('#annee :selected').val();
+		mots  = jQuery('#mots').val();
 
         data = {
-            type:type,
+            type_document:type_document,
             annee:annee,
-            source:source,
             mots:mots,
-            type_document_spe:type_document_spe,
-            action:'find_publication'
+            action:'find_presse'
         };
         
         jQuery.post(ajaxurl, data, function(response) {
-            print_publication(response);
+            print_presse(response);
         });
 
     });
 
     jQuery(document).ready(function() {
         data = {
-                type:"",
+                type_document:"",
                 annee:"",
-                source:"",
                 mots:"",
-                type_document_spe:"",
-                action:'find_publication'
+                action:'find_presse'
         };
         
         jQuery.post(ajaxurl, data, function(response) {
-            print_publication(response);
+            print_presse(response);
         });
 
     });
 
-    function print_publication(response) {
+    function print_presse(response) {
         jQuery('.nb_res').html(response.length);
-        let $publicationLogo = "image_doc.png";
+        let $presseLogo = "image_pdf.png";
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{
             htmlResult += `<div class="col-md-4">
@@ -49,7 +43,7 @@ jQuery(document).ready(function(){
                 <article class="post post-grid type-post format-standard format-formation post-grid-link">
                     <div class="entry-content">
                         <div class="vc_logo-wrapper">
-                            <img src="${ CGE_PUBLIC_IMG + 'publication/' + $publicationLogo }">
+                            <img src="${ CGE_PUBLIC_IMG + 'presse/' + $presseLogo }">
                         </div>
                         <div class="entry-meta">
                             <div class="info">
@@ -67,6 +61,6 @@ jQuery(document).ready(function(){
             </a>
         </div>`;
         });
-        jQuery('#cge_entry_publication').html(htmlResult);
+        jQuery('#cge_entry_presse').html(htmlResult);
     }
 });

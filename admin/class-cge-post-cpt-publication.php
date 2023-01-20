@@ -351,13 +351,14 @@ class CGE_Cpt_Publication
 
         if ($query->have_posts()){
             $response = [];
-                foreach ($query->posts as $post){
-                    $response[] = [
-                        'post' => $post,
-                        'post_meta' => get_post_custom($post->ID),
-                    ];
-                }
-                wp_send_json($response);
+            foreach ($query->posts as $post){
+                $response[] = [
+                    'post' => $post,
+                    'post_meta' => get_post_custom($post->ID),
+                    'post_taxonomies' => get_post_taxonomies($post->ID),
+                ];
+            }
+            wp_send_json($response);
         } else 
             wp_send_json($query->posts);
     }

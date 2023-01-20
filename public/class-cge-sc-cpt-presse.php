@@ -36,7 +36,6 @@ public function gce_presse($atts) {
     if (isset($atts['id']) && !empty($atts['id'])) {
         $args['ID'] = (int)$atts['id'];
     } else {
-        $myposts = get_posts($args);
         ob_start();
         require('partials/presse/listing/index.php');
         return ob_get_clean();

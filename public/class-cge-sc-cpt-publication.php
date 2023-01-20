@@ -57,7 +57,6 @@ class CGE_SC_Cpt_Publication{
         if (isset($atts['id']) && !empty($atts['id'])) {
             $args['ID'] = (int)$atts['id'];
         } else {
-            $myposts = get_posts($args);
             $categories = get_categories(array('post_type' => 'cpt_publication'));
             ob_start();
             require('partials/publication/listing/index.php');

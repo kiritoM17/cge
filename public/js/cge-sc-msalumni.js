@@ -48,7 +48,6 @@ jQuery(document).ready(function(){
                     action:'find_msalumini'
             }
 
-            console.log(data);
             //call ajax function to get filred item
             jQuery.post(ajaxurl, data, function(response) {
                 print_msalumini(response);
@@ -74,7 +73,6 @@ jQuery(document).ready(function(){
 
     function print_msalumini(response) {
         jQuery('.nb_res').html(response.length);
-        console.log(response);
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{
             

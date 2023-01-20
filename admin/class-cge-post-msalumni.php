@@ -237,6 +237,7 @@ class CGE_Msalumni
                 $response[] = [
                     'post' => $post,
                     'post_meta' => get_post_custom($post->ID),
+                    'post_taxonomies' => get_post_taxonomies($post->ID),
                 ];
             wp_send_json($response);
         } else
