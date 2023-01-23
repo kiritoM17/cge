@@ -19,7 +19,7 @@ jQuery(document).ready(function(){
             
         }
         
-        ecole = jQuery('#ecole').val();
+        ecole = jQuery('#ecole :selected').val();
         if(ecole!=''){
             keys.push("ecole");
             values.push(ecole);
