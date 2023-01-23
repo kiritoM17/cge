@@ -14,7 +14,7 @@ class CGE_SC_Cpt_Publication{
     }
 
     public function init(){
-        add_shortcode('publication', [$this,'gce_cpt_publication']);
+        add_shortcode('cge_publication', [$this,'gce_cpt_publication']);
     }
 
     public function gce_cpt_publication($atts) {

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="widget-filtre widget-listingsearch layout1">
-            <form class="form-inline search-form clearfix" action="" method="get" role="search">
+            <form class="form-inline search-form clearfix" action="" method="get" role="search" style="display:flex;">
                 <div class="form-group hidden">
                     <label for="select1" class="hidden">Format</label>
                     <select form="select1" name="type_document" id="type_document" data-post-in="">
@@ -10,8 +10,6 @@
                             foreach ($taxonomy_format as $doc){ ?>
                                     <option value="<?php echo  $doc->slug ?>"><?php echo  $doc->name ?></option>
                             <?php }
-                        
-                        
                         ?>
                     </select>
                 </div>

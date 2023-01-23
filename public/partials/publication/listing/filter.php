@@ -1,6 +1,6 @@
 <div class="col-md-12">
     <div class="widget-filtre widget-listingsearch layout1 filtre-pub">
-        <form class="form-inline search-form clearfix" action="" method="get" role="search">
+        <form class="form-inline search-form clearfix" action="" method="get" role="search" style="display: flex;">
             <div class="form-group">
                 <label for="select1" class="hidden">Type de documents</label>
                 <select form="select1" name="type_document" id="type_document" data-post-in="">

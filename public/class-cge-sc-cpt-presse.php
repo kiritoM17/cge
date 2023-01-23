@@ -14,7 +14,7 @@ public static function instance() {
 }
 
 public function init(){
-    add_shortcode('presse', [$this,'gce_presse']);
+    add_shortcode('gce_presse', [$this,'gce_presse']);
 }
 
 public function gce_presse($atts) {
