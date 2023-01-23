@@ -3,11 +3,9 @@
 ?>
 <div class="row" style="width: 100% !important;margin: 0;padding: 0;max-width: 100%;">
     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-        <div class="row col-md-12">
-            <?php if (file_exists(CGE_PUBLIC_PARTIALS . 'job_listing/listing/filter.php')) {
-                require_once(CGE_PUBLIC_PARTIALS . 'job_listing/listing/filter.php');
-            } ?>
-        </div>
+        <?php if (file_exists(CGE_PUBLIC_PARTIALS . 'job_listing/listing/filter.php')) {
+            require_once(CGE_PUBLIC_PARTIALS . 'job_listing/listing/filter.php');
+        } ?>
         <?php if (file_exists(CGE_PUBLIC_PARTIALS . 'job_listing/listing/list.php')) {
             require_once(CGE_PUBLIC_PARTIALS . 'job_listing/listing/list.php');
         } ?>

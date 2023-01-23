@@ -3531,6 +3531,26 @@ button.alm-load-more-btn.done { display: none; }
     color: #05003f;
     margin-bottom: 20px;
 }
+/* ADD NEW*/
+.row-content {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0 0 0;
+    border-bottom: 1px #ddd solid;
+    padding: 5px 0 5px 0;
+}
+.logo-ecole {
+    width: 30%;
+}
+.detail-ecole {
+    width: 69%;
+}
+img.unveil-image {
+    height: auto;
+    width: 100%;
+    max-height: 120px;
+}
+/* END ADD NEW*/
 .row-event-first .meta-events .location > i,
 .col-meet .meta-events .location > i,
 .col-event .meta-events .location > i,
@@ -4490,8 +4510,9 @@ body div.pdfemb-viewer { margin:  0 auto}
     z-index: 2147483647;
 }
 
-/*Résponssive*/
 
+
+/*Résponssive*/
 
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi) {
