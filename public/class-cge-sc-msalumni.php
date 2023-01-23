@@ -16,25 +16,13 @@ class CGE_sc_msalumni{
     }
 
     public function init(){
-        add_shortcode('gce_msalumni', [$this,'gce_msalumni']);
+        add_shortcode('cge_msalumni', [$this,'cge_msalumni']);
     }
 
-    public function gce_msalumni($atts) {
-        $args = array(
-            'post_type' => 'msalumni',
-            'orderby' => 'title',
-            'order' => 'DESC',
-            'posts_per_page' => -1
-        );
-        //var_dump($taxonomy_documents,get_posts($args));die;
-        if (isset($atts['id']) && !empty($atts['id'])) {
-            $args['ID'] = (int)$atts['id'];
-        } else {
-            $categories = get_categories(array('post_type' => 'msalumni'));
-            ob_start();
-            require('partials/msalumni/listing/index.php');
-            return ob_get_clean();
-        }
+    public function cge_msalumni($atts) {
+        ob_start();
+        require('partials/msalumni/listing/index.php');
+        return ob_get_clean();
     }
     
 }
