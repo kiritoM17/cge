@@ -25,6 +25,7 @@ require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-cpt-formation.
 require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-cpt-publication.php';
 require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-cpt-presse.php';
 require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-msalumni.php';
+require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-cpt-recrutement.php';
 class Cge_Public
 {
 
@@ -67,6 +68,7 @@ class Cge_Public
 		CGE_SC_Cpt_Publication::instance()->init();
 		CGE_SC_Cpt_Presse::instance()->init();
 		CGE_sc_msalumni::instance()->init();
+		CGE_sc_recrutement::instance()->init();
 	}
 
 	/**
@@ -117,6 +119,7 @@ class Cge_Public
 		wp_enqueue_script('sc-msalumni', plugin_dir_url(__FILE__) . 'js/cge-sc-msalumni.js', array('jquery', $this->plugin_name), $this->version, false);
 		wp_enqueue_script('sc-publication', plugin_dir_url(__FILE__) . 'js/cge-sc-publication.js', array('jquery', $this->plugin_name), $this->version, false);
 		wp_enqueue_script('sc-presse', plugin_dir_url(__FILE__) . 'js/cge-sc-presse.js', array('jquery', $this->plugin_name), $this->version, false);
+		wp_enqueue_script('sc-recrutement', plugin_dir_url(__FILE__) . 'js/cge-sc-recrutement.js', array('jquery', $this->plugin_name), $this->version, false);
 		wp_localize_script($this->plugin_name, 'CGE_PUBLIC_IMG', CGE_PUBLIC_IMG);
 	}
 }

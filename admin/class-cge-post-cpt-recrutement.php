@@ -173,4 +173,67 @@ class CGE_Cpt_Recrutement
             include_once CGE_ADMIN_METABOX . '/cpt_recrutement/information.php';
         }
     }
+
+    public function find_recrutement()
+    {
+        
+        $lieu_emplois = $_POST['lieu_emplois'];
+        $demandeur_emplois = $_POST['demandeur_emplois'];
+        $poste_propose_emplois = $_POST['poste_propose_emplois'];
+
+        $tax_query = [] ;
+
+        if ($lieu_emplois != 0) {
+            $tax_query[] = array(
+                'key' => 'lieu_emplois',
+                'value' => $lieu_emplois,
+                'compare' => 'LIKE',
+            );
+        }
+  
+        if ($demandeur_emplois != "") {
+            $tax_query[] = array(
+                'key' => 'demandeur_emplois',
+                'value' => $demandeur_emplois,
+                'compare' => 'LIKE',
+            );
+        }
+
+        if ($poste_propose_emplois != "") {
+            $tax_query[] = array(
+                'key' => 'poste_propose_emplois',
+                'value' => $poste_propose_emplois,
+                'compare' => 'LIKE',
+            );
+        }
+
+        if ($lieu_emplois != '' && $demandeur_emplois != '' && $poste_propose_emplois != '' ) {
+            $tax_query['relation'] = 'AND';
+        }
+        
+        $args = array(
+            'post_type' => 'cpt_recrutement',
+            'posts_per_page' => -1,
+        );
+
+        if (count($tax_query) >= 1) {
+            $args['meta_query'] = array_merge(['relation' => 'AND',],$tax_query);
+        }
+    
+        $query = new WP_Query($args);
+
+        var_dump($query);
+        die;
+        if ($query->have_posts()) {
+            $response = [];
+            foreach ($query->posts as $post)
+                $response[] = [
+                    'post' => $post,
+                    'post_meta' => get_post_custom($post->ID),
+                    'post_taxonomies' => get_post_taxonomies($post->ID),
+                ];
+            wp_send_json($response);
+        } else
+            wp_send_json($query->posts);
+    }
 }
