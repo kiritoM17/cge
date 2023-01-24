@@ -120,6 +120,20 @@ class Cge_Public
 		wp_enqueue_script('sc-publication', plugin_dir_url(__FILE__) . 'js/cge-sc-publication.js', array('jquery', $this->plugin_name), $this->version, false);
 		wp_enqueue_script('sc-presse', plugin_dir_url(__FILE__) . 'js/cge-sc-presse.js', array('jquery', $this->plugin_name), $this->version, false);
 		wp_enqueue_script('sc-recrutement', plugin_dir_url(__FILE__) . 'js/cge-sc-recrutement.js', array('jquery', $this->plugin_name), $this->version, false);
+		wp_enqueue_script('pdfObject', plugin_dir_url(__FILE__) . 'js/pdfObject.js', array('jquery', $this->plugin_name), $this->version, false);
 		wp_localize_script($this->plugin_name, 'CGE_PUBLIC_IMG', CGE_PUBLIC_IMG);
 	}
+
+	/**
+     * @param $single_template
+     * @return mixed|string
+     */
+    function get_product_sheet_template($single_template) {
+        global $post;
+        if ($post->post_type == CGE_Cpt_Presse::POSTTYPE) {
+            $single_template = dirname(__FILE__) . '/partials/presse/custom_view/index.php';
+        }
+        //die(var_dump($single_template));
+        return $single_template;
+    }
 }
