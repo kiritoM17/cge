@@ -130,10 +130,16 @@ class Cge_Public
      */
     function get_product_sheet_template($single_template) {
         global $post;
-        if ($post->post_type == CGE_Cpt_Presse::POSTTYPE) {
-            $single_template = dirname(__FILE__) . '/partials/presse/custom_view/index.php';
-        }
-        //die(var_dump($single_template));
+		switch ($post->post_type) {
+			case CGE_Cpt_Presse::POSTTYPE:
+				$single_template = dirname(__FILE__) . '/partials/presse/custom_view/index.php';
+				break;
+			case CGE_Cpt_Publication::POSTTYPE:
+				$single_template = dirname(__FILE__) . '/partials/publication/custom_view/index.php';
+				break;
+			default:
+				
+		}
         return $single_template;
     }
 }
