@@ -2,7 +2,6 @@ jQuery(document).ready(function(){
 	jQuery('#recrutement_search').on('click',function(e){
         e.preventDefault();
 		el = jQuery('#lieu_emplois :selected');
-
         $lieu_emplois = jQuery('#lieu_emplois :selected').val();
         $demandeur_emplois = jQuery('#demandeur_emplois :selected').val();
         $poste_propose_emplois = jQuery('#mots').val();
@@ -37,12 +36,10 @@ jQuery(document).ready(function(){
 
     function print_recrutement(response) {
         jQuery('.nb_res').html(response.length);
-        console.log(response);
-        let $recrutementLogo = "image_doc.png";
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{
             htmlResult += `<div class="col-md-4">
-            <a href="">
+            <a href="${item.post_permalink}">
                 <article class="post post-grid type-post format-standard format-formation post-grid-link">
                     <div class="entry-content">
                         <div class="entry-meta">

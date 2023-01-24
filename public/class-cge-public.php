@@ -137,6 +137,9 @@ class Cge_Public
 			case CGE_Cpt_Publication::POSTTYPE:
 				$single_template = dirname(__FILE__) . '/partials/publication/custom_view/index.php';
 				break;
+			case CGE_Cpt_Recrutement::POSTTYPE:
+					$single_template = dirname(__FILE__) . '/partials/recrutement/custom_view/index.php';
+					break;
 			default:
 				
 		}

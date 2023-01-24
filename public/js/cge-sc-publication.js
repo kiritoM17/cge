@@ -45,7 +45,7 @@ jQuery(document).ready(function(){
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{
             htmlResult += `<div class="col-md-4">
-            <a href="">
+            <a href="${item.post_permalink}">
                 <article class="post post-grid type-post format-standard format-formation post-grid-link">
                     <div class="entry-content">
                         <div class="vc_logo-wrapper">

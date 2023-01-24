@@ -183,6 +183,8 @@ class CGE_Cpt_Recrutement
 
         $tax_query = [] ;
 
+        
+
         if ($lieu_emplois != 0) {
             $tax_query[] = array(
                 'key' => 'lieu_emplois',
@@ -222,8 +224,6 @@ class CGE_Cpt_Recrutement
     
         $query = new WP_Query($args);
 
-        var_dump($query);
-        die;
         if ($query->have_posts()) {
             $response = [];
             foreach ($query->posts as $post)
@@ -231,6 +231,7 @@ class CGE_Cpt_Recrutement
                     'post' => $post,
                     'post_meta' => get_post_custom($post->ID),
                     'post_taxonomies' => get_post_taxonomies($post->ID),
+                    'post_permalink' => get_permalink( $post->ID, $leavename = false ),
                 ];
             wp_send_json($response);
         } else

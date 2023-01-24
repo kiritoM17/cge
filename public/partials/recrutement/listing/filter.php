@@ -33,7 +33,7 @@
             </div>
             
 
-            <button type="submit" class="btn-2" id="publication_search">Rechercher</button>
+            <button type="submit" class="btn-2" id="recrutement_search">Rechercher</button>
         </form>
         <div class="result-search"><span class="nb_res"></span> résultats</div>
     </div>

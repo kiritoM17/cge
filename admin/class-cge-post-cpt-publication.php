@@ -356,6 +356,7 @@ class CGE_Cpt_Publication
                     'post' => $post,
                     'post_meta' => get_post_custom($post->ID),
                     'post_taxonomies' => get_post_taxonomies($post->ID),
+                    'post_permalink' => get_permalink( $post->ID, $leavename = false ),
                 ];
             }
             wp_send_json($response);
