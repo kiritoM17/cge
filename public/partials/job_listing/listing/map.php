@@ -1,0 +1,1 @@
+<div id="map" style="width: 100% !important;position: relative;overflow: hidden;height: 100%;min-height: 800px;"></div>
