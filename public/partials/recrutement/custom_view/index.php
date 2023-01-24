@@ -1,6 +1,6 @@
 <?php
 global $post;
-var_dump(get_post_custom($post->ID));die;
+//var_dump(get_post_custom($post->ID));die;
 get_header();
 
 ?>
@@ -19,10 +19,10 @@ get_header();
         <h4 class="entry-title-2">Lieu <?php echo get_post_custom($post->ID)['lieu_emplois'][0] ?></h4>
     </div>
     <div class="entry-content row">
-        <h4 class="entry-title-2">Date de prise de poste <?php echo get_post_custom($post->ID)['date_debut_emplois'][0] ?></h4>
+        <h4 class="entry-title-2">Date de prise de poste : <?php echo date("d-m-Y", strtotime(get_post_custom($post->ID)['date_debut_emplois'][0]));  ?></h4>
     </div>
     <div class="entry-content row">
-        <h6 class="entry-title-2"> Date de dépôt de l’offre :<?php echo get_post_custom($post->ID)['date_depot_emplois'][0] ?></h6>
+        <h6 class="entry-title-2"> Date de dépôt de l’offre : <?php echo date("d-m-Y", strtotime(get_post_custom($post->ID)['date_depot_emplois'][0])); ?></h6>
     </div>
     <div class="entry-content row">
         <h2 class="entry-title-2"><?php echo $post->post_content ?></h2>

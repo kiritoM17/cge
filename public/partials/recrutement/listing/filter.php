@@ -15,8 +15,8 @@
             </div>
             
             <div class="form-group">
-                <label for="select1" class="hidden">Membres</label>
-                <select form="select1" name="demandeur_emplois" id="demandeur_emplois" data-post-in="">
+                <label for="select" class="hidden">Membres</label>
+                <select form="select" name="demandeur_emplois" id="demandeur_emplois" data-post-in="">
                     <option value="">Membres</option>
                     <?php 
                         foreach ($taxonomy_demandeur_emplois as $doc_spe){ ?>
@@ -29,7 +29,7 @@
             </div>
             
             <div class="form-group">
-                    <input type="text" class="form-text" name="mots" id="mots" placeholder="intitulé"/>
+                    <input type="text" class="form-text" name="poste_propose_emplois" id="poste_propose_emplois" placeholder="intitulé"/>
             </div>
             
 

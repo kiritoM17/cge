@@ -180,10 +180,7 @@ class CGE_Cpt_Recrutement
         $lieu_emplois = $_POST['lieu_emplois'];
         $demandeur_emplois = $_POST['demandeur_emplois'];
         $poste_propose_emplois = $_POST['poste_propose_emplois'];
-
         $tax_query = [] ;
-
-        
 
         if ($lieu_emplois != 0) {
             $tax_query[] = array(

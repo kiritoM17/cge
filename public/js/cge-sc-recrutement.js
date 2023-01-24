@@ -1,16 +1,29 @@
+/**
+ * @typedef {Object} Data
+ * @property {string} lieu_emplois
+ * @property {string} demandeur_emplois
+ * @property {string} poste_propose_emplois
+ * @property {string} action
+ * 
+ *  
+ */
+
 jQuery(document).ready(function(){
+    
 	jQuery('#recrutement_search').on('click',function(e){
         e.preventDefault();
-		el = jQuery('#lieu_emplois :selected');
-        $lieu_emplois = jQuery('#lieu_emplois :selected').val();
-        $demandeur_emplois = jQuery('#demandeur_emplois :selected').val();
-        $poste_propose_emplois = jQuery('#mots').val();
+		el = $('#lieu_emplois').val();
+        lieu_emplois = $('#lieu_emplois').val();
+        demandeur_emplois = $('#demandeur_emplois').val();
+        poste_propose_emplois = $('#poste_propose_emplois').val();
 
-
-        data = {
-            lieu_emplois:lieu_emplois,
-            demandeur_emplois:demandeur_emplois,
-            poste_propose_emplois:poste_propose_emplois,
+        /**
+         * @type {Data}
+         */
+        let data = {
+            lieu_emplois,
+            demandeur_emplois,
+            poste_propose_emplois,
             action:'find_recrutement'
         };
         
