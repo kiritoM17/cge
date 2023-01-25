@@ -13,66 +13,53 @@ echo '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.
     </div>
     
     <div class="entry-content row">
-            <div class="entry-content row">
-               <h3> <b> Fiche identitaire </b> </h3>
-            </div>
-            <div class="entry-content row">
-                <h4 class="entry-title-2">Type de formation : <?php echo get_post_custom($post->ID)['_ecole_type_formation'][0] ?></h4>
-            </div>
-            <div class="entry-content row">
-                <h4 class="entry-title-2">Statut : <?php echo get_post_custom($post->ID)['_ecole_statut'][0] ?></h4>
-            </div>
-            <div class="entry-content row">
-                <h4 class="entry-title-2">Type de structure : <?php echo get_post_custom($post->ID)['_ecole_type_structure'][0] ?></h4>
-            </div>
-            <div class="entry-content row">
-                <h4 class="entry-title-2">Année de création : <?php echo get_post_custom($post->ID)['_ecole_annee_creation'][0] ?></h4>
-            </div>
-            <div class="entry-content row">
-                <h4 class="entry-title-2">Habilitation à délivrer le doctorat : <?php echo get_post_custom($post->ID)['_ecole_habilitation_delivrer_doctorat'][0] ?></h4>
-            </div>
-            <div class="entry-content row">
-                <h4 class="entry-title-2">Prépa intégrée : <?php echo get_post_custom($post->ID)['_ecole_prepa_integree'][0] ?></h4>
-            </div>
-            <div class="entry-content row">
-                <h4 class="entry-title-2">Type d'habilitation : <?php echo get_post_custom($post->ID)['_ecole_type_habilitation'][0] ?></h4>
-            </div>
-
-            <br>
-
-            <div class="entry-content row">
-               <h3><b> Contacts </b></h3>
-            </div>
-             <div class="entry-content row">
-                <h4 class="entry-title-2">Directeur général : <?php echo get_post_custom($post->ID)['_ecole_dg_civilite'][0] ?> <?php echo get_post_custom($post->ID)['_ecole_dg_nom'][0] ?></h4>
-            </div>
-            <div class="entry-content row">
-                <h4 class="entry-title-2">Responsable des formations : <?php echo get_post_custom($post->ID)['_ecole_resp_formation'][0] ?></h4>
-            </div>
-            <div class="entry-content row">
-                <h4 class="entry-title-2">Adresse : <?php echo get_post_custom($post->ID)['geolocation_formatted_address'][0] ?></h4>
-            </div>
-            
-            <div class="entry-content row">
-               <h3> <b>  <?php echo $post->post_title ?> </b> </h3>
-            </div>
-            <div class="entry-content row">
-               <h5> <?php echo get_post_custom($post->ID)['_ecole_nom'][0] ?> </h5>
-            </div>
-
-            <section>
-                <h3>Contacts</h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p class="entry-title-2">Directeur général : <?php echo get_post_custom($post->ID)['_ecole_dg_civilite'][0] ?> <?php echo get_post_custom($post->ID)['_ecole_dg_nom'][0] ?></p>
-                        <p class="entry-title-2">Responsable des formations : <?php echo get_post_custom($post->ID)['_ecole_resp_formation'][0] ?></p>
-                        <p class="entry-title-2">Adresse : <?php echo get_post_custom($post->ID)['geolocation_formatted_address'][0] ?></p>
-                    </div>
-                    <div class="col-md-6">
-                        <div id="map" style="height: 400px; width: 100% !important;"></div>
-                    </div>
+        <section class="col-md-12">
+            <h3>Fiche identitaire</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="entry-title-2">Type de formation : <?php echo get_post_custom($post->ID)['_ecole_type_formation'][0] ?></p>
+                    <p class="entry-title-2">Statut : <?php echo get_post_custom($post->ID)['_ecole_statut'][0] ?></p>
+                    <p class="entry-title-2">Type de structure : <?php echo get_post_custom($post->ID)['_ecole_type_structure'][0] ?></p>
+                    <p class="entry-title-2">Année de création : <?php echo get_post_custom($post->ID)['_ecole_annee_creation'][0] ?></p>
+                    <p class="entry-title-2">Habilitation à délivrer le doctorat : <?php echo get_post_custom($post->ID)['_ecole_habilitation_delivrer_doctorat'][0] ?></p>
+                    <p class="entry-title-2">Prépa intégrée : <?php echo get_post_custom($post->ID)['_ecole_prepa_integree'][0] ?></p> 
+                    <p class="entry-title-2">Type d'habilitation : <?php echo get_post_custom($post->ID)['_ecole_type_habilitation'][0] ?></p>
                 </div>
-            </section>
+            </div>
+        </section>
+
+        <br>
+
+        <section class="col-md-12">
+            <h3>Contacts</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="entry-title-2">Directeur général : <?php echo get_post_custom($post->ID)['_ecole_dg_civilite'][0] ?> <?php echo get_post_custom($post->ID)['_ecole_dg_nom'][0] ?></p>
+                    <p class="entry-title-2">Responsable des formations : <?php echo get_post_custom($post->ID)['_ecole_resp_formation'][0] ?></p>
+                    <p class="entry-title-2">Adresse : <?php echo get_post_custom($post->ID)['geolocation_formatted_address'][0] ?></p>
+                </div>
+            </div>
+        </section>
+        <br>
+        <br>
+        <section class="col-md-12">
+            <h3><?php echo $post->post_title ?></h3>
+            <div class="row"><?php echo get_post_custom($post->ID)['_ecole_nom'][0] ?></div>
+        </section>
+        <br><br>
+        <section class="col-md-12">
+            <h3>Contacts</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="entry-title-2">Directeur général : <?php echo get_post_custom($post->ID)['_ecole_dg_civilite'][0] ?> <?php echo get_post_custom($post->ID)['_ecole_dg_nom'][0] ?></p>
+                    <p class="entry-title-2">Responsable des formations : <?php echo get_post_custom($post->ID)['_ecole_resp_formation'][0] ?></p>
+                    <p class="entry-title-2">Adresse : <?php echo get_post_custom($post->ID)['geolocation_formatted_address'][0] ?></p>
+                </div>
+                <div class="col-md-6">
+                    <div id="map" style="height: 400px; width: 100% !important;"></div>
+                </div>
+            </div>
+        </section>
     </div>
     
 </div>
