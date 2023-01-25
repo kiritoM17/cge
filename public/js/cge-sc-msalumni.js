@@ -73,7 +73,7 @@ jQuery(document).ready(function(){
     });
 
     function print_msalumini(response) {
-        jQuery('.nb_res').html(response.length);
+        jQuery('.nb_res_msalumini').html(response.length);
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{
             

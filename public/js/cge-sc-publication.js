@@ -42,7 +42,7 @@ jQuery(document).ready(function(){
     });
 
     function print_publication(response) {
-        jQuery('.nb_res').html(response.length);
+        jQuery('.nb_res_publication').html(response.length);
         let $publicationLogo = "image_doc.png";
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{

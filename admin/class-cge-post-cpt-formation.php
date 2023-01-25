@@ -486,7 +486,7 @@ class CGE_Cpt_Formation
                     'formation_type' => get_the_terms($post->ID, 'formation_type'),
                     '_formation_co_accrediteurs' => get_post_meta($post->ID, "_formation_co_accrediteurs")[0]
                 ];
-            
+            wp_send_json($response);
         } else
             wp_send_json($query->posts);
     }

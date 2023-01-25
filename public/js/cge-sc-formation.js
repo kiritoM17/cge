@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
         formations_themes = jQuery('#formations_themes :selected').val();
         mots = jQuery('#mots').val();
         if (type_formation == '' && ecole_formation == '' && mots == '' && formations_themes == '' && formations_domaines == '') {   
-            jQuery('.nb_res').text(nb_res);
+            jQuery('.nb_res_formation').text(nb_res);
         } else {
             jQuery('#cge_entry_formation').html('');
             data = {
@@ -34,12 +34,12 @@ jQuery(document).ready(function() {
     jQuery(document).ready(function() {
         let ajaxurl = WP_AJAX_URL;
         data = {
-            type_formation: '',
-            ecole_formation: '',
-            co_accrediteurs: '',
-            formations_domaines: '',
-            formations_themes: '',
-            mots: '',
+            type_formation: "",
+            ecole_formation: "",
+            co_accrediteurs: "",
+            formations_domaines: "",
+            formations_themes: "",
+            mots: "",
             action: 'find_formation'
         };
         jQuery.post(ajaxurl, data, function(response) {
@@ -49,7 +49,8 @@ jQuery(document).ready(function() {
     });
 
     function print_formation(response) {
-        jQuery('.nb_res').html(response.length);
+        
+        jQuery('.nb_res_formation').html(response.length);
         let htmlResult = ``;
         jQuery.each(response, (key, item)=>{
             let $logo = "";
@@ -76,8 +77,8 @@ jQuery(document).ready(function() {
             htmlResult += `
             <div class="col-md-12 col-msalumni">
                 <article class="post post-grid type-post format-standard format-msalumni">
-                    <div  class="entry-content row">
-                        <a href="${item.post_meta._formation_website[0]}" target="_blanc">
+                    <a href="${item.post_meta._formation_website[0]}" target="_blanc">
+                        <div  class="entry-content row">
                             <div class="col-md-4">
                                 ${logoHtml}
                             </div>
@@ -94,8 +95,8 @@ jQuery(document).ready(function() {
                                     ${htmlCoAccrediteurs}
                                 </span>
                             </div>
-                        </a>
-                    </div>
+                        </div> 
+                    </a>
                 </article>
             </div>
             `;

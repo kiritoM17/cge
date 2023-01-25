@@ -61,6 +61,6 @@
 
             <button type="submit" class="btn-2" id="publication_search">Rechercher</button>
         </form>
-        <div class="result-search"><span class="nb_res"></span> résultats</div>
+        <div class="result-search"><span class="nb_res_publication"></span> résultats</div>
     </div>
 </div>

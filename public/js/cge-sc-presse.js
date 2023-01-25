@@ -36,7 +36,7 @@ jQuery(document).ready(function(){
     });
 
     function print_presse(response) {
-        jQuery('.nb_res').html(response.length);
+        jQuery('.nb_res_presse').html(response.length);
         let $presseLogo = "image_pdf.png";
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{

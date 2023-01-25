@@ -9,7 +9,6 @@
                         foreach ($taxonomy_lieu_emplois as $doc){ ?>
                                 <option value="<?php echo  $doc ?>"><?php echo  $doc ?></option>
                         <?php }
-                    
                     ?>
                 </select>
             </div>
@@ -22,8 +21,6 @@
                         foreach ($taxonomy_demandeur_emplois as $doc_spe){ ?>
                                 <option value="<?php echo  $doc_spe ?>"><?php echo  $doc_spe ?></option>
                         <?php }
-                    
-                    
                     ?>
                 </select>
             </div>
@@ -35,6 +32,6 @@
 
             <button type="submit" class="btn-2" id="recrutement_search">Rechercher</button>
         </form>
-        <div class="result-search"><span class="nb_res"></span> résultats</div>
+        <div class="result-search"><span class="nb_res_recrutement"></span> résultats</div>
     </div>
 </div>

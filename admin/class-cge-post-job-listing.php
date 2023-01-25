@@ -394,11 +394,11 @@ class CGE_Job_Listing
                 'include_children' => false
             );
         }
-        if ($job_listing_amenity != "") {
+        if ($job_amenity_select != "") {
             $tax_query[] = array(
                 'taxonomy' => 'job_listing_amenity',
                 'field' => 'term_id',
-                'terms' => (int)$job_listing_amenity,
+                'terms' => (int)$job_amenity_select,
                 'include_children' => false
             );
         }
@@ -417,7 +417,7 @@ class CGE_Job_Listing
             'ignore_sticky_posts' => true,
         );
 
-        if ($job_listing_amenity != '' || $job_listing_region != '' ||  $job_listing_type != '')
+        if ($job_amenity_select != '' || $job_listing_region != '' ||  $job_listing_type != '')
             $tax_query['relation'] = 'AND';
         if ($job_search_keywords != '')
             $term_query['relation'] = 'AND';

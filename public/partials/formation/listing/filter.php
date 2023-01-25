@@ -55,7 +55,7 @@
         </div>
         <button type="submit" class="btn-2" id="cge_formation_search">Rechercher</button>
     </form>
-    <div class="result-search"><span class="nb_res"><?php echo count($myposts); ?></span>
+    <div class="result-search"><span class="nb_res_formation"></span>
         résultats
     </div>
 </div>

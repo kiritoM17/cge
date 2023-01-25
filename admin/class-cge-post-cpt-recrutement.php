@@ -182,7 +182,7 @@ class CGE_Cpt_Recrutement
         $poste_propose_emplois = $_POST['poste_propose_emplois'];
         $tax_query = [] ;
 
-        if ($lieu_emplois != 0) {
+        if ($lieu_emplois != '') {
             $tax_query[] = array(
                 'key' => 'lieu_emplois',
                 'value' => $lieu_emplois,
@@ -206,7 +206,7 @@ class CGE_Cpt_Recrutement
             );
         }
 
-        if ($lieu_emplois != '' && $demandeur_emplois != '' && $poste_propose_emplois != '' ) {
+        if ($lieu_emplois != '' || $demandeur_emplois != '' || $poste_propose_emplois != '' ) {
             $tax_query['relation'] = 'AND';
         }
         
@@ -215,8 +215,8 @@ class CGE_Cpt_Recrutement
             'posts_per_page' => -1,
         );
 
-        if (count($tax_query) >= 1) {
-            $args['meta_query'] = array_merge(['relation' => 'AND',],$tax_query);
+        if (count($tax_query) > 0) {
+            $args['meta_query'] = $tax_query;
         }
     
         $query = new WP_Query($args);

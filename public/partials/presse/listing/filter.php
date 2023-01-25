@@ -45,9 +45,9 @@
                 </div>
                 
 
-                <button type="submit" class="btn-2" id="presse_search">Rechercher</button>
+                <button type="submit" class="btn-2" id="_search">Rechercher</button>
             </form>
-            <div class="result-search"><span class="nb_res"></span> résultats</div>
+            <div class="result-search"><span class="nb_res_presse"></span> résultats</div>
         </div>
     </div>
 </div>

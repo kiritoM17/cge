@@ -13,10 +13,10 @@ jQuery(document).ready(function(){
 	jQuery('#recrutement_search').on('click',function(e){
         e.preventDefault();
         let ajaxurl = WP_AJAX_URL;
-		el = $('#lieu_emplois').val();
-        lieu_emplois = $('#lieu_emplois').val();
-        demandeur_emplois = $('#demandeur_emplois').val();
-        poste_propose_emplois = $('#poste_propose_emplois').val();
+		el = jQuery('#lieu_emplois').val();
+        lieu_emplois = jQuery('#lieu_emplois').val();
+        demandeur_emplois = jQuery('#demandeur_emplois').val();
+        poste_propose_emplois = jQuery('#poste_propose_emplois').val();
 
         /**
          * @type {Data}
@@ -50,9 +50,11 @@ jQuery(document).ready(function(){
     });
 
     function print_recrutement(response) {
-        jQuery('.nb_res').html(response.length);
+        jQuery('.nb_res_recrutement').html(response.length);
         let htmlResult = ``; 
         jQuery.each(response, (key, item)=>{
+            let msec = Date.parse(item.post_meta.date_debut_emplois);
+            let date_emp = new Date(msec).toLocaleDateString();
             htmlResult += `<div class="col-md-4">
             <a href="${item.post_permalink}">
                 <article class="post post-grid type-post format-standard format-formation post-grid-link">
@@ -66,7 +68,7 @@ jQuery(document).ready(function(){
                                 <h4 class="entry-title">
                                 ${item.post.post_title}
                                 </h4> 
-                                <span class="date">${item.post_meta.date_debut_emplois}</span>
+                                <span class="date">${date_emp}</span>
                             </div>
                         </div>
                         <div class="entry-description">${item.post_meta.poste_propose_emplois}

@@ -122,9 +122,8 @@ class Cge_Public
 		wp_enqueue_script('sc-msalumni', plugin_dir_url(__FILE__) . 'js/cge-sc-msalumni.js', array('jquery', $this->plugin_name), $this->version, false);
 		wp_enqueue_script('sc-publication', plugin_dir_url(__FILE__) . 'js/cge-sc-publication.js', array('jquery', $this->plugin_name), $this->version, false);
 		wp_enqueue_script('sc-presse', plugin_dir_url(__FILE__) . 'js/cge-sc-presse.js', array('jquery', $this->plugin_name), $this->version, false);
-		wp_enqueue_script('sc-recrutement', plugin_dir_url(__FILE__) . 'js/cge-sc-job-listing.js', array('jquery', $this->plugin_name), $this->version, false);
-		wp_enqueue_script('sc-job-listing', plugin_dir_url(__FILE__) . 'js/pdfObject.js', array('jquery', $this->plugin_name), $this->version, false);
-		wp_enqueue_script('pdfObject', plugin_dir_url(__FILE__) . 'js/pdfObject.js', array('jquery', $this->plugin_name), $this->version, false);
+		wp_enqueue_script('sc-recrutement', plugin_dir_url(__FILE__) . 'js/cge-sc-recrutement.js', array('jquery', $this->plugin_name), $this->version, false);
+		wp_enqueue_script('sc-job-listing', plugin_dir_url(__FILE__) . 'js/cge-sc-job-listing.js', array('jquery', $this->plugin_name), $this->version, false);
 		wp_localize_script($this->plugin_name, 'CGE_PUBLIC_IMG', CGE_PUBLIC_IMG);
 		wp_localize_script($this->plugin_name, 'WP_AJAX_URL', admin_url('admin-ajax.php'));
 	}

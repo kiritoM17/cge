@@ -1,7 +1,6 @@
-<?php
+<div class="row" id="cge_entry_formation"></div>
 
-?>
-<div class="row" id="cge_entry_formation">
+
     <!-- <?php foreach ($myposts as $post) { ?>
         <?php
                 $type = get_the_terms($post->ID, 'formation_type');
@@ -52,4 +51,3 @@
             </article>
         </div>
     <?php } ?> -->
-</div>
