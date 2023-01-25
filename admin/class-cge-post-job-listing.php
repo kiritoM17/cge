@@ -369,4 +369,53 @@ class CGE_Job_Listing
         }
     }
 
+    public function find_job_listing()
+    {
+        $job_listing_region = $_POST['job_region_select'];
+        $job_listing_type = $_POST['job_type_select'];
+        $job_amenity_select = $_POST['job_amenity_select'];
+
+        $job_search_keywords = $_POST['job_search_keywords'];
+        $tax_query = [];
+        $term_query = [];
+        if ($job_listing_region != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'job_listing_region',
+                'field' => 'slug',
+                'terms' => $job_listing_region,
+                'include_children' => false
+            );
+        }
+        if ($job_listing_type != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'job_listing_type',
+                'field' => 'slug',
+                'terms' => $job_listing_type,
+                'include_children' => false
+            );
+        }
+        if ($job_listing_amenity != "") {
+            $tax_query[] = array(
+                'taxonomy' => 'job_listing_amenity',
+                'field' => 'slug',
+                'terms' => $job_listing_amenity,
+                'include_children' => false
+            );
+        }
+
+        if ($job_search_keywords != "") {
+            $job_search_keywords[] = array(
+                'key' => '_ecole_nom',
+                'value' => $job_search_keywords,
+                'compare' => 'LIKE',
+            );
+        }
+
+        $args = array(
+            'post_type' => 'job_listing',
+            'posts_per_page' => -1,
+            'ignore_sticky_posts' => true,
+        );
+    }
+
 }

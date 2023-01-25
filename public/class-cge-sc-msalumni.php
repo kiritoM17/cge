@@ -16,7 +16,7 @@ class CGE_sc_msalumni{
     }
 
     public function init(){
-        add_shortcode('cge_msalumni', [$this,'cge_msalumni']);
+        add_shortcode('gce_msalumni', [$this,'gce_msalumni']);
     }
 
     public function cge_msalumni($atts) {
