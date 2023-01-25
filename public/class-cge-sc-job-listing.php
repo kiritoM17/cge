@@ -23,7 +23,6 @@ class CGE_SC_Job_Listing
             'post_type' => 'job_listing',
             'posts_per_page' => -1,
             'ignore_sticky_posts' => true,
-            //'paged' => $paged
         );
 
         if ($type == 'popular') {
@@ -42,7 +41,6 @@ class CGE_SC_Job_Listing
         } else {
             $wp_query = new WP_Query($args);
             $post_type_information_array = [];
-
             foreach ($wp_query->posts as $post) {
                 $data = get_post_custom($post->ID);
                 //die(var_dump($data['geolocation_long'][0], $data['geolocation_lat'][0]));
@@ -61,7 +59,6 @@ class CGE_SC_Job_Listing
                     '#fff'
                 ];
             }
-            //die(var_dump($post_type_information_array));
             ob_start();
             require('partials/job_listing/listing/index.php');
             return ob_get_clean();
