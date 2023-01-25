@@ -10,6 +10,7 @@ jQuery(document).ready(function(){
 
     function onFilterJobListing()
     {
+        jQuery("#loader-wrapper").show('fast');
         let ajaxurl = WP_AJAX_URL;
         let job_region_select   = jQuery('#job_region_select').val();
 		let job_type_select  = jQuery('#job_type_select').val();
@@ -22,10 +23,10 @@ jQuery(document).ready(function(){
             job_search_keywords:job_search_keywords,
             action:'find_job_listing'
         };
-        
         jQuery.post(ajaxurl, data, function(response) {
             print_job_listing(response.response);
             add_map_multiple_markers(response.map_information);
+            jQuery("#loader-wrapper").hide('fast');
         });
     }
 

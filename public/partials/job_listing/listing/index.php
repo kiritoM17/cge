@@ -3,6 +3,8 @@ echo '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.
 echo '<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.css" />';
 echo '<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />';
 ?>
+
+
 <div class="row" style="width: 100% !important;margin: 0;padding: 0;max-width: 100%;">
     <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
         <?php if (file_exists(CGE_PUBLIC_PARTIALS . 'job_listing/listing/filter.php')) {
@@ -12,13 +14,19 @@ echo '<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0
             require_once(CGE_PUBLIC_PARTIALS . 'job_listing/listing/list.php');
         } ?>
     </div>
-
     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
         <?php if (file_exists(CGE_PUBLIC_PARTIALS . 'job_listing/listing/map.php')) {
             require_once(CGE_PUBLIC_PARTIALS . 'job_listing/listing/map.php');
         } ?>
     </div>
 </div>
+<div id="loader-wrapper">
+    <div id="loader-overlay">
+        <div class="loader"></div>
+    </div>
+</div>
+
+
 <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
