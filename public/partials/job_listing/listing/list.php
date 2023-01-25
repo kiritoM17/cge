@@ -1,4 +1,4 @@
-<div class="row col-md-12">
+<div class="row col-md-12" style="max-height: 670px;overflow-y: scroll;">
     <?php
         foreach($wp_query->posts as $post)
         {

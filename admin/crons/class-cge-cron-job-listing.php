@@ -23,7 +23,8 @@ class Cron_Job_Listing
                 $response = isset($response->{'hydra:member'}) ? $response->{'hydra:member'} : [];
                 $index = 0;
                 foreach ($response as $ecole) {
-                        if ($index > 4)
+                        //die(var_dump($ecole));
+                        if ($index > 100)
                                 break;
                         if (!$ecole->validated) {
                                 $ids_ecoles[] = $ecole->id;
@@ -124,7 +125,7 @@ class Cron_Job_Listing
                         $action($post_id, '_ecole_centres_documentation_responsable_nom', esc_attr($ecole->schoolLibraries[0]->responsiblePerson->familyName));
                         $action($post_id, '_ecole_centres_documentation_responsable_prenom', esc_attr($ecole->schoolLibraries[0]->responsiblePerson->givenName));
                         $action($post_id, '_ecole_centres_documentation_responsable_telephone', esc_attr(sizeof($ecole->schoolLibraries[0]->responsiblePerson->phones) > 0 ? $ecole->schoolLibraries[0]->responsiblePerson->phones[0]->number : ''));
-                        $action($post_id, '_ecole_centres_documentation_responsable_email', esc_attr(sizeof($ecole->schoolLibraries[0]->responsiblePerson->emails) > 0 ? $ecole->schoolLibraries[0]->responsiblePerson->emails[0]->address : ''));
+                        $action($post_id, '_ecole_centres_documentation_responsable_email', esc_attr(@sizeof($ecole->schoolLibraries[0]->responsiblePerson->emails) > 0 ? $ecole->schoolLibraries[0]->responsiblePerson->emails[0]->address : ''));
                 } else {
                         delete_post_meta($post_id, '_ecole_centres_documentation_horaires');
                         delete_post_meta($post_id, '_ecole_centres_documentation_responsable_civilite');
@@ -197,6 +198,7 @@ class Cron_Job_Listing
                 }
                 wp_set_object_terms($post_id, $types_formation, "job_listing_type");
 
+                //die(var_dump($ecole->headoffice, esc_attr($ecole->headoffice->postalAddress->longitude)));
                 if (isset($ecole->headoffice)) {
                         if (isset($ecole->headoffice->postalAddress->country) && strtoupper($ecole->headoffice->postalAddress->country->name) == "FRANCE") {
                                 wp_set_object_terms($post_id, "France", "job_listing_amenity");
@@ -241,7 +243,6 @@ class Cron_Job_Listing
                                 if ($campus && isset($campus->postalAddress->latitude) && isset($campus->postalAddress->longitude)) {
                                         $latitude = $campus->postalAddress->latitude;
                                         $longitude = $campus->postalAddress->longitude;
-
                                         if ($latitude && $longitude) {
                                                 $campusInfos[] = [
                                                         'latitude' => (string)$latitude,

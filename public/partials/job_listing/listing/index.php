@@ -27,13 +27,15 @@ echo '<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0
     var ajaxurl = '<?php echo admin_url('admin-ajax.php') ?>';
     var nb_res = <?php echo count($myposts); ?>;
 </script>
+<?php //die(var_dump($location_array_string)); 
+?>
 <script>
     let map;
     let markers = [];
     var markers_cluster = L.markerClusterGroup();
-    var locations = <?php echo "[]"; //$location_array_string; 
+    var locations = <?php echo $location_array_string;
                     ?>;
-    map = L.map('map').setView([49.540612, 1.821614], 2, {
+    map = L.map('map').setView([49.540612, 1.821614], 0, {
         closePopupOnClick: false
     });
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
