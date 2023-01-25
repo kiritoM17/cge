@@ -83,6 +83,7 @@ class Cron_Cpt_Recrutement
                 file_put_contents($targetDocument, file_get_contents($fileUrl, false, stream_context_create(array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false)))));
                 $action($post_id, 'document_emplois', esc_attr($saved_path));
             }
+            
             $action($post_id, 'date_debut_emplois', esc_attr($emploi->startDate));
             $action($post_id, 'date_depot_emplois', esc_attr($emploi->visibilityDate));
 
