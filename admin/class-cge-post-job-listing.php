@@ -419,12 +419,13 @@ class CGE_Job_Listing
 
         if ($job_amenity_select != '' || $job_listing_region != '' ||  $job_listing_type != '')
             $tax_query['relation'] = 'AND';
+
         if ($job_search_keywords != '')
             $term_query['relation'] = 'AND';
 
-        if(count($term_query) > 1)
+        if(count($term_query) > 0)
             $args['meta_query'] = $term_query;
-        if (count($tax_query) > 1)
+        if (count($tax_query) > 0)
             $args['tax_query'] = $tax_query;
 
         $wp_query = new WP_Query($args);
