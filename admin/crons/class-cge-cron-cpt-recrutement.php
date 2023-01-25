@@ -68,18 +68,20 @@ class Cron_Cpt_Recrutement
                 $fileUrl = $apiUrl . '/uploads/media/' . $emploi->file->slug . '/documents/' . rawurlencode($emploi->file->filePath);
                 $upload_path = dirname(__FILE__, 5);
                 $targetDocument = $upload_path  . "/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/" . rawurlencode('document-' . $emploi->id . '.pdf');
+                $saved_path = "/wp-content/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/" . rawurlencode('document-' . $emploi->id . '.pdf');
                 try {
                     $regexp = '/&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml|caron);/i';
                     $newString = @str_replace('-pdf', '', trim($emploi->file->filePath));
                     //die(var_dump($newString));
                     $targetDocument = $upload_path  . "/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/" . rawurlencode($newString . '.pdf');
+                    $saved_path = "/wp-content/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/" . rawurlencode($newString . '.pdf');
                 } catch (\Exception $e) {
                 }
 
                 if (!file_exists($upload_path  . "/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/"))
                     mkdir($upload_path  . "/uploads/jobs/" . date_format(new \DateTime(), 'Y') . "/", 0755, true);
                 file_put_contents($targetDocument, file_get_contents($fileUrl, false, stream_context_create(array('ssl' => array('verify_peer' => false, 'verify_peer_name' => false)))));
-                $action($post_id, 'document_emplois', esc_attr($targetDocument));
+                $action($post_id, 'document_emplois', esc_attr($saved_path));
             }
             $action($post_id, 'date_debut_emplois', esc_attr($emploi->startDate));
             $action($post_id, 'date_depot_emplois', esc_attr($emploi->visibilityDate));
