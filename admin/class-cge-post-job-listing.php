@@ -381,30 +381,30 @@ class CGE_Job_Listing
         if ($job_listing_region != "") {
             $tax_query[] = array(
                 'taxonomy' => 'job_listing_region',
-                'field' => 'slug',
-                'terms' => $job_listing_region,
+                'field' => 'term_id',
+                'terms' => (int)$job_listing_region,
                 'include_children' => false
             );
         }
         if ($job_listing_type != "") {
             $tax_query[] = array(
                 'taxonomy' => 'job_listing_type',
-                'field' => 'slug',
-                'terms' => $job_listing_type,
+                'field' => 'term_id',
+                'terms' => (int)$job_listing_type,
                 'include_children' => false
             );
         }
         if ($job_listing_amenity != "") {
             $tax_query[] = array(
                 'taxonomy' => 'job_listing_amenity',
-                'field' => 'slug',
-                'terms' => $job_listing_amenity,
+                'field' => 'term_id',
+                'terms' => (int)$job_listing_amenity,
                 'include_children' => false
             );
         }
 
         if ($job_search_keywords != "") {
-            $job_search_keywords[] = array(
+            $term_query[] = array(
                 'key' => '_ecole_nom',
                 'value' => $job_search_keywords,
                 'compare' => 'LIKE',
@@ -416,6 +416,51 @@ class CGE_Job_Listing
             'posts_per_page' => -1,
             'ignore_sticky_posts' => true,
         );
+
+        if ($job_listing_amenity != '' || $job_listing_region != '' ||  $job_listing_type != '')
+            $tax_query['relation'] = 'AND';
+        if ($job_search_keywords != '')
+            $term_query['relation'] = 'AND';
+
+        if(count($term_query) > 1)
+            $args['meta_query'] = $term_query;
+        if (count($tax_query) > 1)
+            $args['tax_query'] = $tax_query;
+
+        $wp_query = new WP_Query($args);
+        if ($wp_query->have_posts()) {
+            $post_type_information_array = [];
+            $response = [];
+            foreach ($wp_query->posts as $post) {
+                $data = get_post_custom($post->ID);
+                $post_type_information_array[] = [
+                    $post->post_title,
+                    (float) $data['geolocation_lat'][0],
+                    (float)$data['geolocation_long'][0],
+                    $data['_ecole_logo'][0],
+                    wp_trim_words($post->post_content, 20, '...'),
+                    $post->ID,
+                    $post->guid,
+                    'red',
+                    '',
+                    '#000',
+                    '#000',
+                    '#fff'
+                ];
+                $response[]=[
+                    'post' => $post,
+                    'post_meta' => $data,
+                ];
+            }
+            wp_send_json([
+                'response' => $response,
+                'map_information'=> $post_type_information_array
+            ]);
+        } else
+            wp_send_json([
+                'response' => [],
+                'map_information'=> []
+            ]);
     }
 
 }

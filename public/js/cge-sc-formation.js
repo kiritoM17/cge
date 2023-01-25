@@ -3,6 +3,7 @@ jQuery(document).ready(function() {
     jQuery('#cge_formation_search').on('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        let ajaxurl = WP_AJAX_URL;
         el = jQuery('#formations_domaines');
         type_formation = jQuery('#type_formation :selected').val();
         ecole_formation = jQuery('#ecole_formation :selected').val();
@@ -31,6 +32,7 @@ jQuery(document).ready(function() {
     });
 
     jQuery(document).ready(function() {
+        let ajaxurl = WP_AJAX_URL;
         data = {
             type_formation: '',
             ecole_formation: '',

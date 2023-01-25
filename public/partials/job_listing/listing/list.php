@@ -1,4 +1,4 @@
-<div class="row col-md-12" style="max-height: 670px;overflow-y: scroll;">
+<div class="row col-md-12" style="max-height: 670px;overflow-y: scroll;" id="cge_entry_job_listing">
     <?php
         foreach($wp_query->posts as $post)
         {
@@ -28,7 +28,6 @@
             <div class="row-content">
                 <div class="logo-ecole">
                     <div class="grid-style1" itemscope itemtype="http://schema.org/LocalBusiness" data-longitude="<?php echo isset(get_post_meta($post->ID, "geolocation_long")[0])? get_post_meta($post->ID, "geolocation_long")[0] : ""; ?>" data-latitude="<?php echo isset(get_post_meta($post->ID, "geolocation_lat")[0])?get_post_meta($post->ID, "geolocation_lat")[0]:""; ?>" data-img="<?php echo isset(get_post_meta($post->ID, "_ecole_logo")[0])? get_post_meta($post->ID, "_ecole_logo")[0]: ""; ?>" data-permalink="<?php esc_attr(get_permalink($post->ID)); ?>" data-categories="<?php echo esc_attr($termString); ?>" <?php echo trim($data_output); ?>>
-
                         <div class="listing-image">
                             <div class="image-wrapper">
                                 <a href="<?php get_permalink($post->ID); ?>">
@@ -38,6 +37,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="detail-ecole">
                     <div class="listing-title-wrapper">
                         <h3 class="listing-title">
@@ -52,6 +52,7 @@
 
                     </div>
                 </div>
+
             </div>
 
         <?php }?>

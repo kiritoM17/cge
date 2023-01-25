@@ -224,6 +224,8 @@ class Cge
 		$this->loader->add_action('wp_ajax_nopriv_find_presse', CGE_Cpt_Presse::instance(), 'find_presse');
 		$this->loader->add_action('wp_ajax_find_recrutement', CGE_Cpt_Recrutement::instance(), 'find_recrutement');
 		$this->loader->add_action('wp_ajax_nopriv_find_recrutement', CGE_Cpt_Recrutement::instance(), 'find_recrutement');
+		$this->loader->add_action('wp_ajax_find_job_listing', CGE_Job_Listing::instance(), 'find_job_listing');
+		$this->loader->add_action('wp_ajax_nopriv_find_job_listing', CGE_Job_Listing::instance(), 'find_job_listing');
 	}
 
 	/**

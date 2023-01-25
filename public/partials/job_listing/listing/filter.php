@@ -33,7 +33,7 @@
                     }
             ?>
                     <div class="form-group">
-                        <select class="regions-select" data-placeholder="<?php esc_html_e('Filter by regions', 'louisiana'); ?>" name="job_region_select" style="width: 100%; max-width: 100%;">
+                        <select class="regions-select" data-placeholder="<?php esc_html_e('Filter by regions', 'louisiana'); ?>" id="job_region_select" name="job_region_select" style="width: 100%; max-width: 100%;">
                             <option value=""><?php esc_html_e('All regions', 'louisiana'); ?></option>
                             <?php foreach ($job_regions as $term) : ?>
                                 <option value="<?php echo esc_attr($term->term_id); ?>" <?php echo ($term->term_id == $selected_region) ? 'selected="selected"' : ''; ?>><?php echo trim($term->name); ?></option>
@@ -69,7 +69,7 @@
                     }
             ?>
                     <div class="form-group form-group-lg">
-                        <select class="type-select" data-placeholder="<?php esc_html_e('Filter by regions', 'louisiana'); ?>" name="job_type_select" style="width: 100%; max-width: 100%;">
+                        <select class="type-select" data-placeholder="<?php esc_html_e('Filter by regions', 'louisiana'); ?>" id="job_type_select" name="job_type_select" style="width: 100%; max-width: 100%;">
                             <option value=""><?php esc_html_e('Types', 'louisiana'); ?></option>
                             <?php foreach ($job_regions as $term) : ?>
                                 <option value="<?php echo esc_attr($term->term_id); ?>" <?php echo ($term->term_id == $selected_region) ? 'selected="selected"' : ''; ?>><?php echo trim($term->name); ?></option>
@@ -114,7 +114,7 @@
                     }
             ?>
                     <div class="form-group">
-                        <select class="type-select" data-placeholder="<?php esc_html_e('Filter by regions', 'louisiana'); ?>" name="job_amenity_select" style="width: 100%; max-width: 100%;">
+                        <select class="type-select" data-placeholder="<?php esc_html_e('Filter by regions', 'louisiana'); ?>" id="job_amenity_select" name="job_amenity_select" style="width: 100%; max-width: 100%;">
                             <option value=""><?php esc_html_e('PAYS', 'louisiana'); ?></option>
                             <?php foreach ($job_amenities as $term) : ?>
                                 <option value="<?php echo esc_attr($term->term_id); ?>" <?php echo ($term->term_id == $selected_region) ? 'selected="selected"' : ''; ?>><?php echo trim($term->name); ?></option>
@@ -132,7 +132,7 @@
             <?php } ?>
 
             <div class="form-group">
-                <input type="text" class="form-text search-field" name="search_keywords" id="search_keywords" placeholder="Mots clés" />
+                <input type="text" class="form-text search-field" name="job_search_keywords" id="job_search_keywords" placeholder="Mots clés" />
             </div>
 
             <?php do_action('job_manager_job_filters_search_jobs_end', $atts); ?>

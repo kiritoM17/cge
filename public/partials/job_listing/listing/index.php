@@ -18,14 +18,12 @@ echo '<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0
             require_once(CGE_PUBLIC_PARTIALS . 'job_listing/listing/map.php');
         } ?>
     </div>
-
 </div>
 <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.3.0/dist/leaflet.markercluster.js"></script>
 <script>
     var ajaxurl = '<?php echo admin_url('admin-ajax.php') ?>';
-    var nb_res = <?php echo count($myposts); ?>;
 </script>
 <?php //die(var_dump($location_array_string)); 
 ?>

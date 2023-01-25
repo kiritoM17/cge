@@ -57,6 +57,7 @@ jQuery(document).ready(function(){
     });
 
     jQuery(document).ready(function() {
+        let ajaxurl = WP_AJAX_URL;
         data = {
                 annee:"",
                 nom:"",

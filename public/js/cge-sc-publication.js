@@ -1,6 +1,7 @@
 jQuery(document).ready(function(){
 	jQuery('#publication_search').on('click',function(e){
         e.preventDefault();
+        let ajaxurl = WP_AJAX_URL;
 		el = jQuery('#type_document');
 		type   = jQuery('#type_document :selected').val();
 		annee  = jQuery('#annee :selected').val();
@@ -24,6 +25,7 @@ jQuery(document).ready(function(){
     });
 
     jQuery(document).ready(function() {
+        let ajaxurl = WP_AJAX_URL;
         data = {
                 type:"",
                 annee:"",

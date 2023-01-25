@@ -12,6 +12,7 @@ jQuery(document).ready(function(){
     
 	jQuery('#recrutement_search').on('click',function(e){
         e.preventDefault();
+        let ajaxurl = WP_AJAX_URL;
 		el = $('#lieu_emplois').val();
         lieu_emplois = $('#lieu_emplois').val();
         demandeur_emplois = $('#demandeur_emplois').val();
@@ -34,6 +35,7 @@ jQuery(document).ready(function(){
     });
 
     jQuery(document).ready(function() {
+        let ajaxurl = WP_AJAX_URL;
         data = {
             lieu_emplois:"",
             demandeur_emplois:"",

@@ -19,6 +19,7 @@ class CGE_SC_Job_Listing
     public function job_listing($atts)
     {
         $prefix = '_lp_';
+        $type = isset($atts['id']) ? $atts['id'] : '';
         $args = array(
             'post_type' => 'job_listing',
             'posts_per_page' => -1,
