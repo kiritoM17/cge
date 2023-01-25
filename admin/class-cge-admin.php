@@ -30,6 +30,7 @@ require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-recruteme
 require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-presse.php';
 require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-publication.php';
 require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-cpt-actualite.php';
+require plugin_dir_path(dirname(__FILE__)) . 'admin/class-cge-post-ajde-event.php';
 class Cge_Admin
 {
 
@@ -69,24 +70,28 @@ class Cge_Admin
 	{
 		// Load Forms and Flux Post Type and taxonomies
 		CGE_Job_Listing::instance()->init();
+		CGE_Ajde_Events::instance()->init();
 		CGE_Cpt_Formation::instance()->init();
 		CGE_Msalumni::instance()->init();
 		CGE_Cpt_Presse::instance()->init();
 		CGE_Cpt_Publication::instance()->init();
 		//CGE_Cpt_Actualite::instance()->init();
 		CGE_Cpt_Recrutement::instance()->init();
+		
 	}
 
 	public function add_meta_boxes()
 	{
 		CGE_Job_Listing::instance()->add_meta_boxes();
+		CGE_Ajde_Events::instance()->add_meta_boxes();
 		CGE_Cpt_Formation::instance()->add_meta_boxes();
 		CGE_Msalumni::instance()->add_meta_boxes();
 		CGE_Cpt_Presse::instance()->add_meta_boxes();
 		CGE_Cpt_Publication::instance()->add_meta_boxes();
 		//CGE_Cpt_Actualite::instance()->add_meta_boxes();
 		CGE_Cpt_Recrutement::instance()->add_meta_boxes();
-		//
+		//CGE_Ajde_Events
+		
 
 	}
 
