@@ -14,7 +14,7 @@ class CGE_Msalumni
             'with_front' => false
         ],
         'show_ui' => true,
-        'show_in_menu' => 'edit.php?post_type=job_listing',
+        // 'show_in_menu' => 'edit.php?post_type=job_listing',
         'supports' => [
             'title',
             'editor',
@@ -178,13 +178,13 @@ class CGE_Msalumni
 
     public function find_msalumini()
     {
-        
+
         $annee = $_POST['annee'];
         $nom = $_POST['nom'];
         $intitule = $_POST['intitule'];
         $ecole = $_POST['ecole'];
 
-        $tax_query = [] ;
+        $tax_query = [];
         if ($annee != 0) {
             $tax_query[] = array(
                 'key' => 'annee_obtention',
@@ -192,7 +192,7 @@ class CGE_Msalumni
                 'compare' => '=',
             );
         }
-  
+
         if ($nom != "") {
             $tax_query[] = array(
                 'key' => 'nom',
@@ -217,19 +217,19 @@ class CGE_Msalumni
             );
         }
 
-        if ($annee != '' && $ecole != '' && $nom != '' && $intitule != ''&& $ecole != '') {
+        if ($annee != '' && $ecole != '' && $nom != '' && $intitule != '' && $ecole != '') {
             $tax_query['relation'] = 'AND';
         }
-        
+
         $args = array(
             'post_type' => 'msalumni',
             'posts_per_page' => -1,
         );
 
         if (count($tax_query) >= 1) {
-            $args['meta_query'] = array_merge(['relation' => 'AND',],$tax_query);
+            $args['meta_query'] = array_merge(['relation' => 'AND',], $tax_query);
         }
-    
+
         $query = new WP_Query($args);
         if ($query->have_posts()) {
             $response = [];
@@ -243,5 +243,4 @@ class CGE_Msalumni
         } else
             wp_send_json($query->posts);
     }
-    
 }
