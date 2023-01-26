@@ -25,20 +25,29 @@ class CGE_SC_Cpt_Membre
         );
 
         if (isset($atts['type']) && !empty($atts['type'])) {
-            $tax_query[] = array(
-            'key' => '_cge_membre_type',
-            'value' => $atts['type'],
-            'compare' => 'LIKE',
-            );
-            $args['meta_query'] = $tax_query;
+            switch ((string)$atts['type']) {
+                case 'entreprise':
+                    $tax_query[] = array(
+                        'key' => '_cge_membre_type',
+                        'value' => 'entreprise',
+                        'compare' => '=',
+                    );
+                    break;
+                case 'organisme':
+                    $tax_query[] = array(
+                        'key' => '_cge_membre_type',
+                        'value' => 'organisme',
+                        'compare' => '=',
+                    );
+                    break;
+                default:
+                    break;
+            }
+            if (in_array((string)$atts['type'], ['entreprise', 'organisme']))
+                $args['meta_query'] = $tax_query;
         }
-
         $myposts = get_posts($args);
-
         $type = get_post_custom($myposts[0]->ID)["_cge_membre_type"][0];
-        
-        $type = $type . 's';
-
         ob_start();
         require('partials/membre/listing/index.php');
         return ob_get_clean();
