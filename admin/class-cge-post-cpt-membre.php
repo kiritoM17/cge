@@ -207,4 +207,6 @@ class CGE_CPT_MEMBRE
             }
         }
     }
+
+    
 }

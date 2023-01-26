@@ -43,7 +43,6 @@ class CGE_Cpt_Formation
         'ecole_acronyme',
         'ecole_nom',
         'co_accrediteurs',
-
         'langues_enseignements',
         'partenaires',
         'description_lieu_formation',
