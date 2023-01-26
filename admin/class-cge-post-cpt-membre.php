@@ -32,9 +32,11 @@ class CGE_CPT_MEMBRE
      * @var string[]
      */
     public static $valid_form_metabox_keys = [
+        'cge_membre_id',
         '_cge_membre_type',
         '_cge_membre_organisme',
-        '_cge_membre_url'
+        '_cge_membre_url',
+        '_cge_membre_image'
     ];
 
     /**

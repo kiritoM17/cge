@@ -15,10 +15,9 @@ class Cron_Cpt_Formation
     public function import_datas()
     {
         global $wpdb;
-        $api = new API_CGE(1);
+        $api = new API_CGE();
         $parameters = '';
-        //$response = $api->getApi('/formations?limit=0&type=detail' . $parameters);
-        $formations = simplexml_load_file('https://api-v1.cge.asso.fr/formations?limit=0&type=detail'); //simplexml_load_string($response);
+        $formations = simplexml_load_file('https://api-v1.cge.asso.fr/formations?limit=1&type=detail'); //simplexml_load_string($response);
 
         $formations = isset($formations->formations->formation) ? $formations->formations->formation : [];
 
@@ -26,7 +25,8 @@ class Cron_Cpt_Formation
 
         $index = 1;
         foreach ($formations as $formation) {
-            die(var_dump($formation));
+            $program_course_details = $api->getApi('/api/programs/' . (int)$formation->id);
+            die(var_dump($formation, $program_course_details));
             if ($index > 4)
                 break;
             $posts_formations = new WP_Query("post_type=cpt_formation&meta_key=_formation_id&meta_value=$formation->id");
@@ -167,6 +167,96 @@ class Cron_Cpt_Formation
         foreach ($formations_themes as $value) {
             if ($value->count == 0)
                 wp_delete_term($value->term_id, 'formations_themes');
+        }
+    }
+
+    public function import_datas_v2()
+    {
+        global $wpdb;
+        $api = new API_CGE();
+        $parameters = 'filterActive=1&order%5BupdatedAt%5D=desc&start=0&length=800';
+        $formations = $api->getApi("/api/programs?$parameters");
+        $formations = isset($formations->{'hydra:member'}) ? $formations->{'hydra:member'} : [];
+        $index = 0;
+        foreach ($formations as $formation) {
+            if ($index > 4)
+                break;
+            $posts_formations = new WP_Query("post_type=cpt_formation&meta_key=_formation_id&meta_value=$formation->id");
+            $ids_formations[] = $formation->id;
+            $action = 'update_post_meta';
+            // La formation existe déjà
+            if (sizeof($posts_formations->posts) > 0) {
+                $my_post = $posts_formations->posts[0];
+                $my_post->post_title = esc_attr($formation->name);
+                $my_post->post_status = 'publish';
+                $my_post->post_author = 1;
+                $my_post->post_type = 'cpt_formation';
+
+                wp_update_post($my_post);
+                $action = 'update_post_meta';
+                $post_id = $my_post->ID;
+                // La formation n'existe pas: on la crée
+            } else {
+                $my_post = array();
+                $my_post['post_title'] = esc_attr($formation->name);
+                $my_post['post_status'] = 'publish';
+                $my_post['post_author'] = 1;
+                $my_post['post_type'] = 'cpt_formation';
+                $post_id = wp_insert_post($my_post);
+                $action = 'add_post_meta';
+            }
+            $action($post_id, '_formation_id', esc_attr($formation->id));
+            $action($post_id, '_formation_ecole_id', esc_attr($formation->school->id));
+            $action($post_id, '_formation_ecole_acronyme', esc_attr($formation->school->acronym));
+            $action($post_id, '_formation_ecole_nom', esc_attr($formation->school->name));
+
+            $co_acc = [];
+            foreach ($formation->coAccreditations as $acc) {
+                $co_acc[] = esc_attr($acc->school->acronym);
+            }
+            $action($post_id, '_formation_co_accrediteurs', $co_acc);
+            //programCourses
+            //die(var_dump($formation, $co_acc, $formation->academicProgramPartners));
+            $langues_enseignements = [];
+            if (isset($formation->programCourses)) {
+                foreach ($formation->programCourses as $course) {
+                }
+            }
+            // $action($post_id, '_formation_langues_enseignements', esc_attr($formation->langues_enseignements));
+
+            //partenaires
+            $partenaires = [];
+            if (isset($formation->academicProgramPartners)) {
+                foreach ($formation->academicProgramPartners as $partenaire) {
+                    $partenaires[] = $partenaire->name;
+                }
+            }
+
+            if (isset($formation->professionalProgramPartners)) {
+                foreach ($formation->professionalProgramPartners as $partenaire) {
+                    $partenaires[] = $partenaire->name;
+                }
+            }
+
+            if (isset($formation->associatedProgramPartners)) {
+                foreach ($formation->associatedProgramPartners as $partenaire) {
+                    $partenaires[] = $partenaire->name;
+                }
+            }
+            $action($post_id, '_formation_partenaires', implode(",", $partenaires));
+
+            //Lieu formation
+            $description_lieu_formation = [];
+            if (isset($formation->school->member->establishments)) {
+                foreach ($formation->school->member->establishments as $etablissement) {
+                    $description_lieu_formation[] = $etablissement->postalAddress->city;
+                }
+            }
+            $action($post_id, '_formation_description_lieu_formation', implode(",", $description_lieu_formation));
+
+            //pas encore trouvé
+            // $action($post_id, '_formation_duree_formation_mois', esc_attr($formation->duree_formation_mois));
+            $index++;
         }
     }
 }
