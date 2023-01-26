@@ -18,20 +18,29 @@ class CGE_SC_Cpt_Membre
 
     public function cge_membre($atts)
     {
-       
-        
         $args = array(
             'post_type' => 'cge_membre',
-            'order' => 'DESC',
-            'posts_per_page' => -1
+            'posts_per_page' => -1,
+            'ignore_sticky_posts' => true,
         );
-        if (isset($atts['id']) && !empty($atts['id'])) {
-            $args['ID'] = (int)$atts['id'];
-        } else {
-            $myposts = get_posts($args);
-            ob_start();
-            require('partials/membre/listing/index.php');
-            return ob_get_clean();
+
+        if (isset($atts['type']) && !empty($atts['type'])) {
+            $tax_query[] = array(
+            'key' => '_cge_membre_type',
+            'value' => $atts['type'],
+            'compare' => 'LIKE',
+            );
+            $args['meta_query'] = $tax_query;
         }
+
+        $myposts = get_posts($args);
+
+        $type = get_post_custom($myposts[0]->ID)["_cge_membre_type"][0];
+        
+        $type = $type . 's';
+
+        ob_start();
+        require('partials/membre/listing/index.php');
+        return ob_get_clean();
     }
 }

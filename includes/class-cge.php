@@ -219,10 +219,6 @@ class Cge
 		$this->loader->add_action('wp_ajax_nopriv_find_publication', CGE_Cpt_Publication::instance(), 'find_publication');
 		$this->loader->add_action('wp_ajax_find_msalumini', CGE_Msalumni::instance(), 'find_msalumini');
 		$this->loader->add_action('wp_ajax_nopriv_find_msalumini', CGE_Msalumni::instance(), 'find_msalumini');
-
-		$this->loader->add_action('wp_ajax_find_membre', CGE_CPT_MEMBRE::instance(), 'find_membre');
-		$this->loader->add_action('wp_ajax_nopriv_find_membre', CGE_CPT_MEMBRE::instance(), 'find_membre');
-		
 		$this->loader->add_action('wp_ajax_find_presse', CGE_Cpt_Presse::instance(), 'find_presse');
 		$this->loader->add_action('wp_ajax_nopriv_find_presse', CGE_Cpt_Presse::instance(), 'find_presse');
 		$this->loader->add_action('wp_ajax_find_recrutement', CGE_Cpt_Recrutement::instance(), 'find_recrutement');

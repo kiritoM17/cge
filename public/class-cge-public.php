@@ -26,6 +26,7 @@ require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-cpt-publicatio
 require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-cpt-presse.php';
 require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-msalumni.php';
 require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-cpt-recrutement.php';
+require plugin_dir_path(dirname(__FILE__)) . 'public/class-cge-sc-cpt-membre.php';
 class Cge_Public
 {
 
@@ -67,6 +68,7 @@ class Cge_Public
 		CGE_SC_Cpt_Formation::instance()->init();
 		CGE_SC_Cpt_Publication::instance()->init();
 		CGE_SC_Cpt_Presse::instance()->init();
+		CGE_SC_Cpt_Membre::instance()->init();
 		CGE_sc_msalumni::instance()->init();
 		CGE_sc_recrutement::instance()->init();
 	}

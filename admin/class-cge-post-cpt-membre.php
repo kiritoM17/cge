@@ -206,8 +206,5 @@ class CGE_CPT_MEMBRE
         }
     }
 
-    function find_membre()
-    {
-        
-    }
+    
 }
