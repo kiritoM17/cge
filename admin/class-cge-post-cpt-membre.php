@@ -33,7 +33,8 @@ class CGE_CPT_MEMBRE
      */
     public static $valid_form_metabox_keys = [
         '_cge_membre_type',
-        '_cge_membre_organisme'
+        '_cge_membre_organisme',
+        '_cge_membre_url'
     ];
 
     /**
@@ -164,7 +165,7 @@ class CGE_CPT_MEMBRE
      */
     public function add_meta_boxes()
     {
-        add_meta_box('MembreTypeMetaBox', __('Editing Membre Type Informations', 'cge'), [$this, 'membreTypeInformationMetaBox'], self::POSTTYPE, 'side', 'high');
+        add_meta_box('MembreTypeMetaBox', __('Editing Membre Type Informations', 'cge'), [$this, 'membreTypeInformationMetaBox'], self::POSTTYPE); //, 'side', 'high'
         add_meta_box('MembreMetaBox', __('Editing Membre organismes Informations', 'cge'), [$this, 'membreInformationMetaBox'], self::POSTTYPE);
     }
 
