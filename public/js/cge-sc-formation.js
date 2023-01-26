@@ -54,6 +54,7 @@ jQuery(document).ready(function() {
         let htmlResult = ``;
         jQuery.each(response, (key, item)=>{
             let $logo = "";
+            console.log(item);
             if (item.formation_type[0].name == "MS") {
                 $logo = "logo-ms.png";
             } else if (item.formation_type[0].name == "MSc") {
@@ -82,18 +83,39 @@ jQuery(document).ready(function() {
                             <div class="col-md-4">
                                 ${logoHtml}
                             </div>
-                            <div class="col-md-4">
-                                <h4 class="entry-title-2">
-                                    ${item.post.post_title}
-                                </h4>
+                            <div class="col-md-8">
+                            <div class = "row">
+                                <div class="col-md-6">
+                                    <h4 class="entry-title-2">
+                                        ${item.post.post_title}
+                                    </h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <span class="date">
+                                        ${item.post_meta._formation_ecole_nom[0] != "" ? item.post_meta._formation_ecole_nom[0] : ""}
+                                    </span>
+                                    <span class="date">
+                                        ${htmlCoAccrediteurs}
+                                    </span>
+                                </div>
+                                   
+                                <div class = "row">
+                                    <div class="col-md-12">
+                                        <span class="date">
+                                            ${item.post_meta._formation_langues_enseignements[0] != "" ? item.post_meta._formation_langues_enseignements[0] : ""}
+                                        </span>
+                                        <span class="date">
+                                            ${item.post_meta._formation_duree_formation_mois[0] != "" ? item.post_meta._formation_duree_formation_mois[0] : ""}
+                                        </span>
+                                        <span class="date">
+                                           ${ item.post_meta._formation_voix_admission[0] != "" ? item.post_meta._formation_voix_admission[0] : "" }
+                                        </span>
+                                        <span class="date">
+                                            ${item.post_meta._formation_niveau_entree[0] != "" ? item.post_meta._formation_niveau_entree[0] : ""}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <span class="date">
-                                    ${item.post_meta._formation_ecole_nom[0] != "" ? item.post_meta._formation_ecole_nom[0] : ""}
-                                </span>
-                                <span class="date">
-                                    ${htmlCoAccrediteurs}
-                                </span>
                             </div>
                         </div> 
                     </a>

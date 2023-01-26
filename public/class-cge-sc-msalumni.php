@@ -16,7 +16,7 @@ class CGE_sc_msalumni{
     }
 
     public function init(){
-        add_shortcode('gce_msalumni', [$this,'gce_msalumni']);
+        add_shortcode('cge_msalumni', [$this,'cge_msalumni']);
     }
 
     public function cge_msalumni($atts) {
@@ -38,7 +38,6 @@ class CGE_sc_msalumni{
             return $meta_values;
         }
 
-        
         $taxonomy_ecoles = get_meta_values('ecole');
         $taxonomy_annees = get_meta_values('annee_obtention');
 
