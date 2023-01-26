@@ -9,6 +9,7 @@ require $path[0] . 'wp-config.php';
 
 @ini_set('display_errors', 1);
 
+
 require plugin_dir_path(dirname(__FILE__, 2)) . 'includes/class-cge-api.php';
 class Cron_Job_Listing
 {
