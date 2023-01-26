@@ -69,7 +69,7 @@ class Cge_Public
 		CGE_SC_Cpt_Publication::instance()->init();
 		CGE_SC_Cpt_Presse::instance()->init();
 		CGE_SC_Cpt_Membre::instance()->init();
-		CGE_sc_msalumni::instance()->init();
+		CGE_SC_Msalumni::instance()->init();
 		CGE_sc_recrutement::instance()->init();
 	}
 
@@ -92,11 +92,9 @@ class Cge_Public
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_style('cge-font-awesome-css', plugin_dir_url( __FILE__ ).'css/font-awesome.css', array(), $this->version, 'all');
+		wp_enqueue_style('cge-font-awesome-css', plugin_dir_url(__FILE__) . 'css/font-awesome.css', array(), $this->version, 'all');
 		wp_enqueue_style('cge-bootstrapp', plugin_dir_url(__FILE__) . 'css/bootstrap.css', array('cge-font-awesome-css'), $this->version, 'all');
 		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/cge-public.css', array('cge-bootstrapp'), $this->version, 'all');
-		
-		
 	}
 
 	/**
@@ -131,11 +129,12 @@ class Cge_Public
 	}
 
 	/**
-     * @param $single_template
-     * @return mixed|string
-     */
-    function get_product_sheet_template($single_template) {
-        global $post;
+	 * @param $single_template
+	 * @return mixed|string
+	 */
+	function get_product_sheet_template($single_template)
+	{
+		global $post;
 		switch ($post->post_type) {
 			case CGE_Cpt_Presse::POSTTYPE:
 				$single_template = dirname(__FILE__) . '/partials/presse/custom_view/index.php';
@@ -144,14 +143,13 @@ class Cge_Public
 				$single_template = dirname(__FILE__) . '/partials/publication/custom_view/index.php';
 				break;
 			case CGE_Cpt_Recrutement::POSTTYPE:
-					$single_template = dirname(__FILE__) . '/partials/recrutement/custom_view/index.php';
-					break;
+				$single_template = dirname(__FILE__) . '/partials/recrutement/custom_view/index.php';
+				break;
 			case CGE_Job_Listing::POSTTYPE:
 				$single_template = dirname(__FILE__) . '/partials/job_listing/custom_view/index.php';
 				break;
 			default:
-				
 		}
-        return $single_template;
-    }
+		return $single_template;
+	}
 }
