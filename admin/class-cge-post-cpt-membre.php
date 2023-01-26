@@ -1,18 +1,17 @@
 <?php
 
-class CGE_Ajde_Events
+class CGE_CPT_MEMBRE
 {
-    const POSTTYPE = 'ajde_events';
+    const POSTTYPE = 'cge_membre';
 
-    const TAXONOMY_EVENT_TYPE = 'event_type';
-    const TAXONOMY_EVENT_LOCATION = 'event_location';
+    const TAXONOMY_EVENT_TYPE = 'cge_membre_type';
 
-    public $rewriteSlug = 'ajde_events';
-    public $rewriteSlugSingular = 'ajde_events';
+    public $rewriteSlug = 'cge_membre';
+    public $rewriteSlugSingular = 'cge_membre';
     protected $post_type_args = [
         'public' => true,
         'rewrite' => [
-            'slug' => 'ajde_events',
+            'slug' => 'cge_membre',
             'with_front' => false
         ],
         'show_ui' => true,
@@ -22,7 +21,7 @@ class CGE_Ajde_Events
             'editor',
             'thumbnail',
         ],
-        'taxonomies' => ['event_type', 'event_location'],
+        'taxonomies' => ['cge_membre_type'],
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
@@ -33,23 +32,8 @@ class CGE_Ajde_Events
      * @var string[]
      */
     public static $valid_form_metabox_keys = [
-        '_cge_event_id',
-        'evcal_srow',
-        'event_year',
-        '_event_month',
-        'evcal_erow',
-
-        '_evcal_ec_f1a1_cus',
-        '_evcal_ec_f1a1_cusL',
-
-        '_sch_blocks',
-
-        // 'duree_formation_mois',
-        // 'website',
-        // 'directeur_responsable_ms_msc_badge_cqc',
-        // 'responsable_academique',
-        // 'voix_admission',
-        // 'niveau_entree'
+        '_cge_membre_type',
+        '_cge_membre_organisme'
     ];
 
     /**
@@ -86,24 +70,21 @@ class CGE_Ajde_Events
         return self::$instance;
     }
 
-    private $taxonomy_event_type_args = [];
-    private $taxonomy_event_location_args = [];
-    
-    private $taxonomyEventTypeLabels = [];
-    private $taxonomyEventLocationLabels = [];
+    private $taxonomy_cge_membre_type_args = [];
 
-    public $taxonomy_event_type_slug = 'event_type';
-    public $taxonomy_event_location_slug = 'event_location';
+    private $taxonomyCgeMembreTypeLabels = [];
+
+    public $taxonomy_cge_membre_type_slug = 'cge_membre_type';
     /**
      * Initializes plugin variables and sets up WordPress hooks/actions.
      */
     protected function __construct()
     {
         $this->post_type = self::POSTTYPE;
-        $this->singular_form_label = __('Event', 'cge');
-        $this->singular_form_label_lowercase = __('Event', 'cge');
-        $this->plural_form_label = __('Events', 'cge');
-        $this->plural_form_label_lowercase = __('Events', 'cge');
+        $this->singular_form_label = __('CGE Membre', 'cge');
+        $this->singular_form_label_lowercase = __('CGE Membre', 'cge');
+        $this->plural_form_label = __('CGE Membres', 'cge');
+        $this->plural_form_label_lowercase = __('CGE Membres', 'cge');
         $this->post_type_args['rewrite']['slug'] = $this->rewriteSlug;
         $this->post_type_args['show_in_nav_menus'] = true;
         $this->post_type_args['public'] = true;
@@ -114,7 +95,7 @@ class CGE_Ajde_Events
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('CGE  Event', 'cge'),
+            'menu_name' => __('CGE Membre', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,
@@ -136,7 +117,7 @@ class CGE_Ajde_Events
             'item_link_description' => sprintf(__('A link to a particular %s.', 'cge'), $this->singular_form_label),
         ];
 
-        $this->taxonomyEventTypeLabels = [
+        $this->taxonomyCgeMembreTypeLabels = [
             'menu_name' => __('Type', 'cge'),
             'name' => sprintf(__('%s Type', 'cge'), $this->singular_form_label),
             'singular_name' => sprintf(__('%s Type', 'cge'), $this->singular_form_label),
@@ -151,63 +132,29 @@ class CGE_Ajde_Events
             'item_link' => sprintf(__('%s Type Link', 'cge'), $this->singular_form_label),
             'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
         ];
-
-        $this->taxonomyEventLocationLabels = [
-            'menu_name' => __('Location', 'cge'),
-            'name' => sprintf(__('%s Location', 'cge'), $this->singular_form_label),
-            'singular_name' => sprintf(__('%s Location', 'cge'), $this->singular_form_label),
-            'search_items' => sprintf(__('Search %s Location', 'cge'), $this->singular_form_label),
-            'all_items' => sprintf(__('All %s Location', 'cge'), $this->singular_form_label),
-            'parent_item' => sprintf(__('Parent %s Location', 'cge'), $this->singular_form_label),
-            'parent_item_colon' => sprintf(__('Parent %s Location:', 'cge'), $this->singular_form_label),
-            'edit_item' => sprintf(__('Edit %s Location', 'cge'), $this->singular_form_label),
-            'update_item' => sprintf(__('Update %s Location', 'cge'), $this->singular_form_label),
-            'add_new_item' => sprintf(__('Add New %s Location', 'cge'), $this->singular_form_label),
-            'new_item_name' => sprintf(__('New %s Location Name', 'cge'), $this->singular_form_label),
-            'item_link' => sprintf(__('%s Location Link', 'cge'), $this->singular_form_label),
-            'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
-        ];
     }
 
     public function init()
     {
         register_post_type(self::POSTTYPE, $this->post_type_args);
 
-        $this->taxonomy_event_type_args = [
+        $this->taxonomy_cge_membre_type_args = [
             'hierarchical' => true,
             'update_count_callback' => '',
             'rewrite' => [
-                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_event_type_slug,
+                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_cge_membre_type_slug,
                 'with_front' => false,
                 'hierarchical' => true,
             ],
             'public' => true,
             'show_ui' => true,
-            'labels' => $this->taxonomyEventTypeLabels,
+            'labels' => $this->taxonomyCgeMembreTypeLabels,
             'capability_type' => 'post',
             'public' => true,
             'show_ui' => true,
             'show_in_nav_menu' => true,
         ];
-        register_taxonomy(self::TAXONOMY_EVENT_TYPE, self::POSTTYPE, $this->taxonomy_event_type_args);
-
-        $this->taxonomy_event_location_args = [
-            'hierarchical' => true,
-            'update_count_callback' => '',
-            'rewrite' => [
-                'slug' => $this->rewriteSlug . '/' . $this->taxonomy_event_location_slug,
-                'with_front' => false,
-                'hierarchical' => true,
-            ],
-            'public' => true,
-            'show_ui' => true,
-            'labels' => $this->taxonomyEventLocationLabels,
-            'capability_type' => 'post',
-            'public' => true,
-            'show_ui' => true,
-            'show_in_nav_menu' => true,
-        ];
-        register_taxonomy(self::TAXONOMY_EVENT_LOCATION, self::POSTTYPE, $this->taxonomy_event_location_args);
+        //register_taxonomy(self::TAXONOMY_EVENT_TYPE, self::POSTTYPE, $this->taxonomy_cge_membre_type_args);
 
         flush_rewrite_rules();
     }
@@ -217,13 +164,44 @@ class CGE_Ajde_Events
      */
     public function add_meta_boxes()
     {
-        add_meta_box('EventMetaBox', __('Editing Event Informations', 'cge'), [$this, 'eventInformationMetaBox'], self::POSTTYPE);
+        add_meta_box('MembreTypeMetaBox', __('Editing Membre Type Informations', 'cge'), [$this, 'membreTypeInformationMetaBox'], self::POSTTYPE, 'side', 'high');
+        add_meta_box('MembreMetaBox', __('Editing Membre organismes Informations', 'cge'), [$this, 'membreInformationMetaBox'], self::POSTTYPE);
     }
 
-    public function eventInformationMetaBox()
+    public function membreTypeInformationMetaBox()
     {
-        if (file_exists(CGE_ADMIN_METABOX . '/event/information.php')) {
-            include_once CGE_ADMIN_METABOX . '/event/information.php';
+        if (file_exists(CGE_ADMIN_METABOX . '/membre/type.php')) {
+            include_once CGE_ADMIN_METABOX . '/membre/type.php';
+        }
+    }
+
+    public function membreInformationMetaBox()
+    {
+        if (file_exists(CGE_ADMIN_METABOX . '/membre/information.php')) {
+            include_once CGE_ADMIN_METABOX . '/membre/information.php';
+        }
+    }
+
+    /**
+     * @param $post_id
+     */
+    public function save_meta($post_id)
+    {
+        $e_torisme_form = get_post($post_id);
+        if ($e_torisme_form->post_type == self::POSTTYPE) {
+            $data = (isset($_POST['Membre']) && !empty($_POST['Membre'])) ? $_POST['Membre'] : [];
+            if (isset($data['FeaturedImage'])) {
+                if (empty($data['FeaturedImage'])) {
+                    delete_post_meta($post_id, '_thumbnail_id');
+                } else {
+                    update_post_meta($post_id, '_thumbnail_id', $data['FeaturedImage']);
+                }
+                unset($data['FeaturedImage']);
+            }
+            unset($data['Membre']);
+            foreach (self::$valid_form_metabox_keys as $value) {
+                update_post_meta($post_id, $this->meta_prefix . $value, (isset($data[$value]) && !empty($data[$value])) ? $data[$value] : null);
+            }
         }
     }
 }
