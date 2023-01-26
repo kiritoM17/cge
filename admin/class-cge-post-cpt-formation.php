@@ -471,22 +471,19 @@ class CGE_Cpt_Formation
         if (count($date_query) >= 1) {
             $args['date_query'] = $date_query;
         }
-
         $args['s'] = $mots;
 
         $args['order'] = 'DESC';
         $query = new WP_Query($args);
-        if ($query->have_posts()) {
-            $response = [];
-            foreach ($query->posts as $post)
-                $response[] = [
-                    'post' => $post,
-                    'post_meta' => get_post_custom($post->ID),
-                    'formation_type' => get_the_terms($post->ID, 'formation_type'),
-                    '_formation_co_accrediteurs' => get_post_meta($post->ID, "_formation_co_accrediteurs")[0]
-                ];
-            wp_send_json($response);
-        } else
-            wp_send_json($query->posts);
+        //die(var_dump($query));
+        $response = [];
+        foreach ($query->posts as $post)
+            $response[] = [
+                'post' => $post,
+                'post_meta' => get_post_custom($post->ID),
+                'formation_type' => get_the_terms($post->ID, 'formation_type'),
+                '_formation_co_accrediteurs' => get_post_meta($post->ID, "_formation_co_accrediteurs")[0]
+            ];
+        wp_send_json($response);
     }
 }

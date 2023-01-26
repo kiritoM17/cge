@@ -17,7 +17,7 @@ class Cron_Cpt_Formation
         global $wpdb;
         $api = new API_CGE();
         $parameters = '';
-        $formations = simplexml_load_file('https://api-v1.cge.asso.fr/formations?limit=1&type=detail'); //simplexml_load_string($response);
+        $formations = simplexml_load_file('https://api-v1.cge.asso.fr/formations?limit=0&type=detail'); //simplexml_load_string($response);
 
         $formations = isset($formations->formations->formation) ? $formations->formations->formation : [];
 
@@ -25,12 +25,9 @@ class Cron_Cpt_Formation
 
         $index = 1;
         foreach ($formations as $formation) {
-<<<<<<< HEAD
             $program_course_details = $api->getApi('/api/programs/' . (int)$formation->id);
-            die(var_dump($formation, $program_course_details));
-=======
-           
->>>>>>> 0659171cfd2bb7c7b9a144c91b6c122bc818972c
+            //die(var_dump($formation, $program_course_details));
+
             if ($index > 4)
                 break;
             $posts_formations = new WP_Query("post_type=cpt_formation&meta_key=_formation_id&meta_value=$formation->id");
