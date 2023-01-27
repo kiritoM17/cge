@@ -3,6 +3,7 @@
 
 ?>
 
+<input type="hidden" value="msalumni" id="filter-listing-script" name="filter-listing-script">
 <div style="
     margin: 0;
     padding: 0;

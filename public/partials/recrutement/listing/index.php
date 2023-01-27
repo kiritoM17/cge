@@ -1,7 +1,7 @@
 <?php
 
 ?>
-
+<input type="hidden" value="recrutement" id="filter-listing-script" name="filter-listing-script">
 <div style="
     margin: 0;
     padding: 0;

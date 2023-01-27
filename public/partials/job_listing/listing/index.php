@@ -4,6 +4,8 @@ echo '<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0
 echo '<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />';
 ?>
 
+<input type="hidden" value="job_listing" id="filter-listing-script" name="filter-listing-script"/>
+
 
 <div class="row" style="width: 100% !important;margin: 0;padding: 0;max-width: 100%;">
     <?php if (file_exists(CGE_PUBLIC_PARTIALS . 'job_listing/listing/filter.php')) {

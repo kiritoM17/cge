@@ -30,3 +30,5 @@
         </div>
     </section>
 </div>
+
+<input type="hidden" value="membre" id="filter-listing-script" name="filter-listing-script"/>
