@@ -1,11 +1,16 @@
 jQuery(document).ready(function(){
-    jQuery(document).on('change', '#job_region_select,#job_type_select,#job_amenity_select', function(){
+    jQuery(document).on('change', '#job_region_select,#job_type_select,#job_amenity_select,#label4digital', function(){
         onFilterJobListing();
     });
 
     jQuery(document).on('keyup', '#job_search_keywords', function(){
         if(jQuery(this).val() && jQuery(this).val().length >1)
             onFilterJobListing();
+    });
+
+    jQuery(document).on('click','.open-post-popup',function(){
+        markers[jQuery(this).attr('post')].openPopup();
+
     });
 
     function onFilterJobListing()
@@ -16,11 +21,13 @@ jQuery(document).ready(function(){
 		let job_type_select  = jQuery('#job_type_select').val();
 		let job_amenity_select = jQuery('#job_amenity_select').val();
 		let job_search_keywords   = jQuery('#job_search_keywords').val();
+        let label4digital = jQuery('#label4digital').is(':checked');
         data = {
             job_region_select:job_region_select,
             job_type_select:job_type_select,
             job_amenity_select:job_amenity_select,
             job_search_keywords:job_search_keywords,
+            label4digital: label4digital == true ? '1' : '',
             action:'find_job_listing'
         };
         jQuery.post(ajaxurl, data, function(result) {
@@ -39,6 +46,7 @@ jQuery(document).ready(function(){
         let htmlResult = ``;
         if(Array.isArray(posts))
         {
+            jQuery('#count_members_school').html(posts.length);
             jQuery.each(posts, (key, item)=>{
                 let post_content = subStringContent(item.post.post_content);
                 htmlResult +=`
@@ -64,6 +72,7 @@ jQuery(document).ready(function(){
                                 ${post_content}
                                 <ul>
                                     <li>
+                                        Date de création 
                                         ${ item.post_meta._ecole_annee_creation != undefined && item.post_meta._ecole_annee_creation[0] != "" ? item.post_meta._ecole_annee_creation[0]: ""}
                                     </li>
                                     <li>
@@ -91,9 +100,9 @@ jQuery(document).ready(function(){
         var locations = data;
         var markers_cluster = L.markerClusterGroup();
         if(locations.length>0){
-            map = L.map('map').setView([locations[0][1], locations[0][2]], 4);
+            map = L.map('map').setView([locations[0][1], locations[0][2]], 1);
         }else {
-            map = L.map('map').setView([49.540612, 1.821614], 2);
+            map = L.map('map').setView([49.540612, 1.821614], 1);
         }
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -103,7 +112,7 @@ jQuery(document).ready(function(){
         {
             for (i = 0; i < locations.length; i++) {
                 let contentString = `
-                    <div class="col"  style="width:400px !important;padding-top: 0;padding-bottom: 15px;padding-left: 0;padding-right: 0">
+                    <div class="col"  style="width:100%;padding-top: 0;padding-bottom: 15px;padding-left: 0;padding-right: 0">
                         <div class="map-card-header">
                         <div class="map-card-header-options">
                                 &nbsp;
@@ -111,7 +120,7 @@ jQuery(document).ready(function(){
                         <span><a class="close-card-map">X</a> </span>
                         </div>
                         <div class="map-image">
-                            <img title="${locations[i][0]}" alt="${locations[i][0]}" src="${locations[i][3]}" style="width: 100% !important;height: 300px!important;">
+                            <img title="${locations[i][0]}" alt="${locations[i][0]}" src="${locations[i][3]}" style="width: 300px; max-width: 100% !important;height: 300px!important;object-fit: contain;">
                         </div>
                     <div><span style="font-size:24px !important;color: ${locations[i][9]}"><b>${locations[i][0]}</b></span></div>
                     <div><p><i>${locations[i][8]}</i></p></div>

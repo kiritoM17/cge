@@ -92,7 +92,7 @@ class CGE_Job_Listing
      */
     protected $meta_prefix = '';
 
-    
+
 
     /**
      * @var string
@@ -110,7 +110,8 @@ class CGE_Job_Listing
      *
      * @return self
      */
-    public static function instance() {
+    public static function instance()
+    {
         if (!self::$instance) {
             self::$instance = new self;
         }
@@ -132,7 +133,8 @@ class CGE_Job_Listing
     /**
      * Initializes plugin variables and sets up WordPress hooks/actions.
      */
-    protected function __construct() {
+    protected function __construct()
+    {
         $this->post_type = self::POSTTYPE;
         $this->singular_form_label = __('Member', 'cge');
         $this->singular_form_label_lowercase = __('Member', 'cge');
@@ -148,7 +150,7 @@ class CGE_Job_Listing
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('CGE', 'cge'),
+            'menu_name' => __('CGE Membre Ecole', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,
@@ -216,7 +218,8 @@ class CGE_Job_Listing
         ];
     }
 
-    public function init() {
+    public function init()
+    {
         register_post_type(self::POSTTYPE, $this->post_type_args);
 
         $this->taxonomy_region_args = [
@@ -306,7 +309,7 @@ class CGE_Job_Listing
 
     public function jobListingInformationDocumentationMetaBox()
     {
-        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-documentation.php')) 
+        if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-documentation.php'))
             include_once CGE_ADMIN_METABOX . '/job_listing/information-documentation.php';
     }
 
@@ -321,7 +324,7 @@ class CGE_Job_Listing
         if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-de.php'))
             include_once CGE_ADMIN_METABOX . '/job_listing/information-de.php';
     }
-    
+
     public function jobListingInformationFormationMetaBox()
     {
         if (file_exists(CGE_ADMIN_METABOX . '/job_listing/information-formation.php'))
@@ -341,28 +344,34 @@ class CGE_Job_Listing
     }
 
 
-    public function add_form_custom_column($columns){
-        $columns['TYPE_STRUCTURE'] = __('TYPE STRUCTURE','cge');
-        $columns['TYPE_FORMATION'] = __('TYPE FORMATION','cge');
-        $columns['STATUT'] = __('STATUT','cge');
-        $columns['ANNEE_DE_CREATION'] = __('ANNÉE DE CREATION','cge');
-        $columns['SHORTCODE'] = __('SHORTCODE','cge');
+    public function add_form_custom_column($columns)
+    {
+        $columns['TYPE_STRUCTURE'] = __('TYPE STRUCTURE', 'cge');
+        $columns['TYPE_FORMATION'] = __('TYPE FORMATION', 'cge');
+        $columns['STATUT'] = __('STATUT', 'cge');
+        $columns['ANNEE_DE_CREATION'] = __('ANNÉE DE CREATION', 'cge');
+        $columns['SHORTCODE'] = __('SHORTCODE', 'cge');
         return $columns;
     }
 
-    public function manage_form_custom_column($column, $post_id){
+    public function manage_form_custom_column($column, $post_id)
+    {
         $data = get_post_custom($post_id);
-        switch ($column){
+        switch ($column) {
             case 'TYPE_STRUCTURE':
-                echo '<p>'.((isset($data['_ecole_type_structure'][0]) && !empty($data['_ecole_type_structure'][0])) ? $data['_ecole_type_structure'][0] : '').'</p>';
+                echo '<p>' . ((isset($data['_ecole_type_structure'][0]) && !empty($data['_ecole_type_structure'][0])) ? $data['_ecole_type_structure'][0] : '') . '</p>';
                 break;
-            case 'TYPE_FORMATION': echo '<p>'.((isset($data['_ecole_type_formation'][0]) && !empty($data['_ecole_type_formation'][0])) ? $data['_ecole_type_formation'][0] : '').'</p>';
+            case 'TYPE_FORMATION':
+                echo '<p>' . ((isset($data['_ecole_type_formation'][0]) && !empty($data['_ecole_type_formation'][0])) ? $data['_ecole_type_formation'][0] : '') . '</p>';
                 break;
-            case 'STATUT': echo '<p>'.((isset($data['_ecole_statut'][0]) && !empty($data['_ecole_statut'][0])) ? $data['_ecole_statut'][0] : '').'</p>';
+            case 'STATUT':
+                echo '<p>' . ((isset($data['_ecole_statut'][0]) && !empty($data['_ecole_statut'][0])) ? $data['_ecole_statut'][0] : '') . '</p>';
                 break;
-            case 'ANNEE_DE_CREATION': echo '<p>'.((isset($data['_ecole_annee_creation'][0]) && !empty($data['_ecole_annee_creation'][0])) ? $data['_ecole_annee_creation'][0] : '').'</p>';
+            case 'ANNEE_DE_CREATION':
+                echo '<p>' . ((isset($data['_ecole_annee_creation'][0]) && !empty($data['_ecole_annee_creation'][0])) ? $data['_ecole_annee_creation'][0] : '') . '</p>';
                 break;
-            case 'SHORTCODE': echo '[job_listing id='.$post_id.' ]';
+            case 'SHORTCODE':
+                echo '[job_listing id=' . $post_id . ' ]';
                 break;
             default:
                 break;
@@ -374,6 +383,7 @@ class CGE_Job_Listing
         $job_listing_region = $_POST['job_region_select'];
         $job_listing_type = $_POST['job_type_select'];
         $job_amenity_select = $_POST['job_amenity_select'];
+        $label4digital = $_POST['label4digital'];
 
         $job_search_keywords = $_POST['job_search_keywords'];
         $tax_query = [];
@@ -411,6 +421,14 @@ class CGE_Job_Listing
             );
         }
 
+        if ($label4digital != "") {
+            $term_query[] = array(
+                'key' => '_ecole_digital_certification_label',
+                'value' => 'Oui',
+                'compare' => '=',
+            );
+        }
+
         $args = array(
             'post_type' => 'job_listing',
             'posts_per_page' => -1,
@@ -423,7 +441,7 @@ class CGE_Job_Listing
         if ($job_search_keywords != '')
             $term_query['relation'] = 'AND';
 
-        if(count($term_query) > 0)
+        if (count($term_query) > 0)
             $args['meta_query'] = $term_query;
         if (count($tax_query) > 0)
             $args['tax_query'] = $tax_query;
@@ -448,20 +466,19 @@ class CGE_Job_Listing
                     '#000',
                     '#fff'
                 ];
-                $response[]=[
+                $response[] = [
                     'post' => $post,
                     'post_meta' => $data,
                 ];
             }
             wp_send_json([
                 'response' => $response,
-                'map_information'=> $post_type_information_array
+                'map_information' => $post_type_information_array
             ]);
         } else
             wp_send_json([
                 'response' => [],
-                'map_information'=> []
+                'map_information' => []
             ]);
     }
-
 }

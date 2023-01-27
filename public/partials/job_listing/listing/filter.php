@@ -1,7 +1,4 @@
 <div class="row col-md-12">
-    <?php
-
-    ?>
     <div class="widget-filtre widget-listingsearch layout1 ">
         <form class="form-inline search-form clearfix job_filters" style="display: flex;">
             <?php
@@ -135,9 +132,18 @@
                 <input type="text" class="form-text search-field" name="job_search_keywords" id="job_search_keywords" placeholder="Mots clés" />
             </div>
 
+            <div class="form-group">
+                <label for="label4digital" style="display: flex;font-size: 13px;color: #fff;align-items: end;">
+                    4DIGITAL
+                    <input type="checkbox"  name="label4digital" id="label4digital" style="height: 25px;width: 25px; margin: 0 0 0 5px;"/>
+                </label>
+            </div>
+
             <?php do_action('job_manager_job_filters_search_jobs_end', $atts); ?>
 
         </form>
-
+        <div class="row result-search">
+            <span id="count_members_school"><?php echo count($wp_query->posts) ?> </span>&nbsp;écoles membres
+        </div>
     </div>
 </div>

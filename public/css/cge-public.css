@@ -4210,3 +4210,47 @@ body div.pdfemb-viewer { margin:  0 auto}
   }
 
 /*LOADER CSS */
+/* CARD */
+.map-card-header{
+    height: 35px !important;
+    background-color: var(--fill-travelog-bg-color);
+    color: var(--fill-travelog-H2);
+    margin-bottom: 5px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
+    overflow: hidden;
+  }
+  .map-card-btn{
+    display: flex;
+    justify-content: right;
+    align-items: end;
+    padding-right: 15px;
+  }
+  .map-card-header a{
+    color: var(--fill-travelog-H2);
+    cursor: pointer;
+  }
+  .map-card-header .map-card-header-options{
+    display: flex;
+    flex-direction: row;
+    width: 50px;
+    justify-content: space-around;
+    font-size: 18px;
+  }
+  .map-card-header a:hover{
+    color: var(--fill-travelog-H2);
+    cursor: pointer;
+  }
+  .map-image{
+    display: flex;
+    width: 100%;
+    height: 200px !important;
+    overflow: hidden;
+    justify-items: center;
+    align-content: center;
+    margin-bottom: 15px;
+  }
+/*END CARD */

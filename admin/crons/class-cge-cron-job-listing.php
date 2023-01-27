@@ -24,7 +24,7 @@ class Cron_Job_Listing
                 $response = isset($response->{'hydra:member'}) ? $response->{'hydra:member'} : [];
                 $index = 0;
                 foreach ($response as $ecole) {
-                        //die(var_dump($ecole));
+                        die(var_dump($ecole->director));
                         if ($index > 100)
                                 break;
                         if (!$ecole->validated) {
@@ -36,7 +36,7 @@ class Cron_Job_Listing
                         // Create post object
                         $my_post = array();
                         $my_post['post_title'] = esc_attr($ecole->acronym);
-                        $my_post['post_content'] = $ecole->presentationFrench;
+                        $my_post['post_content'] = $ecole->presentationFrench ? $ecole->presentationFrench : $ecole->presentationEnglish;
                         $my_post['post_status'] = 'publish';
                         $my_post['post_author'] = 1; //the id of the author
                         $my_post['post_type'] = 'job_listing'; //the id's of the categories
@@ -79,6 +79,8 @@ class Cron_Job_Listing
                 $action($post_id, '_ecole_acronyme', esc_attr($ecole->acronym));
                 $action($post_id, '_ecole_nom_usage', esc_attr($ecole->brandName));
                 $action($post_id, '_ecole_nom', esc_attr($ecole->name));
+                $action($post_id, '_ecole_digital_certification_label', esc_attr($ecole->digitalCertificationLabel ? 'Oui' : 'Non'));
+                //
                 $ptLabel = '';
                 foreach ($ecole->schoolProgramTypes as $pt) {
                         if ($ptLabel != '') {

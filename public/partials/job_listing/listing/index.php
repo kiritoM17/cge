@@ -6,10 +6,10 @@ echo '<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0
 
 
 <div class="row" style="width: 100% !important;margin: 0;padding: 0;max-width: 100%;">
-    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-        <?php if (file_exists(CGE_PUBLIC_PARTIALS . 'job_listing/listing/filter.php')) {
+    <?php if (file_exists(CGE_PUBLIC_PARTIALS . 'job_listing/listing/filter.php')) {
             require_once(CGE_PUBLIC_PARTIALS . 'job_listing/listing/filter.php');
         } ?>
+    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
         <?php if (file_exists(CGE_PUBLIC_PARTIALS . 'job_listing/listing/list.php')) {
             require_once(CGE_PUBLIC_PARTIALS . 'job_listing/listing/list.php');
         } ?>
@@ -52,7 +52,7 @@ echo '<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.3.0
 
     for (i = 0; i < locations.length; i++) {
         let contentString = `
-        <div class="col"  style="width:400px !important;padding-top: 0;padding-bottom: 15px;padding-left: 0;padding-right: 0">
+        <div class="col"  style=" min-width: 300px;max-width:100%;padding-top: 0;padding-bottom: 15px;padding-left: 0;padding-right: 0">
             <div class="map-card-header"><span><a class="close-card-map">X</a> </span></div>
             <div class="map-image">
                 <img title="${locations[i][0]}" alt="${locations[i][0]}" src="${locations[i][3]}" style="width: 100% !important;height: 300px!important;">
