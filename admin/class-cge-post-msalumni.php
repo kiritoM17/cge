@@ -144,14 +144,14 @@ class CGE_Msalumni
     public function find_msalumini()
     {
 
-        $annee = $_POST['annee'];
+        $annee = (int)$_POST['annee'];
         $nom = $_POST['nom'];
         $intitule = $_POST['intitule'];
         $ecole = $_POST['ecole'];
         $paged = isset($_POST['paged']) ? $_POST['paged'] : 1;
 
         $tax_query = [];
-        if ($annee != 0) {
+        if ($annee > 0) {
             $tax_query[] = array(
                 'key' => 'annee_obtention',
                 'value' => $annee,
@@ -183,7 +183,7 @@ class CGE_Msalumni
             );
         }
 
-        if ($annee != '' && $ecole != '' && $nom != '' && $intitule != '' && $ecole != '') {
+        if ($annee > 0 && $ecole != '' && $nom != '' && $intitule != '' && $ecole != '') {
             $tax_query['relation'] = 'AND';
         }
 
@@ -193,11 +193,13 @@ class CGE_Msalumni
             'paged' => $paged
         );
 
+
         if (count($tax_query) >= 1) {
             $args['meta_query'] = array_merge(['relation' => 'AND',], $tax_query);
         }
 
         $query = new WP_Query($args);
+
         if ($query->have_posts()) {
             $response = [];
             foreach ($query->posts as $post)
