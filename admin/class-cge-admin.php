@@ -180,7 +180,7 @@ class Cge_Admin
 				// Sanitize.
 				esc_url(
 					// Retrieves the site url for the current site.
-					site_url("/wp-admin/edit.php?post_type=job_listing&page=cge-admin-menu")
+					site_url("wp-admin/?page=cge-admin-menu&cge_menu=settings")
 				)
 			);
 		}

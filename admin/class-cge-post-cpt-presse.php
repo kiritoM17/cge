@@ -21,6 +21,7 @@ class CGE_Cpt_Presse
     private $taxonomyAnneeLabels = [];
 
     public $rewriteSlugSingular = 'cpt_presse';
+    public $rewriteSlug = 'cpt_presse';
     protected $post_type_args = [
         'public' => true,
         'rewrite' => [
