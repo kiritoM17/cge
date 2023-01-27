@@ -79,6 +79,14 @@ class Cge
 			define('CGE_ADMIN_VIEWS', dirname(__FILE__, 2) . '/admin/views/');
 		}
 
+		if (!defined('CGE_ADMIN_CRONS')) {
+			define('CGE_ADMIN_CRONS', dirname(__FILE__, 2) . '/admin/crons/');
+		}
+
+		if (!defined('CGE_ADMIN_CRONS_URL')) {
+			define('CGE_ADMIN_CRONS_URL', plugins_url('cge/admin/crons/', dirname(__FILE__, 2)));
+		}
+
 		if (!defined('CGE_ADMIN_METABOX')) {
 			define('CGE_ADMIN_METABOX', dirname(__FILE__, 2) . '/admin/partials/metabox/');
 		}
@@ -96,11 +104,11 @@ class Cge
 		}
 
 		if (!defined('CGE_ADMIN_JS')) {
-			define('CGE_ADMIN_JS', plugins_url('admin/js/', dirname(__FILE__, 2)));
+			define('CGE_ADMIN_JS', plugins_url('cge/admin/js/', dirname(__FILE__, 2)));
 		}
 
 		if (!defined('CGE_ADMIN_CSS')) {
-			define('CGE_ADMIN_CSS', plugins_url('admin/js/', dirname(__FILE__, 2)));
+			define('CGE_ADMIN_CSS', plugins_url('cge/admin/js/', dirname(__FILE__, 2)));
 		}
 
 		$this->plugin_name = 'cge';

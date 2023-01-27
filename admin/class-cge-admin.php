@@ -68,28 +68,24 @@ class Cge_Admin
 
 	public function init()
 	{
-		// Load Forms and Flux Post Type and taxonomies
-		CGE_Job_Listing::instance()->init();
-		// CGE_Ajde_Events::instance()->init();
 		CGE_Cpt_Formation::instance()->init();
 		CGE_Msalumni::instance()->init();
-		CGE_Cpt_Presse::instance()->init();
-		CGE_Cpt_Publication::instance()->init();
-		CGE_Cpt_Recrutement::instance()->init();
+		CGE_Job_Listing::instance()->init();
 		CGE_CPT_MEMBRE::instance()->init();
+		CGE_Cpt_Recrutement::instance()->init();
+		CGE_Cpt_Publication::instance()->init();
+		CGE_Cpt_Presse::instance()->init();
 	}
 
 	public function add_meta_boxes()
 	{
-		CGE_Job_Listing::instance()->add_meta_boxes();
-		// CGE_Ajde_Events::instance()->add_meta_boxes();
 		CGE_Cpt_Formation::instance()->add_meta_boxes();
 		CGE_Msalumni::instance()->add_meta_boxes();
-		CGE_Cpt_Presse::instance()->add_meta_boxes();
-		CGE_Cpt_Publication::instance()->add_meta_boxes();
-		CGE_Cpt_Recrutement::instance()->add_meta_boxes();
+		CGE_Job_Listing::instance()->add_meta_boxes();
 		CGE_CPT_MEMBRE::instance()->add_meta_boxes();
-		//CGE_Ajde_Events
+		CGE_Cpt_Recrutement::instance()->add_meta_boxes();
+		CGE_Cpt_Publication::instance()->add_meta_boxes();
+		CGE_Cpt_Presse::instance()->add_meta_boxes();
 	}
 
 	public function save_post($post_id)
@@ -149,7 +145,7 @@ class Cge_Admin
 	public function cge_admin_menu()
 	{
 
-		add_submenu_page('edit.php?post_type=job_listing', 'The CGE Plugin', 'Settings', 'manage_options', 'cge-admin-menu', [$this, 'cge_admin_init']); //, EMAFFP_ADMIN_IMG . 'logo-multi-affiliation.svg'
+		add_menu_page('CGE', 'CGE MANAGER', 'manage_options', 'cge-admin-menu', [$this, 'cge_admin_init'], 'dashicons-tickets', 5);
 
 	}
 

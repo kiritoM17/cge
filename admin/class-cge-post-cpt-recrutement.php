@@ -95,7 +95,7 @@ class CGE_Cpt_Recrutement
         $this->post_type_args['public'] = true;
         $this->post_type_args['show_in_rest'] = false;
         $this->post_type_args['labels'] = [
-            'menu_name' => __('CGE Recrutement', 'cge'),
+            'menu_name' => __('Offres d\'emploi', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,

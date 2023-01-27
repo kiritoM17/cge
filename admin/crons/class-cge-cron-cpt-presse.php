@@ -26,8 +26,7 @@ class Cron_Cpt_Presse
         $files_id = [];
         $index = 0;
         foreach ($result as $item) {
-            if ($index > 4)
-                break;
+            
             if ($item->type == "file" && $item->file_name != "") {
                 if ($item->file_type == "Communiqué de presse" || $item->file_type == "Dossier de presse") {
                     $file_url = $item->file_url_with_name;

@@ -23,8 +23,7 @@ class Cron_Cpt_Recrutement
         $emplois_id = [];
         $index = 0;
         foreach ($response as $emploi) {
-            if ($index > 4)
-                break;
+            
             if (!$emploi->validated && !$emploi->deletedAt) {
                 continue;
             } else if ($emploi->deletedAt) {

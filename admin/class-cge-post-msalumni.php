@@ -24,7 +24,7 @@ class CGE_Msalumni
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
-        'menu_icon' => 'dashicons-store',
+        'menu_icon' => 'dashicons-welcome-learn-more',
     ];
 
     /**
@@ -83,10 +83,10 @@ class CGE_Msalumni
     protected function __construct()
     {
         $this->post_type = self::POSTTYPE;
-        $this->singular_form_label = __('Diplomé', 'cge');
-        $this->singular_form_label_lowercase = __('Diplomé', 'cge');
-        $this->plural_form_label = __('Diplomés', 'cge');
-        $this->plural_form_label_lowercase = __('Diplomés', 'cge');
+        $this->singular_form_label = __('Étudiant', 'cge');
+        $this->singular_form_label_lowercase = __('Étudiant', 'cge');
+        $this->plural_form_label = __('Étudiants', 'cge');
+        $this->plural_form_label_lowercase = __('Étudiants', 'cge');
         $this->post_type_args['rewrite']['slug'] = $this->rewriteSlug;
         $this->post_type_args['show_in_nav_menus'] = true;
         $this->post_type_args['public'] = true;
@@ -97,7 +97,7 @@ class CGE_Msalumni
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('Diplomé', 'cge'),
+            'menu_name' => __('Étudiants  Alumni', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,

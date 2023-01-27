@@ -26,8 +26,7 @@ class Cron_Cpt_Publication
         $files_id = [];
         $index = 0;
         foreach ($result as $item) {
-            if ($index > 4)
-                break;
+            
             if ($item->type == "file" && $item->file_name != "") {
                 if (strpos($item->name, "CP") === false || $item->file_source == "Publications de la CGE" || $item->file_source == "Sources et références externes") {
                     $file_url = $item->file_url_with_name;

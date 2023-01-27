@@ -29,9 +29,7 @@ class Cron_Cpt_Membre
         $response = isset($response->{'hydra:member'}) ? $response->{'hydra:member'} : [];
         $index = 0;
         foreach ($response as $compagny) {
-            //die(var_dump($compagny));
-            if ($index > 4)
-                break;
+            
             $posts_ecoles = new WP_Query("post_type=cge_membre&meta_key=cge_membre_id&meta_value=" . $compagny->id);
             $ids_ecoles[] = $compagny->id;
             // Create post object

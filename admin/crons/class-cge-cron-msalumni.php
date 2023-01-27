@@ -30,8 +30,7 @@ class Cron_Msalumni
             //the id of the author
             $my_post['post_type'] = 'msalumni';
             if (empty($ol_id)) {
-                if ($index > 4)
-                    break;
+                
                 //the id's of the categories
                 $post_id = wp_insert_post($my_post);
                 add_post_meta($post_id, 'id_msalumni', esc_attr(trim($json_alumni->id)));
@@ -47,8 +46,6 @@ class Cron_Msalumni
                 add_post_meta($post_id, 'id_programme', esc_attr($json_alumni->program->id));
                 echo "<p>post <strong>#ID " . $post_id . "</strong> have been created successfully</p>";
             } else {
-                if ($index > 4)
-                    break;
                 $post_id = (int)$ol_id[0]->post_id;
                 $my_post['ID'] = $post_id;
                 wp_update_post($my_post);

@@ -19,10 +19,8 @@ class Cron_Ajde_Events
         $parameters = 'deletedAt[exists]=false&pagination=false&order[startDate]=desc';
         $response = $api->getApi('/api/events?' . $parameters);
         $response = isset($response->{'hydra:member'}) ? $response->{'hydra:member'} : [];
-        $index = 0;
+
         foreach ($response as $json_event) {
-            if ($index > 4)
-                break;
             $startDate = new DateTime($json_event->startDate);
             $endDate = new DateTime($json_event->endDate);
 
@@ -146,7 +144,6 @@ class Cron_Ajde_Events
                     update_option('evo_tax_meta', $options);
                 }
             }
-            $index++;
         }
     }
 }

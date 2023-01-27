@@ -38,7 +38,7 @@ class CGE_Cpt_Presse
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
-        'menu_icon' => 'dashicons-portfolio',
+        'menu_icon' => 'dashicons-printer',
     ];
 
     /**
@@ -104,7 +104,7 @@ class CGE_Cpt_Presse
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('CGE Presse', 'cge'),
+            'menu_name' => __('Communiqués de presse', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,

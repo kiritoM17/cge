@@ -21,10 +21,16 @@
 <div id="cge-adminzone">
     <div id="cge-adminmenu">
         <h1>
-            CGE Settings
+            CGE CONFIGURATION
         </h1>
         <div class="multimaff-adminmenu-item">
-            <a href="?post_type=job_listing&page=cge-admin-menu&cge_menu=settings" class="active">Login to API</a>
+            <a href="?page=cge-admin-menu&cge_menu=settings" class="<?= $currentMenu == 'settings' ? 'active' : ''?>">API</a>
+        </div>
+        <div class="multimaff-adminmenu-item">
+            <a href="?page=cge-admin-menu&cge_menu=crons" class="<?= $currentMenu == 'crons' ? 'active' : ''?>">CRONS</a>
+        </div>
+        <div class="multimaff-adminmenu-item">
+            <a href="?page=cge-admin-menu&cge_menu=shortcodes" class="<?= $currentMenu == 'shortcodes' ? 'active' : ''?>">SHORTCODES</a>
         </div>
     </div>
     <div id="cge-admincontent">

@@ -31,7 +31,7 @@ class CGE_Cpt_Formation
         'capability_type' => 'post',
         'map_meta_cap' => true,
         'has_archive' => true,
-        'menu_icon' => 'dashicons-welcome-learn-more',
+        'menu_icon' => 'dashicons-book-alt',
     ];
 
     /**
@@ -131,7 +131,7 @@ class CGE_Cpt_Formation
          * @param array $args Array of arguments for register_post_type labels
          */
         $this->post_type_args['labels'] = [
-            'menu_name' => __('CGE  Formation', 'cge'),
+            'menu_name' => __('Formations Labellisées', 'cge'),
             'name' => $this->plural_form_label,
             'singular_name' => $this->singular_form_label,
             'singular_name_lowercase' => $this->singular_form_label_lowercase,

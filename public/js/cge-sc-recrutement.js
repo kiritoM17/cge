@@ -64,9 +64,8 @@ jQuery(document).ready(function(){
                                 <div class="meta">
                                     <span class="category "> </span>                
                                 </div>
-                                
                                 <h4 class="entry-title">
-                                ${item.post.post_title}
+                                    ${item.post.post_title}
                                 </h4> 
                                 <span class="date">${date_emp}</span>
                             </div>

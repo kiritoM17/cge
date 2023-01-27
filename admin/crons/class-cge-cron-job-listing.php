@@ -24,9 +24,7 @@ class Cron_Job_Listing
                 $response = isset($response->{'hydra:member'}) ? $response->{'hydra:member'} : [];
                 $index = 0;
                 foreach ($response as $ecole) {
-                        die(var_dump($ecole->director));
-                        if ($index > 100)
-                                break;
+
                         if (!$ecole->validated) {
                                 $ids_ecoles[] = $ecole->id;
                                 continue;

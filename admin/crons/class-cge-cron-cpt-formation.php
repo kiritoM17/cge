@@ -26,10 +26,7 @@ class Cron_Cpt_Formation
         $index = 1;
         foreach ($formations as $formation) {
             $program_course_details = $api->getApi('/api/programs/' . (int)$formation->id);
-            //die(var_dump($formation, $program_course_details));
-
-            if ($index > 4)
-                break;
+            
             $posts_formations = new WP_Query("post_type=cpt_formation&meta_key=_formation_id&meta_value=$formation->id");
             $ids_formations[] = $formation->id;
 
