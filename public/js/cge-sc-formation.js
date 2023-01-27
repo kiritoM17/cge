@@ -128,7 +128,7 @@ jQuery(document).ready(function() {
             });
             jQuery('#cge_entry_formation').html(htmlResult);
         }
-
+        
     }
     
 });

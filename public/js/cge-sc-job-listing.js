@@ -48,12 +48,13 @@ jQuery(document).ready(function(){
 
         function print_job_listing(posts)
         {
+            console.log(response)
             let htmlResult = ``;
             if(Array.isArray(posts))
             {
                 jQuery('#count_members_school').html(posts.length);
                 jQuery.each(posts, (key, item)=>{
-                    let post_content = subStringContent(item.post.post_content);
+                    let post_content = item.post.post_content.substring(0,150);
                     htmlResult +=`
                         <div class="row-content">
                             <div class="logo-ecole">
@@ -74,17 +75,16 @@ jQuery(document).ready(function(){
                                             ${item.post.post_title}
                                         </a>
                                     </h3>
-                                    ${post_content}
                                     <ul>
                                         <li>
-                                            Date de création 
+                                            Date de création : 
                                             ${ item.post_meta._ecole_annee_creation != undefined && item.post_meta._ecole_annee_creation[0] != "" ? item.post_meta._ecole_annee_creation[0]: ""}
                                         </li>
-                                        <li>
-                                            ${item.post_meta._ecole_statut != undefined && item.post_meta._ecole_statut[0] != "" ? item.post_meta._ecole_statut[0]: ""}
+                                        <li> Nom du membre : 
+                                            ${item.post_meta._ecole_nom != undefined && item.post_meta._ecole_nom[0] != "" ? item.post_meta._ecole_nom[0]: ""}
                                         </li>
-                                        <li>
-                                            ${item.post_meta._ecole_type_formation != undefined && item.post_meta._ecole_type_formation[0] != "" ? item.post_meta._ecole_type_formation[0]: ""}
+                                        <li> Descriprtion : 
+                                            ${post_content != undefined && post_content != "" ? post_content : ""}
                                         </li>
                                     </ul>
                                 </div>

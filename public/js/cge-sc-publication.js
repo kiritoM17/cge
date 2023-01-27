@@ -51,6 +51,8 @@ jQuery(document).ready(function(){
             let $publicationLogo = "image_doc.png";
             let htmlResult = ``; 
             jQuery.each(response, (key, item)=>{
+                let msec = Date.parse(item.post_meta._cge_publication_date);
+                let date_emp = new Date(msec).toLocaleDateString();
                 htmlResult += `<div class="col-md-4">
                 <a href="${item.post_permalink}">
                     <article class="post post-grid type-post format-standard format-formation post-grid-link">
@@ -67,6 +69,17 @@ jQuery(document).ready(function(){
                                     <h4 class="entry-title">
                                     ${item.post.post_title}
                                     </h4> 
+                                    <ul>
+                                        <li>
+                                            Date de publicaton : 
+                                            ${ date_emp != undefined && date_emp != "" ? date_emp : ""}
+                                        </li>
+                                        <li>
+                                            Thématique : 
+                                            ${item.post_meta._cge_publication_thematique != undefined && item.post_meta._ecole_statut[0] != "" ? item.post_meta._ecole_statut[0]: ""}
+                                        </li>
+                                        
+                                    </ul>
                                 </div>
                             </div>
                         </div>
