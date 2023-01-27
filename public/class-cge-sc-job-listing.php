@@ -22,7 +22,7 @@ class CGE_SC_Job_Listing
         $type = isset($atts['id']) ? $atts['id'] : '';
         $args = array(
             'post_type' => 'job_listing',
-            'posts_per_page' => -1,
+            'posts_per_page' => 50,
             'ignore_sticky_posts' => true,
         );
 
@@ -41,6 +41,7 @@ class CGE_SC_Job_Listing
         if (isset($atts['id']) && !empty($atts['id'])) {
         } else {
             $wp_query = new WP_Query($args);
+            die(var_dump($wp_query->found_posts));
             $post_type_information_array = [];
             foreach ($wp_query->posts as $post) {
                 $data = get_post_custom($post->ID);

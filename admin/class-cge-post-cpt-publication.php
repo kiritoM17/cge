@@ -286,9 +286,8 @@ class CGE_Cpt_Publication
     }
 
     function find_publication(){
-
-        $type_document = $_POST['type_document'];
-        $type_document_spe = $_POST['type_document_spe'];
+        $type_document = isset($_POST['type_document']) ? $_POST['type_document'] : '';
+        $type_document_spe = isset($_POST['type_document_spe']) ? $_POST['type_document_spe'] : '';
         $annee = $_POST['annee'];
         $source = $_POST['source'];
         $mots = $_POST['mots'];

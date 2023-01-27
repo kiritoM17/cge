@@ -123,41 +123,6 @@ class CGE_Msalumni
     public function init()
     {
         register_post_type(self::POSTTYPE, $this->post_type_args);
-        // register_taxonomy(self::TAXONOMY, self::POSTTYPE, $this->taxonomy_args);
-
-        // $this->taxonomyLabels = [
-        //     'menu_name' => __('Categories', 'cge'),
-        //     'name' => sprintf(__('%s Category', 'cge'), $this->singular_form_label),
-        //     'singular_name' => sprintf(__('%s Category', 'cge'), $this->singular_form_label),
-        //     'search_items' => sprintf(__('Search %s Categories', 'cge'), $this->singular_form_label),
-        //     'all_items' => sprintf(__('All %s Categories', 'cge'), $this->singular_form_label),
-        //     'parent_item' => sprintf(__('Parent %s Category', 'cge'), $this->singular_form_label),
-        //     'parent_item_colon' => sprintf(__('Parent %s Category:', 'cge'), $this->singular_form_label),
-        //     'edit_item' => sprintf(__('Edit %s Category', 'cge'), $this->singular_form_label),
-        //     'update_item' => sprintf(__('Update %s Category', 'cge'), $this->singular_form_label),
-        //     'add_new_item' => sprintf(__('Add New %s Category', 'cge'), $this->singular_form_label),
-        //     'new_item_name' => sprintf(__('New %s Category Name', 'cge'), $this->singular_form_label),
-        //     'item_link' => sprintf(__('%s Category Link', 'cge'), $this->singular_form_label),
-        //     'item_link_description' => sprintf(__('A link to a particular %s category.', 'cge'), $this->singular_form_label),
-        // ];
-
-        // $this->taxonomy_args = [
-        //     'hierarchical' => true,
-        //     'update_count_callback' => '',
-        //     'rewrite' => [
-        //         'slug' => $this->rewriteSlug . '/' . $this->category_slug,
-        //         'with_front' => false,
-        //         'hierarchical' => true,
-        //     ],
-        //     'public' => true,
-        //     'show_ui' => true,
-        //     'labels' => $this->taxonomyLabels,
-        //     'capability_type' => 'post',
-        //     'public' => true,
-        //     'show_ui' => true,
-        //     'show_in_nav_menu' => true,
-        // ];
-        // register_taxonomy(self::TAXONOMYCAT, self::POSTTYPE, $this->taxonomy_args);
         flush_rewrite_rules();
     }
 
@@ -183,6 +148,7 @@ class CGE_Msalumni
         $nom = $_POST['nom'];
         $intitule = $_POST['intitule'];
         $ecole = $_POST['ecole'];
+        $paged = isset($_POST['paged']) ? $_POST['paged'] : 1;
 
         $tax_query = [];
         if ($annee != 0) {
@@ -223,7 +189,8 @@ class CGE_Msalumni
 
         $args = array(
             'post_type' => 'msalumni',
-            'posts_per_page' => -1,
+            'posts_per_page' => 50,
+            'paged' => $paged
         );
 
         if (count($tax_query) >= 1) {
@@ -239,8 +206,8 @@ class CGE_Msalumni
                     'post_meta' => get_post_custom($post->ID),
                     'post_taxonomies' => get_post_taxonomies($post->ID),
                 ];
-            wp_send_json($response);
+            wp_send_json(['response' => $response, 'total' => $query->found_posts, 'total_page'=>$query->max_num_pages]);
         } else
-            wp_send_json($query->posts);
+            wp_send_json(['response' => $query->posts, 'total' => $query->found_posts, 'total_page'=>$query->max_num_pages]);
     }
 }

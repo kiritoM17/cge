@@ -125,8 +125,8 @@ class Cron_Job_Listing
                         $action($post_id, '_ecole_centres_documentation_responsable_civilite', esc_attr($ecole->schoolLibraries[0]->responsiblePerson->honorificPrefix->name));
                         $action($post_id, '_ecole_centres_documentation_responsable_nom', esc_attr($ecole->schoolLibraries[0]->responsiblePerson->familyName));
                         $action($post_id, '_ecole_centres_documentation_responsable_prenom', esc_attr($ecole->schoolLibraries[0]->responsiblePerson->givenName));
-                        $action($post_id, '_ecole_centres_documentation_responsable_telephone', esc_attr(sizeof($ecole->schoolLibraries[0]->responsiblePerson->phones) > 0 ? $ecole->schoolLibraries[0]->responsiblePerson->phones[0]->number : ''));
-                        $action($post_id, '_ecole_centres_documentation_responsable_email', esc_attr(@sizeof($ecole->schoolLibraries[0]->responsiblePerson->emails) > 0 ? $ecole->schoolLibraries[0]->responsiblePerson->emails[0]->address : ''));
+                        $action($post_id, '_ecole_centres_documentation_responsable_telephone', esc_attr( is_array($ecole->schoolLibraries[0]->responsiblePerson->phones) && @sizeof($ecole->schoolLibraries[0]->responsiblePerson->phones) > 0 ? $ecole->schoolLibraries[0]->responsiblePerson->phones[0]->number : ''));
+                        $action($post_id, '_ecole_centres_documentation_responsable_email', esc_attr(is_array($ecole->schoolLibraries[0]->responsiblePerson->emails) && @sizeof($ecole->schoolLibraries[0]->responsiblePerson->emails) > 0 ? $ecole->schoolLibraries[0]->responsiblePerson->emails[0]->address : ''));
                 } else {
                         delete_post_meta($post_id, '_ecole_centres_documentation_horaires');
                         delete_post_meta($post_id, '_ecole_centres_documentation_responsable_civilite');

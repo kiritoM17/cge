@@ -20,7 +20,11 @@
         require_once(CGE_PUBLIC_PARTIALS . 'msalumni/listing/list.php');
     } ?>
 </div>
-
+<div id="loader-wrapper">
+    <div id="loader-overlay">
+        <div class="loader"></div>
+    </div>
+</div>
 <script>
 var ajaxurl ='<?php echo  admin_url( 'admin-ajax.php' )?>';
 </script>
